@@ -19,6 +19,31 @@ class Configuration implements ConfigurationInterface
     protected $stages = [];
 
     /**
+     * @var array
+     */
+    protected $env = [];
+
+    /**
+     * @param array $env
+     *
+     * @return $this
+     */
+    public function setEnv(array $env)
+    {
+        $this->env = $env;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnv()
+    {
+        return $this->env;
+    }
+
+    /**
      * @param \Spryker\Configuration\Stage\StageInterface $stage
      *
      * @throws \Spryker\Configuration\Exception\StageExistsException

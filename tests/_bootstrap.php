@@ -1,3 +1,4 @@
 <?php
 
-define('SPRYKER_ROOT', __DIR__);
+defined('SPRYKER_ROOT') ||
+    define('SPRYKER_ROOT', __DIR__ . '/_data');

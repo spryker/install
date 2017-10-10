@@ -24,4 +24,16 @@ interface ConfigurationInterface
      */
     public function getStages();
 
+    /**
+     * @param array $env
+     *
+     * @return $this
+     */
+    public function setEnv(array $env);
+
+    /**
+     * @return array
+     */
+    public function getEnv();
+
 }

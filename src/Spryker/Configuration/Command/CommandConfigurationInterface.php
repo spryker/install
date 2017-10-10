@@ -17,4 +17,18 @@ interface CommandConfigurationInterface
      */
     public function setExecutable($executable);
 
+    /**
+     * @param array $env
+     *
+     * @return $this
+     */
+    public function setEnv(array $env);
+
+    /**
+     * @param bool $isExcluded
+     *
+     * @return $this
+     */
+    public function setIsExcluded($isExcluded);
+
 }

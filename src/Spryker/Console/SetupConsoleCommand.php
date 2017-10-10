@@ -22,7 +22,6 @@ class SetupConsoleCommand extends Command
 {
 
     const ARGUMENT_STAGE = 'stage';
-    const ARGUMENT_CONFIGURATION = 'configuration';
 
     const OPTION_DRY_RUN = 'dry-run';
     const OPTION_DRY_RUN_SHORT = 'd';
@@ -36,6 +35,9 @@ class SetupConsoleCommand extends Command
     const OPTION_EXCLUDE = 'exclude';
     const OPTION_EXCLUDE_SHORT = 'x';
 
+    const OPTION_INCLUDE_EXCLUDED = 'include-excluded';
+    const OPTION_INCLUDE_EXCLUDED_SHORT = 'a';
+
     const OPTION_INTERACTIVE = 'interactive';
     const OPTION_INTERACTIVE_SHORT = 'i';
 
@@ -47,11 +49,11 @@ class SetupConsoleCommand extends Command
         $this->setName('setup')
             ->setDescription('Run setup for a specified stage.')
             ->addArgument(static::ARGUMENT_STAGE, InputArgument::OPTIONAL, 'Name of the stage for which setup should be executed.', 'development')
-            ->addArgument(static::ARGUMENT_CONFIGURATION, InputArgument::OPTIONAL, 'Path to a configuration file to be used.', '.spryker/spryker.yml')
             ->addOption(static::OPTION_DRY_RUN, static::OPTION_DRY_RUN_SHORT, InputOption::VALUE_NONE, 'Only output what would be executed.')
             ->addOption(static::OPTION_SECTIONS, static::OPTION_SECTIONS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of stages to be executed.')
             ->addOption(static::OPTION_GROUPS, static::OPTION_GROUPS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of groups to be executed. If command has no group(s) it will not be executed when this option is set.')
             ->addOption(static::OPTION_EXCLUDE, static::OPTION_EXCLUDE_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of stages or groups to be excluded from execution.')
+            ->addOption(static::OPTION_INCLUDE_EXCLUDED, static::OPTION_INCLUDE_EXCLUDED_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Add commands/stages which are marked as excluded in the configuration.')
             ->addOption(static::OPTION_INTERACTIVE, static::OPTION_INTERACTIVE_SHORT, InputOption::VALUE_NONE, 'Will ask prior to each step if it should be executed or not.');
     }
 
@@ -69,9 +71,9 @@ class SetupConsoleCommand extends Command
 
         $isDryRun = $input->getOption(static::OPTION_DRY_RUN);
 
-        foreach ($configuration->getStages() as $stage) {
-            putenv(sprintf('APPLICATION_ENV=%s', $stage->getName()));
+        $this->putEnv($configuration->getEnv());
 
+        foreach ($configuration->getStages() as $stage) {
             $style->title(sprintf('Start setup for stage: <info>%s</info>', $stage->getName()));
 
             foreach ($stage->getSections() as $section) {
@@ -107,12 +109,13 @@ class SetupConsoleCommand extends Command
      */
     protected function getConfiguration(InputInterface $input, SymfonyStyle $style)
     {
-        $configurationName = $input->getArgument(static::ARGUMENT_CONFIGURATION);
-        $pathToConfiguration = SPRYKER_ROOT . '/' . $configurationName;
+        $stageName = $input->getArgument(static::ARGUMENT_STAGE);
+        $pathToConfiguration = SPRYKER_ROOT . '/.spryker/setup/' . $stageName . '.yml';
 
         $sectionsToBeExecuted = $this->getSectionsToBeExecuted($input, $style);
         $groupsToBeExecuted = $this->getGroupsToBeExecuted($input, $style);
         $excludedStagesAndExcludedGroups = $this->getExcludedStagesAndExcludedGroups($input, $style);
+        $includeExcluded = $this->getIncludeExcluded($input, $style);
         $isInteractive = $input->getOption(static::OPTION_INTERACTIVE);
 
         $configurationLoader = new ConfigurationLoader($pathToConfiguration);
@@ -121,11 +124,10 @@ class SetupConsoleCommand extends Command
             $sectionsToBeExecuted,
             $groupsToBeExecuted,
             $excludedStagesAndExcludedGroups,
+            $includeExcluded,
             $isInteractive,
             $style
         );
-
-        $stageName = $input->getArgument(static::ARGUMENT_STAGE);
 
         return $configurationBuilder->buildConfiguration($stageName);
     }
@@ -175,6 +177,34 @@ class SetupConsoleCommand extends Command
         }
 
         return $excludedStagesOrGroups;
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $style
+     *
+     * @return array
+     */
+    protected function getIncludeExcluded(InputInterface $input, SymfonyStyle $style)
+    {
+        $includeExcluded = $input->getOption(static::OPTION_INCLUDE_EXCLUDED);
+        if (count($includeExcluded) > 0) {
+            $style->comment(sprintf('Setup will include this excluded section(s) or command(s) "%s"', implode(', ', $includeExcluded)));
+        }
+
+        return $includeExcluded;
+    }
+
+    /**
+     * @param array $env
+     *
+     * @return void
+     */
+    protected function putEnv(array $env)
+    {
+        foreach ($env as $key => $value) {
+            putenv(sprintf('%s=%s', $key, $value));
+        }
     }
 
 }

@@ -16,7 +16,7 @@ use Spryker\Configuration\Stage\StageConfigurationInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ConfigurationBuilder
+class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
 
     /**
@@ -40,6 +40,11 @@ class ConfigurationBuilder
     protected $excludedStagesAndExcludedGroups;
 
     /**
+     * @var array
+     */
+    protected $includeExcluded;
+
+    /**
      * @var bool
      */
     protected $isInteractive;
@@ -59,6 +64,7 @@ class ConfigurationBuilder
      * @param array $sectionsToBeExecuted
      * @param array $groupsToBeExecuted
      * @param array $excludedStagesAndExcludedGroups
+     * @param array $includeExcluded
      * @param bool $isInteractive
      * @param \Symfony\Component\Console\Style\SymfonyStyle $style
      */
@@ -67,6 +73,7 @@ class ConfigurationBuilder
         array $sectionsToBeExecuted,
         array $groupsToBeExecuted,
         array $excludedStagesAndExcludedGroups,
+        array $includeExcluded,
         $isInteractive,
         SymfonyStyle $style
     ) {
@@ -74,6 +81,7 @@ class ConfigurationBuilder
         $this->sectionsToBeExecuted = $sectionsToBeExecuted;
         $this->groupsToBeExecuted = $groupsToBeExecuted;
         $this->excludedStagesAndExcludedGroups = $excludedStagesAndExcludedGroups;
+        $this->includeExcluded = $includeExcluded;
         $this->isInteractive = $isInteractive;
         $this->style = $style;
 
@@ -81,18 +89,19 @@ class ConfigurationBuilder
     }
 
     /**
-     * @param string $forStage
+     * @param string $stageName
      *
      * @return \Spryker\Configuration\Configuration|\Spryker\Configuration\ConfigurationInterface
      */
-    public function buildConfiguration($forStage)
+    public function buildConfiguration($stageName)
     {
-        foreach ($this->configurationLoader->getConfiguration()['stages'] as $stageName => $sections) {
-            if ($forStage !== $stageName) {
-                continue;
-            }
-            $this->addStagesToConfiguration($stageName, $sections);
+        $configuration = $this->configurationLoader->getConfiguration();
+
+        if (isset($configuration['env'])) {
+            $this->configuration->setEnv($configuration['env']);
         }
+
+        $this->addStagesToConfiguration($stageName, $configuration['sections']);
 
         return $this->configuration;
     }
@@ -114,6 +123,16 @@ class ConfigurationBuilder
         }
 
         foreach ($sections as $sectionName => $commands) {
+            if (isset($commands['excluded'])) {
+                $isExcluded = $commands['excluded'];
+                $shouldBeIncluded = (count($this->includeExcluded) > 0 && in_array($sectionName, $this->includeExcluded));
+
+                if ($isExcluded && !$shouldBeIncluded) {
+                    continue;
+                }
+                unset($commands['excluded']);
+            }
+
             $this->addSectionsToStage($sectionName, $commands, $stage);
         }
 
@@ -154,9 +173,45 @@ class ConfigurationBuilder
         }
 
         foreach ($commands as $commandName => $commandDefinition) {
+            if (isset($commandDefinition['excluded'])) {
+                $shouldCommandBeIncluded = $this->shouldCommandBeIncluded($commandName, $commandDefinition);
+
+                if (!$shouldCommandBeIncluded) {
+                    continue;
+                }
+                unset($commandDefinition['excluded']);
+            }
+
             $this->addCommandsToSection($commandName, $commandDefinition, $section);
         }
         $stage->addSection($section);
+    }
+
+    /**
+     * @param string $commandName
+     * @param array $commandDefinition
+     *
+     * @return bool
+     */
+    protected function shouldCommandBeIncluded($commandName, array $commandDefinition)
+    {
+        $isExcluded = $commandDefinition['excluded'];
+
+        if ($isExcluded) {
+            if (count($this->includeExcluded) > 0) {
+                if (in_array($commandName, $this->includeExcluded)) {
+                    return true;
+                }
+
+                if (isset($commandDefinition['groups']) && count(array_intersect($this->includeExcluded, $commandDefinition['groups']))) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -197,6 +252,10 @@ class ConfigurationBuilder
             if (!count($intersect) > 0) {
                 return;
             }
+        }
+
+        if (in_array($command->getName(), $this->excludedStagesAndExcludedGroups)) {
+            return;
         }
 
         $section->addCommand($command);

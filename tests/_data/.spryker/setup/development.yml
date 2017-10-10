@@ -1,0 +1,31 @@
+env:
+  env-key-a: "env-value-a"
+
+sections:
+  section-a:
+    section-a-command-a:
+      command: "echo 'foo bar'"
+
+  section-b:
+    section-b-command-a:
+      command: "echo 'section-b-command-a group-a'"
+      groups:
+        - "group-a"
+
+  section-c:
+    excluded: true
+    section-c-command-a:
+      command: "echo 'section-b-command-a group-b'"
+      groups:
+        - "group-b"
+
+  section-d:
+    section-d-command-a:
+      command: "echo 'stage-b-command-a group-a'"
+
+    section-d-command-b:
+      excluded: true
+      command: "echo 'stage-b-command-a group-a'"
+      groups:
+        - "group-c"
+

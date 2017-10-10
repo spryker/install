@@ -26,6 +26,16 @@ class Command implements CommandConfigurationInterface, CommandInterface
     protected $groups = [];
 
     /**
+     * @var array
+     */
+    protected $env = [];
+
+    /**
+     * @var bool
+     */
+    protected $isExcluded = false;
+
+    /**
      * @param string $name
      */
     public function __construct($name)
@@ -42,7 +52,7 @@ class Command implements CommandConfigurationInterface, CommandInterface
     }
 
     /**
-     * @param \Spryker\Command\CommandInterface|callable|string $executable
+     * @param \Spryker\Command\CommandInterface|string $executable
      *
      * @return $this
      */
@@ -80,5 +90,46 @@ class Command implements CommandConfigurationInterface, CommandInterface
 
         return $this;
     }
+
+    /**
+     * @param array $env
+     *
+     * @return $this
+     */
+    public function setEnv(array $env)
+    {
+        $this->env = $env;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnv()
+    {
+        return $this->env;
+    }
+
+    /**
+     * @param bool $isExcluded
+     *
+     * @return $this
+     */
+    public function setIsExcluded($isExcluded)
+    {
+        $this->isExcluded = $isExcluded;
+
+        return $this;
+    }
+
+    /**
+     * @return void
+     */
+    public function isExcluded()
+    {
+        $this->isExcluded;
+    }
+
 
 }

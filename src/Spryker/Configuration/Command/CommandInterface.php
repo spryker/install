@@ -25,4 +25,14 @@ interface CommandInterface
      */
     public function getExecutable();
 
+    /**
+     * @return array
+     */
+    public function getEnv();
+
+    /**
+     * @return bool
+     */
+    public function isExcluded();
+
 }
