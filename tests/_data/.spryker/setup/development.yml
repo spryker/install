@@ -5,6 +5,8 @@ sections:
   section-a:
     section-a-command-a:
       command: "echo 'foo bar'"
+      env:
+        env-key-b: "env-value-b"
 
   section-b:
     section-b-command-a:

@@ -30,9 +30,4 @@ interface CommandInterface
      */
     public function getEnv();
 
-    /**
-     * @return bool
-     */
-    public function isExcluded();
-
 }

@@ -125,7 +125,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         foreach ($sections as $sectionName => $commands) {
             if (isset($commands['excluded'])) {
                 $isExcluded = $commands['excluded'];
-                $shouldBeIncluded = (count($this->includeExcluded) > 0 && in_array($sectionName, $this->includeExcluded));
+                $shouldBeIncluded = ((count($this->includeExcluded) > 0 && in_array($sectionName, $this->includeExcluded)) || in_array($sectionName, $this->sectionsToBeExecuted));
 
                 if ($isExcluded && !$shouldBeIncluded) {
                     continue;
@@ -238,6 +238,10 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
         if (isset($commandDefinition['groups'])) {
             $command->setGroups($commandDefinition['groups']);
+        }
+
+        if (isset($commandDefinition['env'])) {
+            $command->setEnv($commandDefinition['env']);
         }
 
         if (count($this->excludedStagesAndExcludedGroups) > 0) {

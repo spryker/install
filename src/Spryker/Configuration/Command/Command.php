@@ -31,11 +31,6 @@ class Command implements CommandConfigurationInterface, CommandInterface
     protected $env = [];
 
     /**
-     * @var bool
-     */
-    protected $isExcluded = false;
-
-    /**
      * @param string $name
      */
     public function __construct($name)
@@ -110,26 +105,5 @@ class Command implements CommandConfigurationInterface, CommandInterface
     {
         return $this->env;
     }
-
-    /**
-     * @param bool $isExcluded
-     *
-     * @return $this
-     */
-    public function setIsExcluded($isExcluded)
-    {
-        $this->isExcluded = $isExcluded;
-
-        return $this;
-    }
-
-    /**
-     * @return void
-     */
-    public function isExcluded()
-    {
-        $this->isExcluded;
-    }
-
 
 }

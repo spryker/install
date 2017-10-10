@@ -74,7 +74,7 @@ class SetupConsoleCommand extends Command
         $this->putEnv($configuration->getEnv());
 
         foreach ($configuration->getStages() as $stage) {
-            $style->title(sprintf('Start setup for stage: <info>%s</info>', $stage->getName()));
+            $style->title(sprintf('Start setup: <info>%s</info>', $stage->getName()));
 
             foreach ($stage->getSections() as $section) {
                 $style->title(sprintf('Section: <info>%s</info>', $section->getName()));
@@ -84,6 +84,8 @@ class SetupConsoleCommand extends Command
                         $style->comment('Dry-run: ' . $command->getName());
                         continue;
                     }
+
+                    $this->putEnv($command->getEnv());
 
                     $executable = $command->getExecutable();
                     if (class_exists($executable)) {
@@ -96,6 +98,9 @@ class SetupConsoleCommand extends Command
                         $executable = new CommandLineCommand($command);
                         $executable->execute($style);
                     }
+
+                    $this->unsetEnv($command->getEnv());
+                    $this->putEnv($configuration->getEnv());
                 }
             }
         }
@@ -204,6 +209,18 @@ class SetupConsoleCommand extends Command
     {
         foreach ($env as $key => $value) {
             putenv(sprintf('%s=%s', $key, $value));
+        }
+    }
+
+    /**
+     * @param array $env
+     *
+     * @return void
+     */
+    protected function unsetEnv(array $env)
+    {
+        foreach (array_keys($env) as $key) {
+            putenv($key);
         }
     }
 

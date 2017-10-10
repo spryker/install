@@ -8,6 +8,7 @@
 namespace SprykerTest\Console;
 
 use PHPUnit_Framework_TestCase;
+use Spryker\Configuration\Exception\ConfigurationFileNotFoundException;
 use Spryker\Console\SetupConsoleCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -26,7 +27,24 @@ class SetupConsoleCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testSetupShowsStageToBeExecuted()
+    public function testThrowsExceptionWhenConfigFileNotExistsSetupShowsConfigToBeExecuted()
+    {
+        $this->expectException(ConfigurationFileNotFoundException::class);
+
+        $command = new SetupConsoleCommand();
+        $tester = $this->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            'stage' => 'catface',
+        ];
+        $tester->execute($arguments);
+    }
+
+    /**
+     * @return void
+     */
+    public function testSetupShowsConfigToBeExecuted()
     {
         $command = new SetupConsoleCommand();
         $tester = $this->getCommandTester($command);
@@ -37,7 +55,41 @@ class SetupConsoleCommandTest extends PHPUnit_Framework_TestCase
         ];
         $tester->execute($arguments);
 
-        $this->assertRegexp('/Start setup for stage: development/', $tester->getDisplay());
+        $this->assertRegexp('/Start setup: development/', $tester->getDisplay());
+    }
+
+    /**
+     * @return void
+     */
+    public function testGlobalEnvFromConfigFileIsSet()
+    {
+        $command = new SetupConsoleCommand();
+        $tester = $this->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            'stage' => 'development',
+        ];
+        $tester->execute($arguments);
+
+        $this->assertSame(getenv('env-key-a'), 'env-value-a');
+    }
+
+    /**
+     * @return void
+     */
+    public function testEnvFromCommandIsSet()
+    {
+        $command = new SetupConsoleCommand();
+        $tester = $this->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            'stage' => 'development',
+        ];
+        $tester->execute($arguments);
+
+        $this->assertSame(getenv('env-key-b'), 'env-value-b');
     }
 
     /**
@@ -59,6 +111,26 @@ class SetupConsoleCommandTest extends PHPUnit_Framework_TestCase
         $output = $tester->getDisplay();
         $this->assertRegexp('/Section: section-a/', $output);
         $this->assertNotRegexp('/Section: section-(b|b|c)/', $output);
+    }
+
+    /**
+     * @return void
+     */
+    public function testRunOnlySpecifiedSectionWhichIsExcludedByDefault()
+    {
+        $command = new SetupConsoleCommand();
+        $tester = $this->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            'stage' => 'development',
+            '--' . SetupConsoleCommand::OPTION_SECTIONS => ['section-c'],
+        ];
+
+        $tester->execute($arguments);
+
+        $output = $tester->getDisplay();
+        $this->assertRegexp('/Section: section-c/', $output);
     }
 
     /**

@@ -24,11 +24,4 @@ interface CommandConfigurationInterface
      */
     public function setEnv(array $env);
 
-    /**
-     * @param bool $isExcluded
-     *
-     * @return $this
-     */
-    public function setIsExcluded($isExcluded);
-
 }
