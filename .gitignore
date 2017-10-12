@@ -19,5 +19,6 @@ GTAGS
 
 vendor/
 composer.phar
+spryker.phar
 
 tests/_output
