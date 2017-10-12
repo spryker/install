@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+include_once __DIR__ . '/../vendor/autoload.php';
+
+use PharBuilder\PharBuilder;
+use PharBuilder\PharFileOptimizer;
+
+$pharBuilder = new PharBuilder(new PharFileOptimizer());
+$pharBuilder->build();
