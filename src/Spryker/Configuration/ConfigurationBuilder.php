@@ -49,7 +49,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected $isInteractive;
 
     /**
-     * @var \Symfony\Component\Console\Style\StyleInterface
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     protected $style;
 

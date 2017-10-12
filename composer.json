@@ -11,9 +11,12 @@
   },
   "require-dev": {
     "codeception/codeception": "^2.2.10",
-    "symfony/var-dumper": "*",
+    "symfony/var-dumper": "^3.0.0",
     "site5/phantoman": "^1.1",
-    "jakoch/phantomjs-installer": "^2.1.0"
+    "jakoch/phantomjs-installer": "^2.1.0",
+    "phpstan/phpstan": "^0.8.5",
+    "spryker/code-sniffer": "dev-master as 1.0.0",
+    "php-coveralls/php-coveralls": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -22,8 +25,8 @@
     }
   },
   "autoload-dev": {
-    "psr-0": {
-      "SprykerTest": "tests"
+    "psr-4": {
+      "SprykerTest\\": "tests"
     }
   },
   "minimum-stability": "dev",

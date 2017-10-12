@@ -77,23 +77,6 @@ class SetupConsoleCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testEnvFromCommandIsSet()
-    {
-        $command = new SetupConsoleCommand();
-        $tester = $this->getCommandTester($command);
-
-        $arguments = [
-            'command' => $command->getName(),
-            'stage' => 'development',
-        ];
-        $tester->execute($arguments);
-
-        $this->assertSame(getenv('env-key-b'), 'env-value-b');
-    }
-
-    /**
-     * @return void
-     */
     public function testRunOnlySpecifiedSection()
     {
         $command = new SetupConsoleCommand();

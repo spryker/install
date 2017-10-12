@@ -1,0 +1,12 @@
+build:
+    environment:
+        php: '7.1'
+
+    tests:
+        override:
+            - true # disable test execution on scrutinizer
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
