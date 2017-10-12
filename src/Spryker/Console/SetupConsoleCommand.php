@@ -11,6 +11,7 @@ use Spryker\Command\CommandInterface;
 use Spryker\Command\CommandLine\CommandLineCommand;
 use Spryker\Configuration\ConfigurationBuilder;
 use Spryker\Configuration\ConfigurationLoader;
+use Spryker\Configuration\Validator\ConfigurationValidator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -123,8 +124,10 @@ class SetupConsoleCommand extends Command
         $isInteractive = $input->getOption(static::OPTION_INTERACTIVE);
 
         $configurationLoader = new ConfigurationLoader($pathToConfiguration);
+        $configurationValidator = new ConfigurationValidator();
         $configurationBuilder = new ConfigurationBuilder(
             $configurationLoader,
+            $configurationValidator,
             $sectionsToBeExecuted,
             $groupsToBeExecuted,
             $excludedStagesAndExcludedGroups,

@@ -58,9 +58,7 @@ class PharBuilder
      */
     public function build($pharFile = self::PHAR_NAME)
     {
-        if (file_exists($pharFile)) {
-            unlink($pharFile);
-        }
+        $this->clearPreviousBuilds($pharFile);
 
         $phar = new Phar($pharFile, 0, static::PHAR_NAME);
         $phar->setSignatureAlgorithm(Phar::SHA1);
@@ -201,5 +199,17 @@ __HALT_COMPILER();
 EOF;
 
         return $stub;
+    }
+
+    /**
+     * @param string $pharFile
+     *
+     * @return void
+     */
+    protected function clearPreviousBuilds($pharFile)
+    {
+        if (file_exists($pharFile)) {
+            unlink($pharFile);
+        }
     }
 }

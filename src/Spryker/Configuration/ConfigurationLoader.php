@@ -34,7 +34,7 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     /**
      * @return array
      */
-    public function getConfiguration()
+    public function loadConfiguration()
     {
         return Yaml::parse(file_get_contents($this->configFile));
     }

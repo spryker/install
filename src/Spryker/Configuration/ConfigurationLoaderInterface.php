@@ -12,5 +12,5 @@ interface ConfigurationLoaderInterface
     /**
      * @return array
      */
-    public function getConfiguration();
+    public function loadConfiguration();
 }

@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/spryker/phar.svg?token=7jVDNZFJxpvBrFetYhbF&branch=master)](https://travis-ci.com/spryker/phar)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spryker/phar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spryker/phar/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/spryker/phar/badge.svg?t=bWiy2S)](https://coveralls.io/github/spryker/phar)
 
 ## Create a new spryker.phar
 

@@ -22,29 +22,35 @@ class PharFileOptimizer
 
         $output = '';
         foreach (token_get_all($fileContent) as $token) {
-            if (is_string($token)) {
-                $output .= $token;
-                continue;
-            }
-
-            if (in_array($token[0], [T_COMMENT, T_DOC_COMMENT])) {
-                $output .= str_repeat("\n", substr_count($token[1], "\n"));
-                continue;
-            }
-            if (T_WHITESPACE === $token[0]) {
-                // reduce wide spaces
-                $whitespace = preg_replace('{[ \t]+}', ' ', $token[1]);
-                // normalize newlines to \n
-                $whitespace = preg_replace('{(?:\r\n|\r|\n)}', "\n", $whitespace);
-                // trim leading spaces
-                $whitespace = preg_replace('{\n +}', "\n", $whitespace);
-                $output .= $whitespace;
-                continue;
-            }
-
-            $output .= $token[1];
+            $output .= $this->getTokenContent($token);
         }
 
         return $output;
+    }
+
+    /**
+     * @param string|array $token
+     *
+     * @return string
+     */
+    protected function getTokenContent($token)
+    {
+        if (is_string($token)) {
+            return $token;
+        }
+
+        if (in_array($token[0], [T_COMMENT, T_DOC_COMMENT])) {
+            return str_repeat("\n", substr_count($token[1], "\n"));
+        }
+
+        if (T_WHITESPACE === $token[0]) {
+            $whitespace = preg_replace('{[ \t]+}', ' ', $token[1]);
+            $whitespace = preg_replace('{(?:\r\n|\r|\n)}', "\n", $whitespace);
+            $whitespace = preg_replace('{\n +}', "\n", $whitespace);
+
+            return $whitespace;
+        }
+
+        return $token[1];
     }
 }
