@@ -9,7 +9,6 @@ use Symfony\Component\Finder\Finder;
 
 class PharBuilder
 {
-
     const PHAR_NAME = 'spryker.phar';
 
     /**

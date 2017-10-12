@@ -12,7 +12,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class ConfigurationLoader implements ConfigurationLoaderInterface
 {
-
     /**
      * @var string
      */
@@ -39,5 +38,4 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     {
         return Yaml::parse(file_get_contents($this->configFile));
     }
-
 }

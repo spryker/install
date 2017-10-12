@@ -18,7 +18,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
-
     /**
      * @var \Spryker\Configuration\ConfigurationLoaderInterface
      */
@@ -264,5 +263,4 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
         $section->addCommand($command);
     }
-
 }

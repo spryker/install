@@ -9,7 +9,6 @@ namespace Spryker\Configuration\Command;
 
 interface CommandConfigurationInterface
 {
-
     /**
      * @param string $executable
      *
@@ -23,5 +22,4 @@ interface CommandConfigurationInterface
      * @return $this
      */
     public function setEnv(array $env);
-
 }

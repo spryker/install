@@ -22,7 +22,6 @@ use Spryker\Configuration\Section\Section;
  */
 class SectionTest extends Unit
 {
-
     const SECTION_NAME = 'section';
 
     /**
@@ -70,5 +69,4 @@ class SectionTest extends Unit
             ->addCommand(new Command('commandA'))
             ->addCommand(new Command('commandA'));
     }
-
 }

@@ -11,12 +11,10 @@ use Symfony\Component\Console\Style\StyleInterface;
 
 interface CommandInterface
 {
-
     /**
      * @param \Symfony\Component\Console\Style\StyleInterface $style
      *
      * @return int
      */
     public function execute(StyleInterface $style);
-
 }

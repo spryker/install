@@ -22,7 +22,6 @@ use Spryker\Configuration\Stage\Stage;
  */
 class StageTest extends Unit
 {
-
     const STAGE_NAME = 'stage';
 
     /**
@@ -70,5 +69,4 @@ class StageTest extends Unit
             ->addSection(new Section('sectionA'))
             ->addSection(new Section('sectionA'));
     }
-
 }

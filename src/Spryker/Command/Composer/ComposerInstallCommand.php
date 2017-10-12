@@ -14,11 +14,10 @@ use Symfony\Component\Process\Process;
 
 class ComposerInstallCommand implements CommandInterface
 {
-
     /**
      * @param \Symfony\Component\Console\Style\StyleInterface $style
      *
-     * @return voi
+     * @return void
      */
     public function execute(StyleInterface $style)
     {
@@ -56,5 +55,4 @@ class ComposerInstallCommand implements CommandInterface
 
         $style->success('Composer setup completed.');
     }
-
 }

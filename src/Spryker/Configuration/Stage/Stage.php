@@ -12,7 +12,6 @@ use Spryker\Configuration\Section\SectionInterface;
 
 class Stage implements StageConfigurationInterface, StageInterface
 {
-
     /**
      * @var string
      */
@@ -64,5 +63,4 @@ class Stage implements StageConfigurationInterface, StageInterface
     {
         return $this->sections;
     }
-
 }

@@ -26,7 +26,5 @@ use Codeception\Actor;
  */
 class ConfigurationTester extends Actor
 {
-
     use _generated\ConfigurationTesterActions;
-
 }

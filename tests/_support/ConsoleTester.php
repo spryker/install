@@ -26,7 +26,5 @@ use Codeception\Actor;
  */
 class ConsoleTester extends Actor
 {
-
     use _generated\ConsoleTesterActions;
-
 }

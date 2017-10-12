@@ -20,7 +20,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SetupConsoleCommand extends Command
 {
-
     const ARGUMENT_STAGE = 'stage';
 
     const OPTION_DRY_RUN = 'dry-run';
@@ -223,5 +222,4 @@ class SetupConsoleCommand extends Command
             putenv($key);
         }
     }
-
 }

@@ -9,7 +9,6 @@ namespace Spryker\Configuration\Stage;
 
 interface StageInterface
 {
-
     /**
      * @return string
      */
@@ -19,5 +18,4 @@ interface StageInterface
      * @return \Spryker\Configuration\Section\SectionInterface[]
      */
     public function getSections();
-
 }

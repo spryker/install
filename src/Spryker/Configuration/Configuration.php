@@ -12,7 +12,6 @@ use Spryker\Configuration\Stage\StageInterface;
 
 class Configuration implements ConfigurationInterface
 {
-
     /**
      * @var \Spryker\Configuration\Stage\StageInterface[]
      */
@@ -68,5 +67,4 @@ class Configuration implements ConfigurationInterface
     {
         return $this->stages;
     }
-
 }

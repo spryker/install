@@ -9,10 +9,8 @@ namespace Spryker\Configuration;
 
 interface ConfigurationLoaderInterface
 {
-
     /**
      * @return array
      */
     public function getConfiguration();
-
 }

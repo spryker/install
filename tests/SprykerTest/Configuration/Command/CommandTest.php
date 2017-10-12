@@ -20,7 +20,6 @@ use Spryker\Configuration\Command\Command;
  */
 class CommandTest extends Unit
 {
-
     const COMMAND_NAME = 'command';
 
     /**
@@ -43,5 +42,4 @@ class CommandTest extends Unit
 
         $this->assertSame('string to execute', $command->getExecutable());
     }
-
 }

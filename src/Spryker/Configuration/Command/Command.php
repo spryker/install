@@ -9,7 +9,6 @@ namespace Spryker\Configuration\Command;
 
 class Command implements CommandConfigurationInterface, CommandInterface
 {
-
     /**
      * @var string
      */
@@ -105,5 +104,4 @@ class Command implements CommandConfigurationInterface, CommandInterface
     {
         return $this->env;
     }
-
 }

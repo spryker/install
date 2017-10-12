@@ -11,7 +11,6 @@ use Spryker\Configuration\Stage\StageInterface;
 
 interface ConfigurationInterface
 {
-
     /**
      * @param \Spryker\Configuration\Stage\StageInterface $stage
      *
@@ -35,5 +34,4 @@ interface ConfigurationInterface
      * @return array
      */
     public function getEnv();
-
 }

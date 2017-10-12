@@ -23,7 +23,6 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class SetupConsoleCommandTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @return void
      */
@@ -328,5 +327,4 @@ class SetupConsoleCommandTest extends PHPUnit_Framework_TestCase
 
         return new CommandTester($command);
     }
-
 }

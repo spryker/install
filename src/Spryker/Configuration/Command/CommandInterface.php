@@ -9,7 +9,6 @@ namespace Spryker\Configuration\Command;
 
 interface CommandInterface
 {
-
     /**
      * @return string
      */
@@ -29,5 +28,4 @@ interface CommandInterface
      * @return array
      */
     public function getEnv();
-
 }

@@ -9,7 +9,6 @@ namespace PharBuilder;
 
 class PharFileOptimizer
 {
-
     /**
      * @param string $fileContent
      *
@@ -48,5 +47,4 @@ class PharFileOptimizer
 
         return $output;
     }
-
 }

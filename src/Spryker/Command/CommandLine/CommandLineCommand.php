@@ -15,7 +15,6 @@ use Symfony\Component\Process\Process;
 
 class CommandLineCommand implements CommandInterface
 {
-
     /**
      * @var \Spryker\Configuration\Command\CommandInterface
      */
@@ -56,5 +55,4 @@ class CommandLineCommand implements CommandInterface
             throw new ProcessFailedException($process);
         }
     }
-
 }

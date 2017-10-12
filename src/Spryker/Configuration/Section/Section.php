@@ -12,7 +12,6 @@ use Spryker\Configuration\Exception\CommandExistsException;
 
 class Section implements SectionConfigurationInterface, SectionInterface
 {
-
     /**
      * @var string
      */
@@ -63,5 +62,4 @@ class Section implements SectionConfigurationInterface, SectionInterface
     {
         return $this->commands;
     }
-
 }

@@ -9,12 +9,10 @@ namespace Spryker\Configuration;
 
 interface ConfigurationBuilderInterface
 {
-
     /**
      * @param string $stageName
      *
      * @return \Spryker\Configuration\Configuration|\Spryker\Configuration\ConfigurationInterface
      */
     public function buildConfiguration($stageName);
-
 }

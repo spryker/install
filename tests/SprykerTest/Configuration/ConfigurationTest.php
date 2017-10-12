@@ -21,7 +21,6 @@ use Spryker\Configuration\Stage\Stage;
  */
 class ConfigurationTest extends Unit
 {
-
     /**
      * @return void
      */
@@ -58,5 +57,4 @@ class ConfigurationTest extends Unit
             ->addStage(new Stage('development'))
             ->addStage(new Stage('development'));
     }
-
 }

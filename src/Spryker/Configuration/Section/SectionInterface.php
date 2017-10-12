@@ -9,7 +9,6 @@ namespace Spryker\Configuration\Section;
 
 interface SectionInterface
 {
-
     /**
      * @return string
      */
@@ -19,5 +18,4 @@ interface SectionInterface
      * @return \Spryker\Configuration\Command\CommandInterface[]
      */
     public function getCommands();
-
 }

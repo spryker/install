@@ -11,12 +11,10 @@ use Spryker\Configuration\Command\CommandInterface;
 
 interface SectionConfigurationInterface
 {
-
     /**
      * @param \Spryker\Configuration\Command\CommandInterface $command
      *
      * @return $this
      */
     public function addCommand(CommandInterface $command);
-
 }
