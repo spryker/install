@@ -135,11 +135,7 @@ class SectionFilter implements FilterInterface
      */
     protected function isSectionRequested($sectionName)
     {
-        if (count($this->sectionsToBeExecuted) > 0) {
-            return in_array($sectionName, $this->sectionsToBeExecuted);
-        }
-
-        return false;
+        return in_array($sectionName, $this->sectionsToBeExecuted);
     }
 
     /**

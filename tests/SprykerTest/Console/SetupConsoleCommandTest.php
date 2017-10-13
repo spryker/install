@@ -8,6 +8,7 @@
 namespace SprykerTest\Console;
 
 use Codeception\Test\Unit;
+use Spryker\Configuration\Exception\ConfigurationException;
 use Spryker\Configuration\Exception\ConfigurationFileNotFoundException;
 use Spryker\Console\SetupConsoleCommand;
 
@@ -40,6 +41,43 @@ class SetupConsoleCommandTest extends Unit
             'stage' => 'catface',
         ];
         $tester->execute($arguments);
+    }
+
+    /**
+     * @return void
+     */
+    public function testThrowsExceptionWhenConfigFileDoesNotContainSections()
+    {
+        $this->expectException(ConfigurationException::class);
+
+        $command = new SetupConsoleCommand();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            'stage' => 'no-sections',
+        ];
+        $tester->execute($arguments);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCommandInterfaceIsExecuted()
+    {
+        require_once __DIR__ . '/Fixtures/ExecutableCommand.php';
+
+        $command = new SetupConsoleCommand();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            'stage' => 'executable',
+        ];
+        $tester->execute($arguments);
+
+        $output = $tester->getDisplay();
+        $this->assertRegexp('/Executed CommandInterface/', $output);
     }
 
     /**

@@ -15,11 +15,6 @@ interface CommandInterface
     public function getName();
 
     /**
-     * @return array
-     */
-    public function getGroups();
-
-    /**
      * @return string
      */
     public function getExecutable();

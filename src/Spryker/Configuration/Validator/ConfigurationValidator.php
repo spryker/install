@@ -7,7 +7,7 @@
 
 namespace Spryker\Configuration\Validator;
 
-use Spryker\Exception\ConfigurationException;
+use Spryker\Configuration\Exception\ConfigurationException;
 
 class ConfigurationValidator implements ConfigurationValidatorInterface
 {
@@ -31,7 +31,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
      */
     protected function validateSections(array $configuration)
     {
-        if (count($configuration['sections']) === 0) {
+        if (!isset($configuration['sections'])) {
             throw new ConfigurationException('No sections defined your configuration.');
         }
     }

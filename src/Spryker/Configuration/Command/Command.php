@@ -66,14 +66,6 @@ class Command implements CommandConfigurationInterface, CommandInterface
     }
 
     /**
-     * @return array
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
      * @param array $groups
      *
      * @return $this

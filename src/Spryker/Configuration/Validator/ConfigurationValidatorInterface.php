@@ -12,7 +12,7 @@ interface ConfigurationValidatorInterface
     /**
      * @param array $configuration
      *
-     * @throws \Spryker\Exception\ConfigurationException
+     * @throws \Spryker\Configuration\Exception\ConfigurationException
      *
      * @return void
      */
