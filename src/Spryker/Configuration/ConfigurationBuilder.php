@@ -10,7 +10,6 @@ namespace Spryker\Configuration;
 use Spryker\Configuration\Command\Command;
 use Spryker\Configuration\Filter\CommandFilter;
 use Spryker\Configuration\Filter\InteractiveCommandFilter;
-use Spryker\Configuration\Filter\InteractiveSectionFilter;
 use Spryker\Configuration\Filter\SectionFilter;
 use Spryker\Configuration\Section\Section;
 use Spryker\Configuration\Section\SectionConfigurationInterface;

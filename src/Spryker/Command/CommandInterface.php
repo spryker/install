@@ -12,9 +12,9 @@ use Symfony\Component\Console\Style\StyleInterface;
 interface CommandInterface
 {
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $style
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
-     * @return int
+     * @return bool
      */
-    public function execute(StyleInterface $style);
+    public function execute(StyleInterface $output);
 }

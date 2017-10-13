@@ -71,7 +71,7 @@ class SectionFilter implements FilterInterface
      */
     protected function shouldSectionBeAdded($sectionName, array $sectionDefinition)
     {
-        if ($this->containsGroupWhichIsRequested($sectionDefinition)) {
+        if ($this->containsRequestedGroup($sectionDefinition)) {
             return true;
         }
 
@@ -99,19 +99,33 @@ class SectionFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function containsGroupWhichIsRequested(array $sectionDefinition)
+    protected function containsRequestedGroup(array $sectionDefinition)
     {
-        foreach ($sectionDefinition as $commandName => $commandDefinition) {
-            if ($commandName === static::EXCLUDED || !isset($commandDefinition['groups'])) {
-                continue;
-            }
-
+        foreach ($this->filterForRequestedGroupCheck($sectionDefinition) as $commandDefinition) {
             if (array_intersect($commandDefinition['groups'], $this->groupsToBeExecuted)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * @param array $sectionDefinition
+     *
+     * @return array
+     */
+    protected function filterForRequestedGroupCheck(array $sectionDefinition)
+    {
+        $filtered = [];
+
+        foreach ($sectionDefinition as $commandName => $commandDefinition) {
+            if ($commandName !== static::EXCLUDED && isset($commandDefinition['groups'])) {
+                $filtered[$commandName] = $commandDefinition;
+            }
+        }
+
+        return $filtered;
     }
 
     /**
