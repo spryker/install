@@ -183,7 +183,7 @@ class PharBuilder
      */
     protected function getStub()
     {
-        $stub = <<<'EOF'
+        $stub = <<<'eof'
 #!/usr/bin/env php
 <?php
 
@@ -196,7 +196,7 @@ Phar::mapPhar('spryker.phar');
 require 'phar://spryker.phar/bin/spryker';
 
 __HALT_COMPILER();
-EOF;
+eof;
 
         return $stub;
     }

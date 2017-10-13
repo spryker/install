@@ -8,6 +8,9 @@
 namespace SprykerTest;
 
 use Codeception\Actor;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Inherited Methods
@@ -27,4 +30,19 @@ use Codeception\Actor;
 class ConsoleTester extends Actor
 {
     use _generated\ConsoleTesterActions;
+
+    /**
+     * @param \Symfony\Component\Console\Command\Command $command
+     *
+     * @return \Symfony\Component\Console\Tester\CommandTester
+     */
+    public function getCommandTester(Command $command)
+    {
+        $application = new Application();
+        $application->add($command);
+
+        $command = $application->find('setup');
+
+        return new CommandTester($command);
+    }
 }

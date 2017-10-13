@@ -89,7 +89,7 @@ class SetupConsoleCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->input = $input;
-        $this->output = new SymfonyStyle($input, $output);
+        $this->output = $this->createOutput($input, $output);
 
         $configuration = $this->getConfiguration();
 
@@ -98,6 +98,17 @@ class SetupConsoleCommand extends Command
         foreach ($configuration->getStages() as $stage) {
             $this->executeStage($stage);
         }
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return \Symfony\Component\Console\Style\SymfonyStyle
+     */
+    protected function createOutput(InputInterface $input, OutputInterface $output)
+    {
+        return new SymfonyStyle($input, $output);
     }
 
     /**

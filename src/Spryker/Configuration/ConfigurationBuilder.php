@@ -8,13 +8,15 @@
 namespace Spryker\Configuration;
 
 use Spryker\Configuration\Command\Command;
-use Spryker\Configuration\Command\CommandInterface;
+use Spryker\Configuration\Filter\CommandFilter;
+use Spryker\Configuration\Filter\InteractiveCommandFilter;
+use Spryker\Configuration\Filter\InteractiveSectionFilter;
+use Spryker\Configuration\Filter\SectionFilter;
 use Spryker\Configuration\Section\Section;
 use Spryker\Configuration\Section\SectionConfigurationInterface;
 use Spryker\Configuration\Stage\Stage;
 use Spryker\Configuration\Stage\StageConfigurationInterface;
 use Spryker\Configuration\Validator\ConfigurationValidatorInterface;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
@@ -22,6 +24,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     const CONFIG_EXCLUDED = 'excluded';
     const CONFIG_ENV = 'env';
     const CONFIG_GROUPS = 'groups';
+
     /**
      * @var \Spryker\Configuration\ConfigurationLoaderInterface
      */
@@ -45,7 +48,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @var array
      */
-    protected $excludedStagesAndExcludedGroups;
+    protected $excludedSectionsAndGroups;
 
     /**
      * @var array
@@ -91,7 +94,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         $this->configurationValidator = $configurationValidator;
         $this->sectionsToBeExecuted = $sectionsToBeExecuted;
         $this->groupsToBeExecuted = $groupsToBeExecuted;
-        $this->excludedStagesAndExcludedGroups = $excludedStagesAndExcludedGroups;
+        $this->excludedSectionsAndGroups = $excludedStagesAndExcludedGroups;
         $this->includeExcluded = $includeExcluded;
         $this->isInteractive = $isInteractive;
         $this->style = $style;
@@ -132,8 +135,8 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function setEnv(array $configuration)
     {
-        if (isset($configuration[self::CONFIG_ENV])) {
-            $this->configuration->setEnv($configuration[self::CONFIG_ENV]);
+        if (isset($configuration[static::CONFIG_ENV])) {
+            $this->configuration->setEnv($configuration[static::CONFIG_ENV]);
         }
     }
 
@@ -161,47 +164,24 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function filterSections(array $sections)
     {
-        $filteredSections = [];
-
-        foreach ($sections as $sectionName => $sectionDefinition) {
-            if (!$this->shouldSectionBeAdded($sectionName)) {
-                continue;
-            }
-            if (isset($sectionDefinition[static::CONFIG_EXCLUDED])) {
-                $isExcluded = $sectionDefinition[static::CONFIG_EXCLUDED];
-                $shouldBeIncluded = ((count($this->includeExcluded) > 0 && in_array($sectionName, $this->includeExcluded)) || in_array($sectionName, $this->sectionsToBeExecuted));
-
-                if ($isExcluded && !$shouldBeIncluded) {
-                    continue;
-                }
-                unset($sectionDefinition[static::CONFIG_EXCLUDED]);
-            }
-            $filteredSections[$sectionName] = $sectionDefinition;
-        }
-
-        return $filteredSections;
+        return $this->getSectionFilter()->filter($sections);
     }
 
     /**
-     * @param string $sectionName
-     *
-     * @return bool
+     * @return \Spryker\Configuration\Filter\FilterInterface
      */
-    protected function shouldSectionBeAdded($sectionName)
+    protected function getSectionFilter()
     {
-        if ($this->isInteractive && $this->ask(sprintf('Should section "%s" be executed?', $sectionName)) === false) {
-            return false;
+        if ($this->isInteractive) {
+            return new InteractiveSectionFilter($this->style);
         }
 
-        if (count($this->sectionsToBeExecuted) > 0 && !in_array($sectionName, $this->sectionsToBeExecuted)) {
-            return false;
-        }
-
-        if (count($this->excludedStagesAndExcludedGroups) > 0 && in_array($sectionName, $this->excludedStagesAndExcludedGroups)) {
-            return false;
-        }
-
-        return true;
+        return new SectionFilter(
+            $this->includeExcluded,
+            $this->sectionsToBeExecuted,
+            $this->groupsToBeExecuted,
+            $this->excludedSectionsAndGroups
+        );
     }
 
     /**
@@ -229,59 +209,23 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function filterCommands(array $commands)
     {
-        $filteredCommands = [];
-        foreach ($commands as $commandName => $commandDefinition) {
-            if (isset($commandDefinition[self::CONFIG_EXCLUDED])) {
-                $shouldCommandBeIncluded = $this->shouldCommandBeIncluded($commandName, $commandDefinition);
-
-                if (!$shouldCommandBeIncluded) {
-                    continue;
-                }
-                unset($commandDefinition[self::CONFIG_EXCLUDED]);
-            }
-            $filteredCommands[$commandName] = $commandDefinition;
-        }
-
-        return $filteredCommands;
+        return $this->getCommandFilter()->filter($commands);
     }
 
     /**
-     * @param string $question
-     *
-     * @return bool
+     * @return \Spryker\Configuration\Filter\FilterInterface
      */
-    protected function ask($question)
+    protected function getCommandFilter()
     {
-        return (bool)$this->style->askQuestion(
-            new ConfirmationQuestion($question)
+        if ($this->isInteractive) {
+            return new InteractiveCommandFilter($this->style);
+        }
+
+        return new CommandFilter(
+            $this->includeExcluded,
+            $this->groupsToBeExecuted,
+            $this->excludedSectionsAndGroups
         );
-    }
-
-    /**
-     * @param string $commandName
-     * @param array $commandDefinition
-     *
-     * @return bool
-     */
-    protected function shouldCommandBeIncluded($commandName, array $commandDefinition)
-    {
-        $isExcluded = $commandDefinition[self::CONFIG_EXCLUDED];
-
-        if ($isExcluded) {
-            if (count($this->includeExcluded) > 0) {
-                if (in_array($commandName, $this->includeExcluded)) {
-                    return true;
-                }
-
-                if (isset($commandDefinition[self::CONFIG_GROUPS]) && count(array_intersect($this->includeExcluded, $commandDefinition[self::CONFIG_GROUPS]))) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -304,36 +248,6 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
             $command->setEnv($commandDefinition[static::CONFIG_ENV]);
         }
 
-        if (!$this->shouldCommandBeAdded($command)) {
-            return;
-        }
-
         $section->addCommand($command);
-    }
-
-    /**
-     * @param \Spryker\Configuration\Command\CommandInterface $command
-     *
-     * @return bool
-     */
-    protected function shouldCommandBeAdded(CommandInterface $command)
-    {
-        if ($this->isInteractive && $this->ask(sprintf('Should section "%s" be executed?', $command->getName())) === false) {
-            return false;
-        }
-
-        if (count($this->excludedStagesAndExcludedGroups) > 0 && (count(array_intersect($this->excludedStagesAndExcludedGroups, $command->getGroups())) > 0)) {
-            return false;
-        }
-
-        if (count($this->groupsToBeExecuted) > 0 && !(count(array_intersect($this->groupsToBeExecuted, $command->getGroups())) > 0)) {
-            return false;
-        }
-
-        if (in_array($command->getName(), $this->excludedStagesAndExcludedGroups)) {
-            return false;
-        }
-
-        return true;
     }
 }
