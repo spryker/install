@@ -252,7 +252,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function ask($question)
     {
-        return $this->style->askQuestion(
+        return (bool)$this->style->askQuestion(
             new ConfirmationQuestion($question)
         );
     }

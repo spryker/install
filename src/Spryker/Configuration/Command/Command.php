@@ -15,7 +15,7 @@ class Command implements CommandConfigurationInterface, CommandInterface
     protected $name;
 
     /**
-     * @var \Spryker\Command\CommandInterface|callable|string
+     * @var string
      */
     protected $executable;
 
@@ -46,7 +46,7 @@ class Command implements CommandConfigurationInterface, CommandInterface
     }
 
     /**
-     * @param \Spryker\Command\CommandInterface|string $executable
+     * @param string $executable
      *
      * @return $this
      */
@@ -58,7 +58,7 @@ class Command implements CommandConfigurationInterface, CommandInterface
     }
 
     /**
-     * @return \Spryker\Command\CommandInterface|callable|string
+     * @return string
      */
     public function getExecutable()
     {

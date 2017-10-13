@@ -18,17 +18,19 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     protected $configFile;
 
     /**
-     * @param string $configFile
+     * @param string $stageName
      *
      * @throws \Spryker\Configuration\Exception\ConfigurationFileNotFoundException
      */
-    public function __construct($configFile)
+    public function __construct($stageName)
     {
-        if (!file_exists($configFile)) {
-            throw new ConfigurationFileNotFoundException(sprintf('File "%s" does not exists. Please add the expected file.', $configFile));
+        $stageName = SPRYKER_ROOT . '/.spryker/setup/' . $stageName . '.yml';
+
+        if (!file_exists($stageName)) {
+            throw new ConfigurationFileNotFoundException(sprintf('File "%s" does not exists. Please add the expected file.', $stageName));
         }
 
-        $this->configFile = $configFile;
+        $this->configFile = $stageName;
     }
 
     /**
@@ -36,6 +38,6 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
      */
     public function loadConfiguration()
     {
-        return Yaml::parse(file_get_contents($this->configFile));
+        return (array)Yaml::parse(file_get_contents($this->configFile));
     }
 }

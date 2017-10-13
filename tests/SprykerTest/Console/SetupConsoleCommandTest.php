@@ -43,7 +43,7 @@ class SetupConsoleCommandTest extends PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function testSetupShowsConfigToBeExecuted()
+    public function testSetupShowsStageToBeExecuted()
     {
         $command = new SetupConsoleCommand();
         $tester = $this->getCommandTester($command);
