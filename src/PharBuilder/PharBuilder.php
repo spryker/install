@@ -63,19 +63,10 @@ class PharBuilder
         $phar = new Phar($pharFile, 0, static::PHAR_NAME);
         $phar->setSignatureAlgorithm(Phar::SHA1);
         $phar->startBuffering();
-
-        foreach ($this->getFinder() as $file) {
-            $this->addFile($phar, $file);
-        }
-
-        foreach ($this->prefix($this->filesToInclude) as $filePath) {
-            $this->addFile($phar, new SplFileInfo($filePath));
-        }
-
+        $this->addDirectories($phar);
+        $this->addFiles($phar);
         $this->addSprykerBin($phar);
-
         $this->setStub($phar);
-
         $phar->stopBuffering();
 
         unset($phar);
@@ -83,6 +74,18 @@ class PharBuilder
         $util = new Timestamps($pharFile);
         $util->updateTimestamps();
         $util->save($pharFile, Phar::SHA1);
+    }
+
+    /**
+     * @param \Phar $phar
+     *
+     * @return void
+     */
+    protected function addDirectories(Phar $phar)
+    {
+        foreach ($this->getFinder() as $file) {
+            $this->addFile($phar, $file);
+        }
     }
 
     /**
@@ -98,6 +101,18 @@ class PharBuilder
             ->sort($this->getSortCallback());
 
         return $finder;
+    }
+
+    /**
+     * @param \Phar $phar
+     *
+     * @return void
+     */
+    protected function addFiles(Phar $phar)
+    {
+        foreach ($this->prefix($this->filesToInclude) as $filePath) {
+            $this->addFile($phar, new SplFileInfo($filePath));
+        }
     }
 
     /**

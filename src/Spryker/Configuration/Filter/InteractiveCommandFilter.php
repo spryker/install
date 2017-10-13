@@ -7,7 +7,6 @@
 
 namespace Spryker\Configuration\Filter;
 
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class InteractiveCommandFilter implements FilterInterface
@@ -35,9 +34,7 @@ class InteractiveCommandFilter implements FilterInterface
         $filtered = [];
 
         foreach ($items as $commandName => $commandDefinition) {
-            $question = new ConfirmationQuestion(sprintf('Should command "%s" be executed?', $commandName));
-
-            if ($this->output->ask($question) === true) {
+            if ($this->output->confirm(sprintf('Should command "%s" be executed?', $commandName)) === true) {
                 $filtered[$commandName] = $commandDefinition;
             }
         }

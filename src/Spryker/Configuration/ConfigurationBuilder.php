@@ -172,10 +172,6 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function getSectionFilter()
     {
-        if ($this->isInteractive) {
-            return new InteractiveSectionFilter($this->style);
-        }
-
         return new SectionFilter(
             $this->includeExcluded,
             $this->sectionsToBeExecuted,
