@@ -9,7 +9,7 @@ namespace Spryker\Configuration;
 
 use Spryker\Configuration\Command\Command;
 use Spryker\Configuration\Filter\CommandFilter;
-use Spryker\Configuration\Filter\InteractiveCommandFilter;
+use Spryker\Configuration\Filter\InteractiveSectionFilter;
 use Spryker\Configuration\Filter\SectionFilter;
 use Spryker\Configuration\Section\Section;
 use Spryker\Configuration\Section\SectionConfigurationInterface;
@@ -171,6 +171,10 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function getSectionFilter()
     {
+        if ($this->isInteractive) {
+            return new InteractiveSectionFilter($this->style);
+        }
+
         return new SectionFilter(
             $this->includeExcluded,
             $this->sectionsToBeExecuted,
@@ -212,10 +216,6 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function getCommandFilter()
     {
-        if ($this->isInteractive) {
-            return new InteractiveCommandFilter($this->style);
-        }
-
         return new CommandFilter(
             $this->includeExcluded,
             $this->groupsToBeExecuted,
