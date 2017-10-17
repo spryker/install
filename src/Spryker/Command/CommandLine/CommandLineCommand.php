@@ -10,7 +10,6 @@ namespace Spryker\Command\CommandLine;
 use Spryker\Command\CommandInterface;
 use Spryker\Configuration\Command\CommandInterface as ConfigurationCommandInterface;
 use Symfony\Component\Console\Style\StyleInterface;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class CommandLineCommand implements CommandInterface
@@ -31,8 +30,6 @@ class CommandLineCommand implements CommandInterface
     /**
      * @param \Symfony\Component\Console\Style\StyleInterface $style
      *
-     * @throws \Symfony\Component\Process\Exception\ProcessFailedException
-     *
      * @return int
      */
     public function execute(StyleInterface $style)
@@ -48,10 +45,6 @@ class CommandLineCommand implements CommandInterface
                 echo $buffer;
             }
         }
-
-//        if (!$process->isSuccessful()) {
-//            throw new ProcessFailedException($process);
-//        }
 
         $style->newLine(1);
 

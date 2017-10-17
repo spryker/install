@@ -18,7 +18,6 @@ use Spryker\Configuration\Stage\Stage;
 use Spryker\Configuration\Stage\StageConfigurationInterface;
 use Spryker\Configuration\Validator\ConfigurationValidatorInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\VarDumper\VarDumper;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
