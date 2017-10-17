@@ -61,7 +61,7 @@ class CommandLineCommand implements CommandInterface
 
         $exitCode = $process->getExitCode();
 
-        if ($exitCode === null || $exitCode === true) {
+        if ($exitCode === null) {
             return static::CODE_SUCCESS;
         }
 

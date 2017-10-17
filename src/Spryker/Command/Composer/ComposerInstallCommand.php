@@ -17,7 +17,7 @@ class ComposerInstallCommand implements CommandInterface
     /**
      * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
-     * @return bool
+     * @return int|null
      */
     public function execute(StyleInterface $output)
     {
@@ -47,7 +47,7 @@ class ComposerInstallCommand implements CommandInterface
     /**
      * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
-     * @return bool
+     * @return int|null
      */
     protected function updateComposer(StyleInterface $output)
     {
@@ -75,7 +75,7 @@ class ComposerInstallCommand implements CommandInterface
     /**
      * @param \Symfony\Component\Console\Style\StyleInterface $style
      *
-     * @return bool
+     * @return int|null
      */
     protected function installComposer(StyleInterface $style)
     {

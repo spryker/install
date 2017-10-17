@@ -34,6 +34,6 @@ class ConditionFactory
             }
         }
 
-        throw new ConfigurationException(sprintf('Condition could not be found, available conditions are: ', implode(', ', $this->conditionNameToConditionClassMap)));
+        throw new ConfigurationException(sprintf('Condition could not be found, available conditions are: %s', implode(', ', $this->conditionNameToConditionClassMap)));
     }
 }
