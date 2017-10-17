@@ -263,13 +263,7 @@ class SetupConsoleCommand extends Command
      */
     protected function getGroupsToBeExecuted()
     {
-        $groupsToBeExecuted = $this->input->getOption(static::OPTION_GROUPS);
-
-        if (count($groupsToBeExecuted) > 0) {
-            $this->output->comment(sprintf('Setup will only run this group(s) "%s"', implode(', ', $groupsToBeExecuted)));
-        }
-
-        return $groupsToBeExecuted;
+        return $this->getOptionAndComment(static::OPTION_GROUPS, 'Setup will only run this group(s) "%s"');
     }
 
     /**
@@ -277,13 +271,7 @@ class SetupConsoleCommand extends Command
      */
     protected function getExcludedStagesAndExcludedGroups()
     {
-        $excludedStagesOrGroups = $this->input->getOption(static::OPTION_EXCLUDE);
-
-        if (count($excludedStagesOrGroups) > 0) {
-            $this->output->comment(sprintf('Setup will exclude this group(s) or section(s) "%s"', implode(', ', $excludedStagesOrGroups)));
-        }
-
-        return $excludedStagesOrGroups;
+        return $this->getOptionAndComment(static::OPTION_EXCLUDE, 'Setup will exclude this group(s) or section(s) "%s"');
     }
 
     /**
@@ -291,13 +279,24 @@ class SetupConsoleCommand extends Command
      */
     protected function getIncludeExcluded()
     {
-        $includeExcluded = $this->input->getOption(static::OPTION_INCLUDE_EXCLUDED);
+        return $this->getOptionAndComment(static::OPTION_INCLUDE_EXCLUDED, 'Setup will include this excluded section(s) or command(s) "%s"');
+    }
 
-        if (count($includeExcluded) > 0) {
-            $this->output->comment(sprintf('Setup will include this excluded section(s) or command(s) "%s"', implode(', ', $includeExcluded)));
+    /**
+     * @param string $optionKey
+     * @param string $commentPattern
+     *
+     * @return mixed
+     */
+    protected function getOptionAndComment($optionKey, $commentPattern)
+    {
+        $option = $this->input->getOption($optionKey);
+
+        if (count($option) > 0) {
+            $this->output->comment(sprintf($commentPattern, implode(', ', $option)));
         }
 
-        return $includeExcluded;
+        return $option;
     }
 
     /**
