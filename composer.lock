@@ -2339,16 +2339,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.4.2",
+            "version": "6.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ae6e2e062ff55263c7b04374c190aca45872b26a"
+                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ae6e2e062ff55263c7b04374c190aca45872b26a",
-                "reference": "ae6e2e062ff55263c7b04374c190aca45872b26a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
+                "reference": "06b28548fd2b4a20c3cd6e247dc86331a7d4db13",
                 "shasum": ""
             },
             "require": {
@@ -2419,7 +2419,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-10-15T06:16:19+00:00"
+            "time": "2017-10-16T13:18:59+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3179,12 +3179,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spryker/code-sniffer.git",
-                "reference": "f0764f8e3c76dcbf053a55a009b83096dbf82039"
+                "reference": "a8df3b638ce9d0b06747d6c749a775f2f6c681b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spryker/code-sniffer/zipball/f0764f8e3c76dcbf053a55a009b83096dbf82039",
-                "reference": "f0764f8e3c76dcbf053a55a009b83096dbf82039",
+                "url": "https://api.github.com/repos/spryker/code-sniffer/zipball/a8df3b638ce9d0b06747d6c749a775f2f6c681b6",
+                "reference": "a8df3b638ce9d0b06747d6c749a775f2f6c681b6",
                 "shasum": ""
             },
             "require": {
@@ -3222,7 +3222,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-10-12T13:20:45+00:00"
+            "time": "2017-10-16T09:26:46+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
