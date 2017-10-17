@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Spryker Demoshop.
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace Spryker\Command\Composer;
@@ -58,11 +58,13 @@ class ComposerInstallCommand implements CommandInterface
             $output->note('Composer is older then 30 days, update composer... ');
 
             $process = new Process('php composer.phar self-update', SPRYKER_ROOT);
-            $process->run(function ($type, $buffer) use ($output) {
-                if (Process::ERR === $type) {
-                    $output->error($buffer);
+            $process->run(
+                function ($type, $buffer) use ($output) {
+                    if (Process::ERR === $type) {
+                        $output->error($buffer);
+                    }
                 }
-            });
+            );
 
             return $process->isSuccessful();
         }
@@ -80,11 +82,13 @@ class ComposerInstallCommand implements CommandInterface
         $style->note('Composer not installed, start download...');
 
         $process = new Process('curl -sS https://getcomposer.org/installer | php', SPRYKER_ROOT);
-        $process->run(function ($type, $buffer) use ($style) {
-            if (Process::ERR === $type) {
-                $style->error($buffer);
+        $process->run(
+            function ($type, $buffer) use ($style) {
+                if (Process::ERR === $type) {
+                    $style->error($buffer);
+                }
             }
-        });
+        );
 
         return $process->isSuccessful();
     }

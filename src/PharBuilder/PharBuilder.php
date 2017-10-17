@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace PharBuilder;
 
 use Phar;
@@ -122,9 +127,12 @@ class PharBuilder
      */
     protected function prefix(array $list)
     {
-        array_walk($list, function (&$item) {
-            $item = realpath(__DIR__ . '/../..' . $item);
-        });
+        array_walk(
+            $list,
+            function (&$item) {
+                $item = realpath(__DIR__ . '/../..' . $item);
+            }
+        );
 
         return $list;
     }

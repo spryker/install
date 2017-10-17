@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Spryker Demoshop.
- * For full license information, please view the LICENSE file that was distributed with this source code.
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace Spryker\Command\CommandLine;
@@ -41,9 +41,12 @@ class CommandLineCommand implements CommandInterface
         $style->note(sprintf('CLI call: %s', $this->command->getExecutable()));
 
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
-        $process->run(function ($type, $buffer) {
-            echo $buffer;
-        });
+        $process->setInput()
+        $process->run(
+            function ($type, $buffer) {
+                echo $buffer;
+            }
+        );
 
         $style->newLine(1);
 
