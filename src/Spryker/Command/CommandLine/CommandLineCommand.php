@@ -41,7 +41,7 @@ class CommandLineCommand implements CommandInterface
         $style->note(sprintf('CLI call: %s', $this->command->getExecutable()));
 
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
-        $process->setInput()
+        
         $process->run(
             function ($type, $buffer) {
                 echo $buffer;
