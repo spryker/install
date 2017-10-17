@@ -8,6 +8,7 @@
 namespace Spryker\Configuration;
 
 use Spryker\Configuration\Command\Command;
+use Spryker\Configuration\Condition\ConditionFactory;
 use Spryker\Configuration\Filter\CommandFilter;
 use Spryker\Configuration\Filter\InteractiveSectionFilter;
 use Spryker\Configuration\Filter\SectionFilter;
@@ -17,12 +18,14 @@ use Spryker\Configuration\Stage\Stage;
 use Spryker\Configuration\Stage\StageConfigurationInterface;
 use Spryker\Configuration\Validator\ConfigurationValidatorInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
     const CONFIG_EXCLUDED = 'excluded';
     const CONFIG_ENV = 'env';
     const CONFIG_GROUPS = 'groups';
+    const CONFIG_CONDITIONS = 'conditions';
 
     /**
      * @var \Spryker\Configuration\ConfigurationLoaderInterface
@@ -243,6 +246,32 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
             $command->setEnv($commandDefinition[static::CONFIG_ENV]);
         }
 
+        if (isset($commandDefinition[static::CONFIG_CONDITIONS])) {
+            $this->addCommandConditions($command, $commandDefinition[static::CONFIG_CONDITIONS]);
+        }
+
         $section->addCommand($command);
+    }
+
+    /**
+     * @param \Spryker\Configuration\Command\Command $command
+     * @param array $conditions
+     *
+     * @return \Spryker\Configuration\Command\Command
+     */
+    protected function addCommandConditions(Command $command, array $conditions)
+    {
+        foreach ($conditions as $condition) {
+            $condition = $this->getConditionFactory()->createCondition($condition);
+            $command->addCondition($condition);
+        }
+    }
+
+    /**
+     * @return \Spryker\Configuration\Condition\ConditionFactory
+     */
+    protected function getConditionFactory()
+    {
+        return new ConditionFactory();
     }
 }

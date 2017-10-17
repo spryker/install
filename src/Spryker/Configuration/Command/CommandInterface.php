@@ -23,4 +23,9 @@ interface CommandInterface
      * @return array
      */
     public function getEnv();
+
+    /**
+     * @return \Spryker\Configuration\Condition\ConditionInterface[]
+     */
+    public function getConditions();
 }

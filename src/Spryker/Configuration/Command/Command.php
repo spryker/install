@@ -7,6 +7,8 @@
 
 namespace Spryker\Configuration\Command;
 
+use Spryker\Configuration\Condition\ConditionInterface;
+
 class Command implements CommandConfigurationInterface, CommandInterface
 {
     /**
@@ -28,6 +30,11 @@ class Command implements CommandConfigurationInterface, CommandInterface
      * @var array
      */
     protected $env = [];
+
+    /**
+     * @var \Spryker\Configuration\Condition\ConditionInterface[]
+     */
+    protected $conditions = [];
 
     /**
      * @param string $name
@@ -95,5 +102,25 @@ class Command implements CommandConfigurationInterface, CommandInterface
     public function getEnv()
     {
         return $this->env;
+    }
+
+    /**
+     * @param \Spryker\Configuration\Condition\ConditionInterface $condition
+     *
+     * @return $this
+     */
+    public function addCondition(ConditionInterface $condition)
+    {
+        $this->conditions[] = $condition;
+
+        return $this;
+    }
+
+    /**
+     * @return \Spryker\Configuration\Condition\ConditionInterface[]
+     */
+    public function getConditions()
+    {
+        return $this->conditions;
     }
 }

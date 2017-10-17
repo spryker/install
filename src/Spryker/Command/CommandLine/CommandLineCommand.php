@@ -33,7 +33,7 @@ class CommandLineCommand implements CommandInterface
      *
      * @throws \Symfony\Component\Process\Exception\ProcessFailedException
      *
-     * @return void
+     * @return int
      */
     public function execute(StyleInterface $style)
     {
@@ -41,12 +41,17 @@ class CommandLineCommand implements CommandInterface
         $style->note(sprintf('CLI call: %s', $this->command->getExecutable()));
 
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
-        
-        $process->run(
-            function ($type, $buffer) {
+        $process->start();
+
+        foreach ($process as $type => $buffer) {
+            if ($type === $process::OUT) {
                 echo $buffer;
             }
-        );
+        }
+
+//        if (!$process->isSuccessful()) {
+//            throw new ProcessFailedException($process);
+//        }
 
         $style->newLine(1);
 
@@ -54,8 +59,12 @@ class CommandLineCommand implements CommandInterface
             $style->success('CLI call executed.');
         }
 
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
+        $exitCode = $process->getExitCode();
+
+        if ($exitCode === null || $exitCode === true) {
+            return static::CODE_SUCCESS;
         }
+
+        return $exitCode;
     }
 }

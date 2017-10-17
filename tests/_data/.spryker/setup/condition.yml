@@ -1,0 +1,33 @@
+sections:
+  section-a:
+    section-a-command-a:
+      command: "echo hello"
+
+    section-a-command-b:
+      command: "lskdf"
+
+
+  section-b:
+    section-b-command-a:
+      command: "echo 'section-b-command-a'"
+      conditions:
+        - command: section-a-command-a
+          ifExitCode: 0
+
+    section-b-command-b:
+      command: "echo 'section-b-command-b'"
+      conditions:
+        - command: section-a-command-b
+          ifExitCode: 234
+
+    section-b-command-c:
+      command: "echo 'section-b-command-b'"
+      conditions:
+        - command: section-a-command-b
+          notExitCode: 1
+
+    section-b-command-d:
+      command: "echo 'section-b-command-b'"
+      conditions:
+        - command: section-a-command-b
+          notExitCode: 127

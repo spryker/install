@@ -65,6 +65,11 @@ class SetupConsoleCommand extends Command
     protected $configuration;
 
     /**
+     * @var array
+     */
+    protected $commandExitCodes = [];
+
+    /**
      * @return void
      */
     protected function configure()
@@ -152,6 +157,10 @@ class SetupConsoleCommand extends Command
             return;
         }
 
+        if ($this->isConditionalCommand($command) && !$this->conditionMatched($command)) {
+            return;
+        }
+
         $this->putEnv($command->getEnv());
 
         $this->executeExecutable($command);
@@ -170,6 +179,32 @@ class SetupConsoleCommand extends Command
         }
 
         return $this->isDryRun;
+    }
+
+    /**
+     * @param \Spryker\Configuration\Command\CommandInterface $command
+     *
+     * @return bool
+     */
+    protected function isConditionalCommand(ConfigurationCommandInterface $command)
+    {
+        return count($command->getConditions()) > 0;
+    }
+
+    /**
+     * @param \Spryker\Configuration\Command\CommandInterface $command
+     *
+     * @return bool
+     */
+    protected function conditionMatched(ConfigurationCommandInterface $command)
+    {
+        $matchedConditions = true;
+        foreach ($command->getConditions() as $condition) {
+            if (!$condition->match($this->commandExitCodes)) {
+                $matchedConditions = false;
+            }
+        }
+        return $matchedConditions;
     }
 
     /**
@@ -311,13 +346,15 @@ class SetupConsoleCommand extends Command
         if (class_exists($executable)) {
             $executable = new $executable();
             if ($executable instanceof CommandInterface) {
-                $executable->execute($this->output);
+                $exitCode = $executable->execute($this->output);
+                $this->commandExitCodes[$command->getName()] = $exitCode;
+
+                return;
             }
         }
 
-        if (is_string($executable)) {
-            $executable = new CommandLineCommand($command);
-            $executable->execute($this->output);
-        }
+        $executable = new CommandLineCommand($command);
+        $exitCode = $executable->execute($this->output);
+        $this->commandExitCodes[$command->getName()] = $exitCode;
     }
 }

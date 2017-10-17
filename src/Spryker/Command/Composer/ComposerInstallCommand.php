@@ -66,10 +66,10 @@ class ComposerInstallCommand implements CommandInterface
                 }
             );
 
-            return $process->isSuccessful();
+            return $process->getExitCode();
         }
 
-        return true;
+        return static::CODE_SUCCESS;
     }
 
     /**
@@ -90,6 +90,6 @@ class ComposerInstallCommand implements CommandInterface
             }
         );
 
-        return $process->isSuccessful();
+        return $process->getExitCode();
     }
 }

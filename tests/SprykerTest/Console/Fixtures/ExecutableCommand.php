@@ -15,12 +15,12 @@ class ExecutableCommand implements CommandInterface
     /**
      * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
-     * @return bool
+     * @return int
      */
     public function execute(StyleInterface $output)
     {
         $output->text('Executed CommandInterface');
 
-        return true;
+        return 1;
     }
 }
