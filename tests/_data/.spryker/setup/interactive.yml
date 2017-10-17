@@ -1,0 +1,8 @@
+sections:
+  section-a:
+    section-a-command-a:
+      command: "echo 'section-a-command-a group-a'"
+
+  section-b:
+    section-b-command-a:
+      command: "echo 'section-b-command-a group-a'"
