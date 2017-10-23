@@ -1,4 +1,4 @@
 sections:
   section-a:
     section-a-command-a:
-      command: "SprykerTest\\Console\\Fixtures\\ExecutableCommand"
+      command: "SprykerTest\\Console\\Fixtures\\Executable"

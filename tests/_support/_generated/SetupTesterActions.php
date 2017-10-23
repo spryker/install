@@ -7,7 +7,7 @@ namespace SprykerTest\_generated;
 
 use Codeception\Module\Asserts;
 
-trait ConsoleTesterActions
+trait SetupTesterActions
 {
     /**
      * @return \Codeception\Scenario

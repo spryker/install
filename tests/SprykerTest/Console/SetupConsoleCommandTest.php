@@ -8,9 +8,9 @@
 namespace SprykerTest\Console;
 
 use Codeception\Test\Unit;
-use Spryker\Configuration\Exception\ConfigurationException;
-use Spryker\Configuration\Exception\ConfigurationFileNotFoundException;
 use Spryker\Console\SetupConsoleCommand;
+use Spryker\Setup\Configuration\Exception\ConfigurationException;
+use Spryker\Setup\Configuration\Loader\Exception\ConfigurationFileNotFoundException;
 
 /**
  * Auto-generated group annotations
@@ -65,7 +65,7 @@ class SetupConsoleCommandTest extends Unit
      */
     public function testCommandInterfaceIsExecuted()
     {
-        require_once __DIR__ . '/Fixtures/ExecutableCommand.php';
+        require_once __DIR__ . '/Fixtures/Executable.php';
 
         $command = new SetupConsoleCommand();
         $tester = $this->tester->getCommandTester($command);
@@ -77,7 +77,7 @@ class SetupConsoleCommandTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Executed CommandInterface/', $output);
+        $this->assertRegexp('/Executed CommandInterface/', $output, 'Executable was not executed.');
     }
 
     /**

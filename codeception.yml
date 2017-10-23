@@ -27,9 +27,9 @@ suites:
         modules:
             enabled:
                 - Asserts
-    Configuration:
-        path: SprykerTest/Configuration
-        class_name: ConfigurationTester
+    Setup:
+        path: SprykerTest/Setup
+        class_name: SetupTester
         modules:
             enabled:
                 - Asserts

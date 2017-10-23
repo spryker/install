@@ -8,8 +8,8 @@
 namespace SprykerTest\Console;
 
 use Codeception\Test\Unit;
-use Spryker\Configuration\Exception\ConfigurationException;
 use Spryker\Console\SetupConsoleCommand;
+use Spryker\Setup\Stage\Section\Command\Condition\Exception\ConditionNotFoundException;
 
 /**
  * Auto-generated group annotations
@@ -92,7 +92,7 @@ class SetupConsoleCommandConditionTest extends Unit
             'stage' => 'condition-not-found',
         ];
 
-        $this->expectException(ConfigurationException::class);
+        $this->expectException(ConditionNotFoundException::class);
         $tester->execute($arguments);
     }
 }

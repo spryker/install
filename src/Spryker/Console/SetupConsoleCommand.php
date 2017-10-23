@@ -7,14 +7,14 @@
 
 namespace Spryker\Console;
 
-use Spryker\Command\CommandInterface;
-use Spryker\Command\CommandLine\CommandLineCommand;
-use Spryker\Configuration\Command\CommandInterface as ConfigurationCommandInterface;
-use Spryker\Configuration\ConfigurationBuilder;
-use Spryker\Configuration\ConfigurationLoader;
-use Spryker\Configuration\Section\SectionInterface;
-use Spryker\Configuration\Stage\StageInterface;
-use Spryker\Configuration\Validator\ConfigurationValidator;
+use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
+use Spryker\Setup\CommandLine\CommandLineOptionContainer;
+use Spryker\Setup\Executable\CommandLine\CommandLineExecutable;
+use Spryker\Setup\Executable\ExecutableInterface;
+use Spryker\Setup\SetupFacade;
+use Spryker\Setup\Stage\Section\Command\CommandInterface;
+use Spryker\Setup\Stage\Section\SectionInterface;
+use Spryker\Setup\Stage\StageInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -60,7 +60,7 @@ class SetupConsoleCommand extends Command
     protected $isDryRun;
 
     /**
-     * @var \Spryker\Configuration\ConfigurationInterface
+     * @var \Spryker\Setup\Configuration\ConfigurationInterface
      */
     protected $configuration;
 
@@ -117,7 +117,7 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @param \Spryker\Configuration\Stage\StageInterface $stage
+     * @param \Spryker\Setup\Stage\StageInterface $stage
      *
      * @return void
      */
@@ -131,7 +131,7 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @param \Spryker\Configuration\Section\SectionInterface $section
+     * @param \Spryker\Setup\Stage\Section\SectionInterface $section
      *
      * @return void
      */
@@ -145,28 +145,40 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @param \Spryker\Configuration\Command\CommandInterface $command
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      *
      * @return void
      */
-    protected function executeCommand(ConfigurationCommandInterface $command)
+    protected function executeCommand(CommandInterface $command)
     {
-        if ($this->isDryRun()) {
-            $this->output->comment('Dry-run: ' . $command->getName());
-
-            return;
-        }
-
-        if ($this->isConditionalCommand($command) && !$this->conditionMatched($command)) {
+        if (!$this->shouldBeExecuted($command)) {
             return;
         }
 
         $this->putEnv($command->getEnv());
-
         $this->executeExecutable($command);
-
         $this->unsetEnv($command->getEnv());
-        $this->putEnv($this->configuration->getEnv());
+        $this->putEnv($this->getConfiguration()->getEnv());
+    }
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     *
+     * @return bool
+     */
+    protected function shouldBeExecuted(CommandInterface $command)
+    {
+        if ($this->isDryRun()) {
+            $this->output->comment('Dry-run: ' . $command->getName());
+
+            return false;
+        }
+
+        if ($this->isConditionalCommand($command) && !$this->conditionMatched($command)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -182,21 +194,21 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @param \Spryker\Configuration\Command\CommandInterface $command
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      *
      * @return bool
      */
-    protected function isConditionalCommand(ConfigurationCommandInterface $command)
+    protected function isConditionalCommand(CommandInterface $command)
     {
         return count($command->getConditions()) > 0;
     }
 
     /**
-     * @param \Spryker\Configuration\Command\CommandInterface $command
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      *
      * @return bool
      */
-    protected function conditionMatched(ConfigurationCommandInterface $command)
+    protected function conditionMatched(CommandInterface $command)
     {
         $matchedConditions = true;
         foreach ($command->getConditions() as $condition) {
@@ -208,40 +220,32 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @return \Spryker\Configuration\ConfigurationInterface
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
     protected function getConfiguration()
     {
         if (!$this->configuration) {
-            $this->configuration = $this->buildConfiguration();
+            $commandLineArgumentContainer = new CommandLineArgumentContainer($this->getStageName());
+            $commandLineOptionContainer = new CommandLineOptionContainer(
+                $this->getSectionsToBeExecuted(),
+                $this->getGroupsToBeExecuted(),
+                $this->getExcludedStagesAndExcludedGroups(),
+                $this->getIncludeExcluded(),
+                $this->getIsInteractive()
+            );
+
+            $this->configuration = $this->getFacade()->buildConfiguration($commandLineArgumentContainer, $commandLineOptionContainer, $this->output);
         }
 
         return $this->configuration;
     }
 
     /**
-     * @return \Spryker\Configuration\Configuration|\Spryker\Configuration\ConfigurationInterface
+     * @return string
      */
-    protected function buildConfiguration()
+    protected function getStageName()
     {
-        return $this->getConfigurationBuilder()->buildConfiguration($this->getStageName());
-    }
-
-    /**
-     * @return \Spryker\Configuration\ConfigurationBuilder
-     */
-    protected function getConfigurationBuilder()
-    {
-        return new ConfigurationBuilder(
-            new ConfigurationLoader($this->getStageName()),
-            new ConfigurationValidator(),
-            $this->getSectionsToBeExecuted(),
-            $this->getGroupsToBeExecuted(),
-            $this->getExcludedStagesAndExcludedGroups(),
-            $this->getIncludeExcluded(),
-            $this->input->getOption(static::OPTION_INTERACTIVE),
-            $this->output
-        );
+        return $this->input->getArgument(static::ARGUMENT_STAGE);
     }
 
     /**
@@ -249,13 +253,7 @@ class SetupConsoleCommand extends Command
      */
     protected function getSectionsToBeExecuted()
     {
-        $sectionsToBeExecuted = $this->input->getOption(static::OPTION_SECTIONS);
-
-        if (count($sectionsToBeExecuted) > 0) {
-            $this->output->comment(sprintf('Setup will only run this section(s) "%s"', implode(', ', $sectionsToBeExecuted)));
-        }
-
-        return $sectionsToBeExecuted;
+        return $this->getOptionAndComment(static::OPTION_SECTIONS, 'Setup will only run this section(s) "%s"');
     }
 
     /**
@@ -280,6 +278,14 @@ class SetupConsoleCommand extends Command
     protected function getIncludeExcluded()
     {
         return $this->getOptionAndComment(static::OPTION_INCLUDE_EXCLUDED, 'Setup will include this excluded section(s) or command(s) "%s"');
+    }
+
+    /**
+     * @return bool
+     */
+    protected function getIsInteractive()
+    {
+        return $this->input->getOption(static::OPTION_INTERACTIVE);
     }
 
     /**
@@ -324,27 +330,17 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @return string
-     */
-    protected function getStageName()
-    {
-        $stageName = $this->input->getArgument(static::ARGUMENT_STAGE);
-
-        return $stageName;
-    }
-
-    /**
-     * @param \Spryker\Configuration\Command\CommandInterface $command
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      *
      * @return void
      */
-    protected function executeExecutable(ConfigurationCommandInterface $command)
+    protected function executeExecutable(CommandInterface $command)
     {
         $executable = $command->getExecutable();
 
         if (class_exists($executable)) {
             $executable = new $executable();
-            if ($executable instanceof CommandInterface) {
+            if ($executable instanceof ExecutableInterface) {
                 $exitCode = $executable->execute($this->output);
                 $this->commandExitCodes[$command->getName()] = $exitCode;
 
@@ -352,8 +348,16 @@ class SetupConsoleCommand extends Command
             }
         }
 
-        $executable = new CommandLineCommand($command);
+        $executable = new CommandLineExecutable($command);
         $exitCode = $executable->execute($this->output);
         $this->commandExitCodes[$command->getName()] = $exitCode;
+    }
+
+    /**
+     * @return \Spryker\Setup\SetupFacade
+     */
+    protected function getFacade()
+    {
+        return new SetupFacade();
     }
 }
