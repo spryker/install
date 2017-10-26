@@ -27,6 +27,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
     const CONFIG_EXCLUDED = 'excluded';
     const CONFIG_ENV = 'env';
+    const CONFIG_STORES = 'stores';
     const CONFIG_GROUPS = 'groups';
     const CONFIG_CONDITIONS = 'conditions';
 
@@ -111,6 +112,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         $configuration = $this->configurationLoader->loadConfiguration($commandLineArgumentContainer->getStage());
 
         $this->setEnv($configuration);
+        $this->setStores($configuration);
         $this->addStagesToConfiguration($commandLineArgumentContainer->getStage(), $configuration['sections']);
 
         return $this->configuration;
@@ -125,6 +127,18 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     {
         if (isset($configuration[static::CONFIG_ENV])) {
             $this->configuration->setEnv($configuration[static::CONFIG_ENV]);
+        }
+    }
+
+    /**
+     * @param array $configuration
+     *
+     * @return void
+     */
+    protected function setStores(array $configuration)
+    {
+        if (isset($configuration[static::CONFIG_STORES])) {
+            $this->configuration->setStores($configuration[static::CONFIG_STORES]);
         }
     }
 
@@ -230,6 +244,10 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
         if (isset($commandDefinition[static::CONFIG_ENV])) {
             $command->setEnv($commandDefinition[static::CONFIG_ENV]);
+        }
+
+        if (isset($commandDefinition[static::CONFIG_STORES])) {
+            $command->setIsStoreAware($commandDefinition[static::CONFIG_STORES]);
         }
 
         if (isset($commandDefinition[static::CONFIG_CONDITIONS])) {

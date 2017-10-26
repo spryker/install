@@ -34,4 +34,16 @@ interface ConfigurationInterface
      * @return array
      */
     public function getEnv();
+
+    /**
+     * @param array $stores
+     *
+     * @return $this
+     */
+    public function setStores(array $stores);
+
+    /**
+     * @return array
+     */
+    public function getStores();
 }

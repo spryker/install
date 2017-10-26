@@ -26,6 +26,13 @@ interface CommandConfigurationInterface
     public function setEnv(array $env);
 
     /**
+     * @param bool $isStoreAware
+     *
+     * @return $this
+     */
+    public function setIsStoreAware($isStoreAware);
+
+    /**
      * @param \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface $condition
      *
      * @return $this

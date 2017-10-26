@@ -33,6 +33,11 @@ class Command implements CommandConfigurationInterface, CommandInterface
     protected $env = [];
 
     /**
+     * @var bool
+     */
+    protected $isStoreAware = false;
+
+    /**
      * @var \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface[]
      */
     protected $conditions = [];
@@ -103,6 +108,26 @@ class Command implements CommandConfigurationInterface, CommandInterface
     public function getEnv()
     {
         return $this->env;
+    }
+
+    /**
+     * @param bool $isStoreAware
+     *
+     * @return $this
+     */
+    public function setIsStoreAware($isStoreAware)
+    {
+        $this->isStoreAware = $isStoreAware;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStoreAware()
+    {
+        return $this->isStoreAware;
     }
 
     /**

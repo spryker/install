@@ -34,11 +34,8 @@ class CommandLineExecutable implements ExecutableInterface
      */
     public function execute(StyleInterface $style)
     {
-        $style->section(sprintf('Execute command line command: <info>%s</info>', $this->command->getName()));
-        $style->note(sprintf('CLI call: %s', $this->command->getExecutable()));
-
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
-        $process->start();
+        $process->run();
 
         foreach ($process as $type => $buffer) {
             if ($type === $process::OUT) {
@@ -49,7 +46,7 @@ class CommandLineExecutable implements ExecutableInterface
         $style->newLine(1);
 
         if ($process->isSuccessful()) {
-            $style->success('CLI call executed.');
+            $style->text('<info>CLI call executed.</info>');
         }
 
         $exitCode = $process->getExitCode();

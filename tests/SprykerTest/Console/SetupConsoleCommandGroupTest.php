@@ -41,7 +41,7 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Execute command line command: section-b-command-a/', $output);
+        $this->assertRegexp('/Command: section-b-command-a/', $output);
         $this->assertNotRegexp('/Execute command line command: (section-a-command-a|section-c-command-a|section-d-command-a|section-d-command-b)/', $output);
     }
 
@@ -62,7 +62,7 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Execute command line command: section-b-command-a/', $output);
+        $this->assertNotRegexp('/Command: section-b-command-a/', $output);
     }
 
     /**
@@ -81,7 +81,7 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Execute command line command: section-d-command-b/', $output);
+        $this->assertNotRegexp('/Command: section-d-command-b/', $output);
     }
 
     /**
@@ -101,7 +101,7 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Execute command line command: section-d-command-b/', $output);
+        $this->assertRegexp('/Command: section-d-command-b/', $output);
     }
 
     /**
@@ -121,6 +121,6 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Execute command line command: section-d-command-b/', $output);
+        $this->assertRegexp('/Command: section-d-command-b/', $output);
     }
 }

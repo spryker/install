@@ -25,6 +25,11 @@ interface CommandInterface
     public function getEnv();
 
     /**
+     * @return bool
+     */
+    public function isStoreAware();
+
+    /**
      * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface[]
      */
     public function getConditions();

@@ -25,6 +25,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class SetupConsoleCommand extends Command
 {
     const ARGUMENT_STAGE = 'stage';
+    const ARGUMENT_STORE = 'store';
 
     const OPTION_DRY_RUN = 'dry-run';
     const OPTION_DRY_RUN_SHORT = 'd';
@@ -76,7 +77,8 @@ class SetupConsoleCommand extends Command
     {
         $this->setName('setup')
             ->setDescription('Run setup for a specified stage.')
-            ->addArgument(static::ARGUMENT_STAGE, InputArgument::OPTIONAL, 'Name of the stage for which setup should be executed.', 'development')
+            ->addArgument(static::ARGUMENT_STAGE, InputArgument::OPTIONAL, 'Name of the stage for which the setup should be executed.', 'development')
+            ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store for which the setup should be executed.', false)
             ->addOption(static::OPTION_DRY_RUN, static::OPTION_DRY_RUN_SHORT, InputOption::VALUE_NONE, 'Only output what would be executed.')
             ->addOption(static::OPTION_SECTIONS, static::OPTION_SECTIONS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of stages to be executed.')
             ->addOption(static::OPTION_GROUPS, static::OPTION_GROUPS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of groups to be executed. If command has no group(s) it will not be executed when this option is set.')
@@ -98,7 +100,8 @@ class SetupConsoleCommand extends Command
 
         $configuration = $this->getConfiguration();
 
-        $this->putEnv($configuration->getEnv());
+        $this->putEnv('FORCE_COLOR_MODE', true);
+        $this->putEnvs($configuration->getEnv());
 
         foreach ($configuration->getStages() as $stage) {
             $this->executeStage($stage);
@@ -155,10 +158,10 @@ class SetupConsoleCommand extends Command
             return;
         }
 
-        $this->putEnv($command->getEnv());
+        $this->putEnvs($command->getEnv());
         $this->executeExecutable($command);
-        $this->unsetEnv($command->getEnv());
-        $this->putEnv($this->getConfiguration()->getEnv());
+        $this->unsetEnvs($command->getEnv());
+        $this->putEnvs($this->getConfiguration()->getEnv());
     }
 
     /**
@@ -310,11 +313,22 @@ class SetupConsoleCommand extends Command
      *
      * @return void
      */
-    protected function putEnv(array $env)
+    protected function putEnvs(array $env)
     {
         foreach ($env as $key => $value) {
-            putenv(sprintf('%s=%s', $key, $value));
+            $this->putEnv($key, $value);
         }
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return void
+     */
+    protected function putEnv($key, $value)
+    {
+        putenv(sprintf('%s=%s', $key, $value));
     }
 
     /**
@@ -322,11 +336,21 @@ class SetupConsoleCommand extends Command
      *
      * @return void
      */
-    protected function unsetEnv(array $env)
+    protected function unsetEnvs(array $env)
     {
         foreach (array_keys($env) as $key) {
-            putenv($key);
+            $this->unsetEnv($key);
         }
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return void
+     */
+    protected function unsetEnv($key)
+    {
+        putenv($key);
     }
 
     /**
@@ -349,8 +373,37 @@ class SetupConsoleCommand extends Command
         }
 
         $executable = new CommandLineExecutable($command);
-        $exitCode = $executable->execute($this->output);
-        $this->commandExitCodes[$command->getName()] = $exitCode;
+
+        if (!$command->isStoreAware()) {
+            $this->output->section(sprintf('Command: <info>%s</info>', $command->getName()));
+            $this->output->note(sprintf('CLI call: %s', $command->getExecutable()));
+
+            $exitCode = $executable->execute($this->output);
+            $this->commandExitCodes[$command->getName()] = $exitCode;
+
+            return;
+        }
+
+
+
+        $this->output->text(sprintf('Command "<info>%s</info>" is store aware.', $command->getName()));
+
+        foreach ($this->configuration->getStores() as $store) {
+            $requestedStore = $this->input->getArgument(static::ARGUMENT_STORE);
+            if ($requestedStore && $store !== $requestedStore) {
+                continue;
+            }
+
+            $this->output->section(sprintf('Command: <info>%s</info> for <info>%s</info> store.', $command->getName(), $store));
+            $this->output->note(sprintf('CLI call: %s', $command->getExecutable()));
+
+            $this->putEnv('APPLICATION_STORE', $store);
+
+            $exitCode = $executable->execute($this->output);
+            $this->commandExitCodes[$command->getName()] = $exitCode;
+
+            $this->unsetEnv('APPLICATION_STORE');
+        }
     }
 
     /**

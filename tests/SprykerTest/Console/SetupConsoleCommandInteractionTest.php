@@ -41,7 +41,7 @@ class SetupConsoleCommandInteractionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Execute command line command: section-a-command-a/', $output);
-        $this->assertNotRegexp('/Execute command line command: section-b-command-a/', $output);
+        $this->assertRegexp('/Command: section-a-command-a/', $output);
+        $this->assertNotRegexp('/Command: section-b-command-a/', $output);
     }
 }

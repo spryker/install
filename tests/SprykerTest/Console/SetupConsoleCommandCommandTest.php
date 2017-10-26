@@ -40,6 +40,6 @@ class SetupConsoleCommandCommandTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Execute command line command: section-a-command-a/', $output);
+        $this->assertNotRegexp('/Command: section-a-command-a/', $output);
     }
 }

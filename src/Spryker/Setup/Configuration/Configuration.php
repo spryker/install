@@ -23,24 +23,9 @@ class Configuration implements ConfigurationInterface
     protected $env = [];
 
     /**
-     * @param array $env
-     *
-     * @return $this
+     * @var array
      */
-    public function setEnv(array $env)
-    {
-        $this->env = $env;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getEnv()
-    {
-        return $this->env;
-    }
+    protected $stores = [];
 
     /**
      * @param \Spryker\Setup\Stage\StageInterface $stage
@@ -66,5 +51,45 @@ class Configuration implements ConfigurationInterface
     public function getStages()
     {
         return $this->stages;
+    }
+
+    /**
+     * @param array $env
+     *
+     * @return $this
+     */
+    public function setEnv(array $env)
+    {
+        $this->env = $env;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnv()
+    {
+        return $this->env;
+    }
+
+    /**
+     * @param array $stores
+     *
+     * @return $this
+     */
+    public function setStores(array $stores)
+    {
+        $this->stores = $stores;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStores()
+    {
+        return $this->stores;
     }
 }
