@@ -43,12 +43,6 @@ class CommandLineExecutable implements ExecutableInterface
             }
         }
 
-        $style->newLine(1);
-
-        if ($process->isSuccessful()) {
-            $style->text('<info>CLI call executed.</info>');
-        }
-
         $exitCode = $process->getExitCode();
 
         if ($exitCode === null) {

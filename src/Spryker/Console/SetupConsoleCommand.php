@@ -140,7 +140,9 @@ class SetupConsoleCommand extends Command
      */
     protected function executeSection(SectionInterface $section)
     {
-        $this->output->title(sprintf('Section: <info>%s</info>', $section->getName()));
+        $this->output->text('<info>********************************************************</info>');
+        $this->output->title(sprintf(' Section: <info>%s</info>', $section->getName()));
+        $this->output->text('<info>********************************************************</info>');
 
         foreach ($section->getCommands() as $command) {
             $this->executeCommand($command);
@@ -159,7 +161,7 @@ class SetupConsoleCommand extends Command
         }
 
         $this->putEnvs($command->getEnv());
-        $this->executeExecutable($command);
+        $this->runCommand($command);
         $this->unsetEnvs($command->getEnv());
         $this->putEnvs($this->getConfiguration()->getEnv());
     }
@@ -358,52 +360,77 @@ class SetupConsoleCommand extends Command
      *
      * @return void
      */
-    protected function executeExecutable(CommandInterface $command)
+    protected function runCommand(CommandInterface $command)
+    {
+        $executable = $this->getExecutable($command);
+
+        if (!$command->isStoreAware()) {
+            $this->executeExecutable($executable, $command);
+
+            return;
+        }
+
+        foreach ($this->getRequestedStores() as $store) {
+            $this->putEnv('APPLICATION_STORE', $store);
+            $this->executeExecutable($executable, $command);
+            $this->unsetEnv('APPLICATION_STORE');
+        }
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRequestedStores()
+    {
+        $requestedStores = [];
+        $requestedStore = $this->input->getArgument(static::ARGUMENT_STORE);
+
+        foreach ($this->configuration->getStores() as $store) {
+            if ($requestedStore && $store !== $requestedStore) {
+                continue;
+            }
+            $requestedStores[] = $store;
+        }
+
+        return $requestedStores;
+    }
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     *
+     * @return \Spryker\Setup\Executable\ExecutableInterface
+     */
+    protected function getExecutable(CommandInterface $command)
     {
         $executable = $command->getExecutable();
 
         if (class_exists($executable)) {
             $executable = new $executable();
             if ($executable instanceof ExecutableInterface) {
-                $exitCode = $executable->execute($this->output);
-                $this->commandExitCodes[$command->getName()] = $exitCode;
-
-                return;
+                return $executable;
             }
         }
 
-        $executable = new CommandLineExecutable($command);
+        return new CommandLineExecutable($command);
+    }
 
-        if (!$command->isStoreAware()) {
-            $this->output->section(sprintf('Command: <info>%s</info>', $command->getName()));
-            $this->output->note(sprintf('CLI call: %s', $command->getExecutable()));
+    /**
+     * @param \Spryker\Setup\Executable\ExecutableInterface $executable
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param null|string $store
+     *
+     * @return void
+     */
+    protected function executeExecutable(ExecutableInterface $executable, CommandInterface $command, $store = null)
+    {
+        $commandInfo = sprintf('Command: <info>%s</info>', $command->getName());
+        $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
 
-            $exitCode = $executable->execute($this->output);
-            $this->commandExitCodes[$command->getName()] = $exitCode;
+        $this->output->section($commandInfo . $storeInfo);
+        $this->output->note(sprintf('CLI call: %s', $command->getExecutable()));
 
-            return;
-        }
-
-
-
-        $this->output->text(sprintf('Command "<info>%s</info>" is store aware.', $command->getName()));
-
-        foreach ($this->configuration->getStores() as $store) {
-            $requestedStore = $this->input->getArgument(static::ARGUMENT_STORE);
-            if ($requestedStore && $store !== $requestedStore) {
-                continue;
-            }
-
-            $this->output->section(sprintf('Command: <info>%s</info> for <info>%s</info> store.', $command->getName(), $store));
-            $this->output->note(sprintf('CLI call: %s', $command->getExecutable()));
-
-            $this->putEnv('APPLICATION_STORE', $store);
-
-            $exitCode = $executable->execute($this->output);
-            $this->commandExitCodes[$command->getName()] = $exitCode;
-
-            $this->unsetEnv('APPLICATION_STORE');
-        }
+        $exitCode = $executable->execute($this->output);
+        $this->commandExitCodes[$command->getName()] = $exitCode;
     }
 
     /**
