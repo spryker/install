@@ -102,6 +102,10 @@ class ComposerInstallExecutableTest extends Unit
     protected function createTestFile()
     {
         if (!file_exists($this->getPathToComposer())) {
+            $directory = dirname($this->getPathToComposer());
+            if (!is_dir($directory)) {
+                mkdir($directory);
+            }
             touch($this->getPathToComposer());
         }
     }
