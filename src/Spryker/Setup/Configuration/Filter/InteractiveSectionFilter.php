@@ -7,6 +7,7 @@
 
 namespace Spryker\Setup\Configuration\Filter;
 
+use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class InteractiveSectionFilter implements FilterInterface
@@ -17,9 +18,9 @@ class InteractiveSectionFilter implements FilterInterface
     protected $output;
 
     /**
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $output
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
      */
-    public function __construct(SymfonyStyle $output)
+    public function __construct(StyleInterface $output)
     {
         $this->output = $output;
     }

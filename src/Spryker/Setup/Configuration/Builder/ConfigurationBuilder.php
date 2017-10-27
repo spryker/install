@@ -21,7 +21,7 @@ use Spryker\Setup\Stage\Section\Command\Command;
 use Spryker\Setup\Stage\Section\Command\Condition\ConditionFactory;
 use Spryker\Setup\Stage\Section\Section;
 use Spryker\Setup\Stage\Stage;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Style\StyleInterface;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
@@ -72,7 +72,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected $isInteractive;
 
     /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var \Symfony\Component\Console\Style\StyleInterface
      */
     protected $style;
 
@@ -96,14 +96,14 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @param \Spryker\Setup\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
      * @param \Spryker\Setup\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $style
+     * @param \Symfony\Component\Console\Style\StyleInterface $style
      *
      * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
     public function buildConfiguration(
         CommandLineArgumentContainer $commandLineArgumentContainer,
         CommandLineOptionContainer $commandLineOptionContainer,
-        SymfonyStyle $style
+        StyleInterface $style
     ) {
         $this->commandLineArgumentContainer = $commandLineArgumentContainer;
         $this->commandLineOptionContainer = $commandLineOptionContainer;

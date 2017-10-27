@@ -50,7 +50,7 @@ class SetupConsoleCommand extends Command
     protected $input;
 
     /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var \Symfony\Component\Console\Style\StyleInterface
      */
     protected $output;
 
@@ -111,7 +111,7 @@ class SetupConsoleCommand extends Command
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @return \Symfony\Component\Console\Style\SymfonyStyle
+     * @return \Symfony\Component\Console\Style\StyleInterface
      */
     protected function createOutput(InputInterface $input, OutputInterface $output)
     {
@@ -173,7 +173,7 @@ class SetupConsoleCommand extends Command
     protected function shouldBeExecuted(CommandInterface $command)
     {
         if ($this->isDryRun()) {
-            $this->output->comment('Dry-run: ' . $command->getName());
+            $this->output->note('Dry-run: ' . $command->getName());
 
             return false;
         }
@@ -303,7 +303,7 @@ class SetupConsoleCommand extends Command
         $option = $this->input->getOption($optionKey);
 
         if (count($option) > 0) {
-            $this->output->comment(sprintf($commentPattern, implode(', ', $option)));
+            $this->output->note(sprintf($commentPattern, implode(', ', $option)));
         }
 
         return $option;
