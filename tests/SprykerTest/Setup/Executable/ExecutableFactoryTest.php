@@ -29,6 +29,7 @@ class ExecutableFactoryTest extends Unit
     public function testCreateComposerExecutableByShortCut()
     {
         $command = new Command('composer');
+        $command->setExecutable('composer');
         $executableFactory = new ExecutableFactory();
 
         $executable = $executableFactory->createExecutableFromCommand($command);

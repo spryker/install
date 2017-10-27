@@ -33,3 +33,10 @@ suites:
         modules:
             enabled:
                 - Asserts
+
+    Style:
+        path: SprykerTest/Style
+        class_name: StyleTester
+        modules:
+            enabled:
+                - Asserts

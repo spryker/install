@@ -22,8 +22,8 @@ class ExecutableFactory
     public function createExecutableFromCommand(CommandInterface $command)
     {
         $executableCollection = $this->createExecutableCollection();
-        if ($executableCollection->hasExecutable($command->getName())) {
-            return $executableCollection->getExecutable($command->getName());
+        if ($executableCollection->hasExecutable($command->getExecutable())) {
+            return $executableCollection->getExecutable($command->getExecutable());
         }
 
         return $this->createCommandLineExecutable($command);

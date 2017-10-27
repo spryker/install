@@ -14,12 +14,12 @@ use Spryker\Setup\SetupFacade;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Spryker\Setup\Stage\Section\SectionInterface;
 use Spryker\Setup\Stage\StageInterface;
+use Spryker\Style\SprykerStyle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SetupConsoleCommand extends Command
 {
@@ -115,7 +115,7 @@ class SetupConsoleCommand extends Command
      */
     protected function createOutput(InputInterface $input, OutputInterface $output)
     {
-        return new SymfonyStyle($input, $output);
+        return new SprykerStyle($input, $output);
     }
 
     /**
@@ -125,7 +125,7 @@ class SetupConsoleCommand extends Command
      */
     protected function executeStage(StageInterface $stage)
     {
-        $this->output->title(sprintf('Start setup: <info>%s</info>', $stage->getName()));
+        $this->output->title(sprintf('Start setup: <fg=green>%s</>', $stage->getName()));
 
         foreach ($stage->getSections() as $section) {
             $this->executeSection($section);
@@ -139,10 +139,7 @@ class SetupConsoleCommand extends Command
      */
     protected function executeSection(SectionInterface $section)
     {
-        $this->output->text('<info>********************************************************</info>');
-        $this->output->title(sprintf(' Section: <info>%s</info>', $section->getName()));
-        $this->output->text('<info>********************************************************</info>');
-
+        $this->output->section($section->getName());
         foreach ($section->getCommands() as $command) {
             $this->executeCommand($command);
         }
@@ -405,12 +402,15 @@ class SetupConsoleCommand extends Command
     {
         $commandInfo = sprintf('Command: <info>%s</info>', $command->getName());
         $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
+        $executedInfo = sprintf(' <fg=yellow>[%s]</>', $command->getExecutable());
 
-        $this->output->section($commandInfo . $storeInfo);
-        $this->output->note(sprintf('CLI call: %s', $command->getExecutable()));
+        $this->output->text($commandInfo . $storeInfo . $executedInfo);
+        $this->output->newLine();
 
         $exitCode = $executable->execute($this->output);
         $this->commandExitCodes[$command->getName()] = $exitCode;
+        $this->output->note(sprintf('Done, exit code <fg=green>%s</>', $exitCode));
+        $this->output->newLine();
     }
 
     /**
