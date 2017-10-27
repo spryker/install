@@ -8,12 +8,11 @@
 namespace Spryker\Setup\Configuration\Filter;
 
 use Symfony\Component\Console\Style\StyleInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class InteractiveSectionFilter implements FilterInterface
 {
     /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var \Symfony\Component\Console\Style\StyleInterface
      */
     protected $output;
 
