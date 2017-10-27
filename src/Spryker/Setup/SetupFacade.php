@@ -9,6 +9,7 @@ namespace Spryker\Setup;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
+use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SetupFacade
@@ -26,6 +27,16 @@ class SetupFacade
         SymfonyStyle $style
     ) {
         return $this->getFactory()->createConfigurationBuilder()->buildConfiguration($commandLineArgumentContainer, $commandLineOptionContainer, $style);
+    }
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     *
+     * @return \Spryker\Setup\Executable\ExecutableInterface
+     */
+    public function getExecutable(CommandInterface $command)
+    {
+        return $this->getFactory()->createExecutableFactory()->createExecutableFromCommand($command);
     }
 
     /**

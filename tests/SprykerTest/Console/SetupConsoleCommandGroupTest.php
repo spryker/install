@@ -34,7 +34,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_GROUPS => ['group-a'],
         ];
 
@@ -55,7 +55,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_EXCLUDE => ['group-a'],
         ];
 
@@ -75,7 +75,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
         ];
 
         $tester->execute($arguments);
@@ -94,7 +94,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['section-d-command-b'],
         ];
 
@@ -114,7 +114,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['group-c'],
         ];
 

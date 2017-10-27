@@ -362,7 +362,7 @@ class SetupConsoleCommand extends Command
      */
     protected function runCommand(CommandInterface $command)
     {
-        $executable = $this->getExecutable($command);
+        $executable = $this->getFacade()->getExecutable($command);
 
         if (!$command->isStoreAware()) {
             $this->executeExecutable($executable, $command);
@@ -372,7 +372,7 @@ class SetupConsoleCommand extends Command
 
         foreach ($this->getRequestedStores() as $store) {
             $this->putEnv('APPLICATION_STORE', $store);
-            $this->executeExecutable($executable, $command);
+            $this->executeExecutable($executable, $command, $store);
             $this->unsetEnv('APPLICATION_STORE');
         }
     }
@@ -393,25 +393,6 @@ class SetupConsoleCommand extends Command
         }
 
         return $requestedStores;
-    }
-
-    /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
-     *
-     * @return \Spryker\Setup\Executable\ExecutableInterface
-     */
-    protected function getExecutable(CommandInterface $command)
-    {
-        $executable = $command->getExecutable();
-
-        if (class_exists($executable)) {
-            $executable = new $executable();
-            if ($executable instanceof ExecutableInterface) {
-                return $executable;
-            }
-        }
-
-        return new CommandLineExecutable($command);
     }
 
     /**

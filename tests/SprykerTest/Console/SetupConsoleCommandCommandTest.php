@@ -34,7 +34,7 @@ class SetupConsoleCommandCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_EXCLUDE => ['section-a-command-a'],
         ];
         $tester->execute($arguments);

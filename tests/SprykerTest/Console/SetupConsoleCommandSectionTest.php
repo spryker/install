@@ -34,7 +34,7 @@ class SetupConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_SECTIONS => ['section-a'],
         ];
 
@@ -55,7 +55,7 @@ class SetupConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_SECTIONS => ['section-c'],
         ];
 
@@ -75,7 +75,7 @@ class SetupConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_EXCLUDE => ['section-a'],
         ];
 
@@ -96,7 +96,7 @@ class SetupConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
         ];
 
         $tester->execute($arguments);
@@ -115,7 +115,7 @@ class SetupConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['section-c'],
         ];
 

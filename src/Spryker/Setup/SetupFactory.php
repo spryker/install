@@ -11,6 +11,7 @@ use Spryker\Setup\Configuration\Builder\ConfigurationBuilder;
 use Spryker\Setup\Configuration\Configuration;
 use Spryker\Setup\Configuration\Loader\ConfigurationLoader;
 use Spryker\Setup\Configuration\Validator\ConfigurationValidator;
+use Spryker\Setup\Executable\ExecutableFactory;
 
 class SetupFactory
 {
@@ -49,5 +50,13 @@ class SetupFactory
     protected function createConfiguration()
     {
         return new Configuration();
+    }
+
+    /**
+     * @return \Spryker\Setup\Executable\ExecutableFactory
+     */
+    public function createExecutableFactory()
+    {
+        return new ExecutableFactory();
     }
 }

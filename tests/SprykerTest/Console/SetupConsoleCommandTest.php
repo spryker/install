@@ -38,7 +38,7 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'catface',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'catface',
         ];
         $tester->execute($arguments);
     }
@@ -55,29 +55,9 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'no-sections',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'no-sections',
         ];
         $tester->execute($arguments);
-    }
-
-    /**
-     * @return void
-     */
-    public function testCommandInterfaceIsExecuted()
-    {
-        require_once __DIR__ . '/Fixtures/Executable.php';
-
-        $command = new SetupConsoleCommand();
-        $tester = $this->tester->getCommandTester($command);
-
-        $arguments = [
-            'command' => $command->getName(),
-            'stage' => 'executable',
-        ];
-        $tester->execute($arguments);
-
-        $output = $tester->getDisplay();
-        $this->assertRegexp('/Executed CommandInterface/', $output, 'Executable was not executed.');
     }
 
     /**
@@ -90,7 +70,7 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
         ];
         $tester->execute($arguments);
 
@@ -107,7 +87,7 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'development',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
             '--' . SetupConsoleCommand::OPTION_DRY_RUN => true,
         ];
 

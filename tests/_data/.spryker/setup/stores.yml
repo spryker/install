@@ -1,0 +1,9 @@
+stores:
+  - DE
+  - US
+
+sections:
+  section-a:
+    section-a-command-a:
+      command: "echo hello"
+      stores: true

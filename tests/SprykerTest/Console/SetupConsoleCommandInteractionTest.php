@@ -34,7 +34,7 @@ class SetupConsoleCommandInteractionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            'stage' => 'interactive',
+            SetupConsoleCommand::ARGUMENT_STAGE => 'interactive',
             '--' . SetupConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['yes', 'no']);
