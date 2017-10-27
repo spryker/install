@@ -43,6 +43,6 @@ class CommandLineExecutable implements ExecutableInterface
             }
         }
 
-        return $process->getExitCode();
+        return ($process->getExitCode() === null) ? static::CODE_SUCCESS : $process->getExitCode();
     }
 }

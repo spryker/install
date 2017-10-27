@@ -51,41 +51,63 @@ class ComposerInstallExecutable implements ExecutableInterface
      */
     protected function updateComposer(StyleInterface $output)
     {
-        $fileMTime = (new DateTime())->setTimestamp(filemtime($this->getPathToComposer()));
-        $thirtyDaysAgo = new DateTime('- 30 days');
-
-        if ($fileMTime < $thirtyDaysAgo) {
-            $output->note('Composer is older then 30 days, update composer... ');
-
-            $process = new Process('php composer.phar self-update', SPRYKER_ROOT);
-            $process->run(
-                function ($type, $buffer) use ($output) {
-                    if (Process::ERR === $type) {
-                        $output->error($buffer);
-                    }
-                }
-            );
-
-            return $process->getExitCode();
+        if ($this->isComposerOutdated()) {
+            return $this->runComposerUpdate($output);
         }
 
         return static::CODE_SUCCESS;
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $style
+     * @return bool
+     */
+    protected function isComposerOutdated()
+    {
+        $fileMTime = (new DateTime())->setTimestamp(filemtime($this->getPathToComposer()));
+        $thirtyDaysAgo = new DateTime('- 30 days');
+
+        if ($fileMTime < $thirtyDaysAgo) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
      * @return int|null
      */
-    protected function installComposer(StyleInterface $style)
+    protected function runComposerUpdate(StyleInterface $output)
     {
-        $style->note('Composer not installed, start download...');
+        $output->note('Composer is older then 30 days, update composer... ');
+
+        $process = new Process('php composer.phar self-update', SPRYKER_ROOT);
+        $process->run(
+            function ($type, $buffer) use ($output) {
+                if (Process::ERR === $type) {
+                    $output->error($buffer);
+                }
+            }
+        );
+
+        return ($process->getExitCode() === null) ? static::CODE_SUCCESS : $process->getExitCode();
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     *
+     * @return int|null
+     */
+    protected function installComposer(StyleInterface $output)
+    {
+        $output->note('Composer not installed, start download...');
 
         $process = new Process('curl -sS https://getcomposer.org/installer | php', SPRYKER_ROOT);
         $process->run(
-            function ($type, $buffer) use ($style) {
+            function ($type, $buffer) use ($output) {
                 if (Process::ERR === $type) {
-                    $style->error($buffer);
+                    $output->error($buffer);
                 }
             }
         );

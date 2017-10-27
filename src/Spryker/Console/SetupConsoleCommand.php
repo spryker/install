@@ -9,7 +9,6 @@ namespace Spryker\Console;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
-use Spryker\Setup\Executable\CommandLine\CommandLineExecutable;
 use Spryker\Setup\Executable\ExecutableInterface;
 use Spryker\Setup\SetupFacade;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
