@@ -17,4 +17,9 @@ interface SectionConfigurationInterface
      * @return $this
      */
     public function addCommand(CommandInterface $command);
+
+    /**
+     * @return $this
+     */
+    public function markAsExcluded();
 }

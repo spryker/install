@@ -38,4 +38,18 @@ interface CommandConfigurationInterface
      * @return $this
      */
     public function addCondition(ConditionInterface $condition);
+
+    /**
+     * @param string $preCommand
+     *
+     * @return $this
+     */
+    public function setPreCommand($preCommand);
+
+    /**
+     * @param string $postCommand
+     *
+     * @return $this
+     */
+    public function setPostCommand($postCommand);
 }

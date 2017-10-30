@@ -9,6 +9,7 @@ namespace Spryker\Console;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
+use Spryker\Setup\Exception\SetupException;
 use Spryker\Setup\Executable\ExecutableInterface;
 use Spryker\Setup\SetupFacade;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
@@ -44,6 +45,9 @@ class SetupConsoleCommand extends Command
     const OPTION_INTERACTIVE = 'interactive';
     const OPTION_INTERACTIVE_SHORT = 'i';
 
+    const OPTION_RESUME = 'resume';
+    const OPTION_RESUME_SHORT = 'r';
+
     /**
      * @var \Symfony\Component\Console\Input\InputInterface
      */
@@ -70,6 +74,11 @@ class SetupConsoleCommand extends Command
     protected $commandExitCodes = [];
 
     /**
+     * @var array|null
+     */
+    protected $interactiveSelectedStores;
+
+    /**
      * @return void
      */
     protected function configure()
@@ -77,13 +86,14 @@ class SetupConsoleCommand extends Command
         $this->setName('setup')
             ->setDescription('Run setup for a specified stage.')
             ->addArgument(static::ARGUMENT_STAGE, InputArgument::OPTIONAL, 'Name of the stage for which the setup should be executed.', 'development')
-            ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store for which the setup should be executed.', false)
+            ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store for which the setup should be executed.')
             ->addOption(static::OPTION_DRY_RUN, static::OPTION_DRY_RUN_SHORT, InputOption::VALUE_NONE, 'Only output what would be executed.')
             ->addOption(static::OPTION_SECTIONS, static::OPTION_SECTIONS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of stages to be executed.')
             ->addOption(static::OPTION_GROUPS, static::OPTION_GROUPS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of groups to be executed. If command has no group(s) it will not be executed when this option is set.')
             ->addOption(static::OPTION_EXCLUDE, static::OPTION_EXCLUDE_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of stages or groups to be excluded from execution.')
             ->addOption(static::OPTION_INCLUDE_EXCLUDED, static::OPTION_INCLUDE_EXCLUDED_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Add commands/stages which are marked as excluded in the configuration.')
-            ->addOption(static::OPTION_INTERACTIVE, static::OPTION_INTERACTIVE_SHORT, InputOption::VALUE_NONE, 'Will ask prior to each step if it should be executed or not.');
+            ->addOption(static::OPTION_INTERACTIVE, static::OPTION_INTERACTIVE_SHORT, InputOption::VALUE_NONE, 'Will ask prior to each step if it should be executed or not.')
+            ->addOption(static::OPTION_RESUME, static::OPTION_RESUME_SHORT, InputOption::VALUE_NONE, 'Will ask after to each command if script should resume.');
     }
 
     /**
@@ -96,15 +106,14 @@ class SetupConsoleCommand extends Command
     {
         $this->input = $input;
         $this->output = $this->createOutput($input, $output);
+        $this->askForStoresToBeExecuted();
 
         $configuration = $this->getConfiguration();
 
         $this->putEnv('FORCE_COLOR_MODE', true);
         $this->putEnvs($configuration->getEnv());
 
-        foreach ($configuration->getStages() as $stage) {
-            $this->executeStage($stage);
-        }
+        $this->executeStage($configuration->getStage());
     }
 
     /**
@@ -128,6 +137,10 @@ class SetupConsoleCommand extends Command
         $this->output->title(sprintf('Start setup: <fg=green>%s</>', $stage->getName()));
 
         foreach ($stage->getSections() as $section) {
+            if ($section->isExcluded()) {
+                continue;
+            }
+
             $this->executeSection($section);
         }
     }
@@ -140,26 +153,41 @@ class SetupConsoleCommand extends Command
     protected function executeSection(SectionInterface $section)
     {
         $this->output->section($section->getName());
+        $commands = $section->getCommands();
         foreach ($section->getCommands() as $command) {
+            if (!$this->shouldBeExecuted($command)) {
+                continue;
+            }
+
+            if ($command->hasPreCommand()) {
+                $this->executeCommand($this->configuration->findCommand($command->getPreCommand()));
+            }
+
             $this->executeCommand($command);
+
+            if ($command->hasPostCommand()) {
+                $this->executeCommand($this->configuration->findCommand($command->getPostCommand()));
+            }
         }
     }
 
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      *
+     * @throws \Spryker\Setup\Exception\SetupException
+     *
      * @return void
      */
     protected function executeCommand(CommandInterface $command)
     {
-        if (!$this->shouldBeExecuted($command)) {
-            return;
-        }
-
         $this->putEnvs($command->getEnv());
         $this->runCommand($command);
         $this->unsetEnvs($command->getEnv());
         $this->putEnvs($this->getConfiguration()->getEnv());
+
+        if ($this->input->getOption(static::OPTION_RESUME) && !$this->output->confirm('Should setup resume?')) {
+            throw new SetupException('Setup aborted...');
+        }
     }
 
     /**
@@ -374,10 +402,36 @@ class SetupConsoleCommand extends Command
     }
 
     /**
+     * @return void
+     */
+    protected function askForStoresToBeExecuted()
+    {
+        if (!$this->getIsInteractive() || !$this->getConfiguration()->getStores()) {
+            return;
+        }
+
+        $configuredStores = $this->getConfiguration()->getStores();
+        array_unshift($configuredStores, 'all');
+
+        $storesToBeExecuted = (array)$this->output->choice('Select stores to run setup for (defaults to all)', $configuredStores, 'all');
+        if ($storesToBeExecuted[0] === 'all') {
+            $this->interactiveSelectedStores = $configuredStores;
+
+            return;
+        }
+
+        $this->interactiveSelectedStores = $storesToBeExecuted;
+    }
+
+    /**
      * @return array
      */
     protected function getRequestedStores()
     {
+        if ($this->interactiveSelectedStores) {
+            return $this->interactiveSelectedStores;
+        }
+
         $requestedStores = [];
         $requestedStore = $this->input->getArgument(static::ARGUMENT_STORE);
 

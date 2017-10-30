@@ -7,22 +7,29 @@ use PharBuilder\PharBuilder;
 use PharBuilder\PharFileOptimizer;
 use Symfony\Component\Process\Process;
 
-echo 'Run "php composer.phar update --no-dev"' . PHP_EOL;
-$process = new Process('php composer.phar update --no-dev', __DIR__ . '/../');
-$process->run(function ($type, $buffer){
-    echo $buffer;
-});
-echo 'Done updating without dev dependencies' . PHP_EOL . PHP_EOL;
+unset($argv[0]);
+$options = array_flip($argv);
+
+if (!isset($options['--pre'])) {
+    echo 'Run "php composer.phar update --no-dev"' . PHP_EOL;
+    $process = new Process('php composer.phar update --no-dev', __DIR__ . '/../');
+    $process->run(function ($type, $buffer){
+        echo $buffer;
+    });
+    echo 'Done updating without dev dependencies' . PHP_EOL . PHP_EOL;
+}
+
 
 echo 'Run spryker.phar builder' . PHP_EOL;
 $pharBuilder = new PharBuilder(new PharFileOptimizer());
 $pharBuilder->build();
 echo 'Build spryker.phar done' . PHP_EOL . PHP_EOL;
 
-echo 'Run "php composer.phar update"' . PHP_EOL;
-$process = new Process('php composer.phar update', __DIR__ . '/../');
-$process->run(function ($type, $buffer){
-    echo $buffer;
-});
-echo 'Done updating with dev dependencies' . PHP_EOL . PHP_EOL;
-
+if (!isset($options['--post'])) {
+    echo 'Run "php composer.phar update"' . PHP_EOL;
+    $process = new Process('php composer.phar update', __DIR__ . '/../');
+    $process->run(function ($type, $buffer) {
+        echo $buffer;
+    });
+    echo 'Done updating with dev dependencies' . PHP_EOL . PHP_EOL;
+}

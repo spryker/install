@@ -64,7 +64,7 @@ class SetupConsoleCommandConditionTest extends Unit
     /**
      * @return void
      */
-    public function testExecuteCommandIfPreviousCommandExitCodeDoesNotMatch()
+    public function testExecuteCommandIfConditionsCommandExitCodeDoesNotMatch()
     {
         $command = new SetupConsoleCommand();
         $tester = $this->tester->getCommandTester($command);

@@ -24,6 +24,11 @@ class Section implements SectionConfigurationInterface, SectionInterface
     protected $commands = [];
 
     /**
+     * @var bool
+     */
+    protected $isExcluded = false;
+
+    /**
      * @param string $name
      */
     public function __construct($name)
@@ -57,10 +62,36 @@ class Section implements SectionConfigurationInterface, SectionInterface
     }
 
     /**
+     * @return void
+     */
+    public function markAsExcluded()
+    {
+        $this->isExcluded = true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExcluded()
+    {
+        return $this->isExcluded;
+    }
+
+    /**
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface[]
      */
     public function getCommands()
     {
         return $this->commands;
+    }
+
+    /**
+     * @param string $commandName
+     *
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
+     */
+    public function getCommand($commandName)
+    {
+        return $this->commands[$commandName];
     }
 }

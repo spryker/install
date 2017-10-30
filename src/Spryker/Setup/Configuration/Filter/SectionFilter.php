@@ -9,8 +9,6 @@ namespace Spryker\Setup\Configuration\Filter;
 
 class SectionFilter implements FilterInterface
 {
-    const EXCLUDED = 'excluded';
-
     /**
      * @var array
      */
@@ -55,9 +53,12 @@ class SectionFilter implements FilterInterface
         $filtered = [];
 
         foreach ($items as $sectionName => $sectionDefinition) {
+            $isExcluded = true;
             if ($this->shouldSectionBeAdded($sectionName, $sectionDefinition)) {
-                $filtered[$sectionName] = $sectionDefinition;
+                $isExcluded = false;
             }
+            $sectionDefinition[static::EXCLUDED] = $isExcluded;
+            $filtered[$sectionName] = $sectionDefinition;
         }
 
         return $filtered;

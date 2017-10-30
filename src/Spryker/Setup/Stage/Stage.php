@@ -9,6 +9,7 @@ namespace Spryker\Setup\Stage;
 
 use Spryker\Setup\Configuration\Stage\StageConfigurationInterface;
 use Spryker\Setup\Stage\Section\Exception\SectionExistsException;
+use Spryker\Setup\Stage\Section\Exception\SectionNotFoundException;
 use Spryker\Setup\Stage\Section\SectionInterface;
 
 class Stage implements StageConfigurationInterface, StageInterface
@@ -63,5 +64,21 @@ class Stage implements StageConfigurationInterface, StageInterface
     public function getSections()
     {
         return $this->sections;
+    }
+
+    /**
+     * @param string $sectionName
+     *
+     * @throws \Spryker\Setup\Stage\Section\Exception\SectionNotFoundException
+     *
+     * @return \Spryker\Setup\Stage\Section\SectionInterface
+     */
+    public function getSection($sectionName)
+    {
+        if (!isset($this->sections[$sectionName])) {
+            throw new SectionNotFoundException(sprintf('Section "%s" not found in "%s" stage', $sectionName, $this->name));
+        }
+
+        return $this->sections[$sectionName];
     }
 }

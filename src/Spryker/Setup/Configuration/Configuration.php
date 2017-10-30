@@ -7,15 +7,14 @@
 
 namespace Spryker\Setup\Configuration;
 
-use Spryker\Setup\Stage\Exception\StageExistsException;
 use Spryker\Setup\Stage\StageInterface;
 
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var \Spryker\Setup\Stage\StageInterface[]
+     * @var \Spryker\Setup\Stage\StageInterface
      */
-    protected $stages = [];
+    protected $stage;
 
     /**
      * @var array
@@ -30,27 +29,21 @@ class Configuration implements ConfigurationInterface
     /**
      * @param \Spryker\Setup\Stage\StageInterface $stage
      *
-     * @throws \Spryker\Setup\Stage\Exception\StageExistsException
-     *
      * @return $this
      */
-    public function addStage(StageInterface $stage)
+    public function setStage(StageInterface $stage)
     {
-        if (isset($this->stages[$stage->getName()])) {
-            throw new StageExistsException(sprintf('Stage with name "%s" already exists', $stage->getName()));
-        }
-
-        $this->stages[$stage->getName()] = $stage;
+        $this->stage = $stage;
 
         return $this;
     }
 
     /**
-     * @return array
+     * @return \Spryker\Setup\Stage\StageInterface
      */
-    public function getStages()
+    public function getStage()
     {
-        return $this->stages;
+        return $this->stage;
     }
 
     /**
@@ -91,5 +84,17 @@ class Configuration implements ConfigurationInterface
     public function getStores()
     {
         return $this->stores;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
+     */
+    public function findCommand($name)
+    {
+        list($section, $command) = explode('/', $name);
+
+        return $this->stage->getSection($section)->getCommand($command);
     }
 }

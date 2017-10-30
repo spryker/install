@@ -43,6 +43,16 @@ class Command implements CommandConfigurationInterface, CommandInterface
     protected $conditions = [];
 
     /**
+     * @var string
+     */
+    protected $preCommand;
+
+    /**
+     * @var string
+     */
+    protected $postCommand;
+
+    /**
      * @param string $name
      */
     public function __construct($name)
@@ -148,5 +158,61 @@ class Command implements CommandConfigurationInterface, CommandInterface
     public function getConditions()
     {
         return $this->conditions;
+    }
+
+    /**
+     * @param string $preCommand
+     *
+     * @return $this
+     */
+    public function setPreCommand($preCommand)
+    {
+        $this->preCommand = $preCommand;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPreCommand()
+    {
+        return ($this->preCommand !== null);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreCommand()
+    {
+        return $this->preCommand;
+    }
+
+    /**
+     * @param string $postCommand
+     *
+     * @return $this
+     */
+    public function setPostCommand($postCommand)
+    {
+        $this->postCommand = $postCommand;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPostCommand()
+    {
+        return ($this->postCommand !== null);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostCommand()
+    {
+        return $this->postCommand;
     }
 }

@@ -18,4 +18,11 @@ interface StageInterface
      * @return \Spryker\Setup\Stage\Section\SectionInterface[]
      */
     public function getSections();
+
+    /**
+     * @param string $sectionName
+     *
+     * @return \Spryker\Setup\Stage\Section\SectionInterface
+     */
+    public function getSection($sectionName);
 }

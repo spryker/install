@@ -9,7 +9,6 @@ namespace Spryker\Setup\Configuration\Filter;
 
 class CommandFilter implements FilterInterface
 {
-    const EXCLUDED = 'excluded';
     const GROUPS = 'groups';
 
     /**

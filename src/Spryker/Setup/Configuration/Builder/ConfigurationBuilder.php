@@ -30,6 +30,8 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     const CONFIG_STORES = 'stores';
     const CONFIG_GROUPS = 'groups';
     const CONFIG_CONDITIONS = 'conditions';
+    const CONFIG_PRE_COMMAND = 'pre';
+    const CONFIG_POST_COMMAND = 'post';
 
     /**
      * @var \Spryker\Setup\Configuration\Loader\ConfigurationLoaderInterface
@@ -113,7 +115,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
         $this->setEnv($configuration);
         $this->setStores($configuration);
-        $this->addStagesToConfiguration($commandLineArgumentContainer->getStage(), $configuration['sections']);
+        $this->addStageToConfiguration($commandLineArgumentContainer->getStage(), $configuration['sections']);
 
         return $this->configuration;
     }
@@ -148,7 +150,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return void
      */
-    protected function addStagesToConfiguration($stageName, array $sections)
+    protected function addStageToConfiguration($stageName, array $sections)
     {
         $stage = new Stage($stageName);
 
@@ -156,7 +158,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
             $this->addSectionToStage($sectionName, $commands, $stage);
         }
 
-        $this->configuration->addStage($stage);
+        $this->configuration->setStage($stage);
     }
 
     /**
@@ -196,6 +198,9 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected function addSectionToStage($sectionName, array $commands, StageConfigurationInterface $stage)
     {
         $section = new Section($sectionName);
+        if (isset($commands[static::CONFIG_EXCLUDED]) && $commands[static::CONFIG_EXCLUDED]) {
+            $section->markAsExcluded();
+        }
 
         foreach ($this->filterCommands($commands) as $commandName => $commandDefinition) {
             $this->addCommandsToSection($commandName, $commandDefinition, $section);
@@ -252,6 +257,14 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
         if (isset($commandDefinition[static::CONFIG_CONDITIONS])) {
             $this->addCommandConditions($command, $commandDefinition[static::CONFIG_CONDITIONS]);
+        }
+
+        if (isset($commandDefinition[static::CONFIG_PRE_COMMAND])) {
+            $command->setPreCommand($commandDefinition[static::CONFIG_PRE_COMMAND]);
+        }
+
+        if (isset($commandDefinition[static::CONFIG_POST_COMMAND])) {
+            $command->setPostCommand($commandDefinition[static::CONFIG_POST_COMMAND]);
         }
 
         $section->addCommand($command);

@@ -14,14 +14,14 @@ interface ConfigurationInterface
     /**
      * @param \Spryker\Setup\Stage\StageInterface $stage
      *
-     * @return mixed
+     * @return $this
      */
-    public function addStage(StageInterface $stage);
+    public function setStage(StageInterface $stage);
 
     /**
-     * @return \Spryker\Setup\Stage\StageInterface[]
+     * @return \Spryker\Setup\Stage\StageInterface
      */
-    public function getStages();
+    public function getStage();
 
     /**
      * @param array $env
@@ -46,4 +46,11 @@ interface ConfigurationInterface
      * @return array
      */
     public function getStores();
+
+    /**
+     * @param string $name
+     *
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
+     */
+    public function findCommand($name);
 }

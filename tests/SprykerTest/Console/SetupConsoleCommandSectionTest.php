@@ -102,7 +102,7 @@ class SetupConsoleCommandSectionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Section: section-c/', $output);
+        $this->assertNotRegexp('/Section: section-c/', $output, 'Section "section-c" was not expected to be executed but was');
     }
 
     /**

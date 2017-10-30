@@ -33,4 +33,24 @@ interface CommandInterface
      * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface[]
      */
     public function getConditions();
+
+    /**
+     * @return bool
+     */
+    public function hasPreCommand();
+
+    /**
+     * @return string
+     */
+    public function getPreCommand();
+
+    /**
+     * @return bool
+     */
+    public function hasPostCommand();
+
+    /**
+     * @return string
+     */
+    public function getPostCommand();
 }

@@ -34,9 +34,12 @@ class InteractiveSectionFilter implements FilterInterface
         $filtered = [];
 
         foreach ($items as $sectionName => $sectionDefinition) {
-            if ($this->output->confirm(sprintf('Should section "%s" be executed?', $sectionName)) === true) {
-                $filtered[$sectionName] = $sectionDefinition;
+            $isExcluded = true;
+            if ($this->output->confirm(sprintf('Should section <fg=yellow>%s</> be executed?', $sectionName)) === true) {
+                $isExcluded = false;
             }
+            $sectionDefinition[static::EXCLUDED] = $isExcluded;
+            $filtered[$sectionName] = $sectionDefinition;
         }
 
         return $filtered;
