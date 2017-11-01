@@ -9,17 +9,15 @@ namespace Spryker\Setup\Configuration\Builder;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
+use Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilderInterface;
+use Spryker\Setup\Configuration\Builder\Section\SectionBuilderInterface;
 use Spryker\Setup\Configuration\ConfigurationInterface;
-use Spryker\Setup\Configuration\Filter\CommandFilter;
-use Spryker\Setup\Configuration\Filter\InteractiveSectionFilter;
-use Spryker\Setup\Configuration\Filter\SectionFilter;
+use Spryker\Setup\Configuration\Filter\CommandExcludeFilter;
+use Spryker\Setup\Configuration\Filter\FilterComposite;
+use Spryker\Setup\Configuration\Filter\InteractiveSectionExcludeFilter;
+use Spryker\Setup\Configuration\Filter\SectionExcludeFilter;
+use Spryker\Setup\Configuration\Filter\UnsetFilter;
 use Spryker\Setup\Configuration\Loader\ConfigurationLoaderInterface;
-use Spryker\Setup\Configuration\Stage\Section\Command\CommandConfigurationInterface;
-use Spryker\Setup\Configuration\Stage\Section\SectionConfigurationInterface;
-use Spryker\Setup\Configuration\Stage\StageConfigurationInterface;
-use Spryker\Setup\Stage\Section\Command\Command;
-use Spryker\Setup\Stage\Section\Command\Condition\ConditionFactory;
-use Spryker\Setup\Stage\Section\Section;
 use Spryker\Setup\Stage\Stage;
 use Symfony\Component\Console\Style\StyleInterface;
 
@@ -49,34 +47,9 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected $commandLineOptionContainer;
 
     /**
-     * @var array
-     */
-    protected $requestedSections;
-
-    /**
-     * @var array
-     */
-    protected $requestedGroups;
-
-    /**
-     * @var array
-     */
-    protected $exclude;
-
-    /**
-     * @var array
-     */
-    protected $includeExcluded;
-
-    /**
-     * @var bool
-     */
-    protected $isInteractive;
-
-    /**
      * @var \Symfony\Component\Console\Style\StyleInterface
      */
-    protected $style;
+    protected $output;
 
     /**
      * @var \Spryker\Setup\Configuration\ConfigurationInterface
@@ -84,37 +57,58 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected $configuration;
 
     /**
+     * @var \Spryker\Setup\Configuration\Builder\Section\SectionBuilderInterface
+     */
+    protected $sectionBuilder;
+
+    /**
+     * @var \Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilderInterface
+     */
+    protected $commandBuilder;
+
+    /**
      * @param \Spryker\Setup\Configuration\Loader\ConfigurationLoaderInterface $configurationLoader
      * @param \Spryker\Setup\Configuration\ConfigurationInterface $configuration
+     * @param \Spryker\Setup\Configuration\Builder\Section\SectionBuilderInterface $sectionBuilder
+     * @param \Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilderInterface $commandBuilder
      */
     public function __construct(
         ConfigurationLoaderInterface $configurationLoader,
-        ConfigurationInterface $configuration
+        ConfigurationInterface $configuration,
+        SectionBuilderInterface $sectionBuilder,
+        CommandBuilderInterface $commandBuilder
     ) {
         $this->configurationLoader = $configurationLoader;
         $this->configuration = $configuration;
+        $this->sectionBuilder = $sectionBuilder;
+        $this->commandBuilder = $commandBuilder;
     }
 
     /**
      * @param \Spryker\Setup\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
      * @param \Spryker\Setup\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Symfony\Component\Console\Style\StyleInterface $style
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
      * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
     public function buildConfiguration(
         CommandLineArgumentContainer $commandLineArgumentContainer,
         CommandLineOptionContainer $commandLineOptionContainer,
-        StyleInterface $style
+        StyleInterface $output
     ) {
         $this->commandLineArgumentContainer = $commandLineArgumentContainer;
         $this->commandLineOptionContainer = $commandLineOptionContainer;
-        $this->style = $style;
+        $this->output = $output;
+
+        $this->configuration->setOutput($output);
+        $this->configuration->setIsDryRun($commandLineOptionContainer->isDryRun());
+        $this->configuration->setIsDebugMode($commandLineOptionContainer->isDebugMode());
 
         $configuration = $this->configurationLoader->loadConfiguration($commandLineArgumentContainer->getStage());
 
         $this->setEnv($configuration);
         $this->setStores($configuration);
+        $this->setExecutableStores();
         $this->addStageToConfiguration($commandLineArgumentContainer->getStage(), $configuration['sections']);
 
         return $this->configuration;
@@ -145,6 +139,48 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     }
 
     /**
+     * @return void
+     */
+    protected function setExecutableStores()
+    {
+        $interactiveRequestedStores = $this->askForStoresToBeExecuted();
+        if (count($interactiveRequestedStores) > 0) {
+            $this->configuration->setExecutableStores($interactiveRequestedStores);
+
+            return;
+        }
+
+        $requestedStore = $this->commandLineArgumentContainer->getStore();
+
+        $arrayFilterCallback = function ($store) use ($requestedStore) {
+            return (!$requestedStore || $store === $requestedStore);
+        };
+        $requestedStores = array_filter($this->configuration->getStores(), $arrayFilterCallback);
+
+        $this->configuration->setExecutableStores($requestedStores);
+    }
+
+    /**
+     * @return array
+     */
+    protected function askForStoresToBeExecuted()
+    {
+        if (!$this->commandLineOptionContainer->isInteractive() || !$this->configuration->getStores()) {
+            return [];
+        }
+
+        $configuredStores = $this->configuration->getStores();
+        array_unshift($configuredStores, 'all');
+
+        $storesToBeExecuted = (array)$this->output->choice('Select stores to run setup for (defaults to all)', $configuredStores, 'all');
+        if ($storesToBeExecuted[0] === 'all') {
+            return $configuredStores;
+        }
+
+        return $storesToBeExecuted;
+    }
+
+    /**
      * @param string $stageName
      * @param array $sections
      *
@@ -155,7 +191,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         $stage = new Stage($stageName);
 
         foreach ($this->filterSections($sections) as $sectionName => $commands) {
-            $this->addSectionToStage($sectionName, $commands, $stage);
+            $stage->addSection($this->buildSection($sectionName, $commands));
         }
 
         $this->configuration->setStage($stage);
@@ -176,37 +212,42 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function getSectionFilter()
     {
+        $filter = [
+            new UnsetFilter('pre'),
+            new UnsetFilter('post'),
+        ];
+
         if ($this->commandLineOptionContainer->isInteractive()) {
-            return new InteractiveSectionFilter($this->style);
+            $filter[] = new InteractiveSectionExcludeFilter($this->output);
+
+            return new FilterComposite($filter);
         }
 
-        return new SectionFilter(
+        $filter[] = new SectionExcludeFilter(
             $this->commandLineOptionContainer->getIncludeExcluded(),
             $this->commandLineOptionContainer->getRequestedSections(),
             $this->commandLineOptionContainer->getRequestedGroups(),
             $this->commandLineOptionContainer->getExclude()
         );
+
+        return new FilterComposite($filter);
     }
 
     /**
      * @param string $sectionName
-     * @param array $commands
-     * @param \Spryker\Setup\Configuration\Stage\StageConfigurationInterface $stage
+     * @param array $sectionDefinition
      *
-     * @return void
+     * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    protected function addSectionToStage($sectionName, array $commands, StageConfigurationInterface $stage)
+    protected function buildSection($sectionName, array $sectionDefinition)
     {
-        $section = new Section($sectionName);
-        if (isset($commands[static::CONFIG_EXCLUDED]) && $commands[static::CONFIG_EXCLUDED]) {
-            $section->markAsExcluded();
+        $section = $this->sectionBuilder->buildSection($sectionName, $sectionDefinition);
+
+        foreach ($this->filterCommands($sectionDefinition) as $commandName => $commandDefinition) {
+            $section->addCommand($this->commandBuilder->buildCommand($commandName, $commandDefinition));
         }
 
-        foreach ($this->filterCommands($commands) as $commandName => $commandDefinition) {
-            $this->addCommandsToSection($commandName, $commandDefinition, $section);
-        }
-
-        $stage->addSection($section);
+        return $section;
     }
 
     /**
@@ -224,71 +265,16 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      */
     protected function getCommandFilter()
     {
-        return new CommandFilter(
-            $this->commandLineOptionContainer->getIncludeExcluded(),
-            $this->commandLineOptionContainer->getRequestedGroups(),
-            $this->commandLineOptionContainer->getExclude()
-        );
-    }
+        $filter = [
+            new UnsetFilter('pre'),
+            new UnsetFilter('post'),
+            new CommandExcludeFilter(
+                $this->commandLineOptionContainer->getIncludeExcluded(),
+                $this->commandLineOptionContainer->getRequestedGroups(),
+                $this->commandLineOptionContainer->getExclude()
+            ),
+        ];
 
-    /**
-     * @param string $commandName
-     * @param array $commandDefinition
-     * @param \Spryker\Setup\Configuration\Stage\Section\SectionConfigurationInterface $section
-     *
-     * @return void
-     */
-    protected function addCommandsToSection($commandName, array $commandDefinition, SectionConfigurationInterface $section)
-    {
-        $command = new Command($commandName);
-        $command->setExecutable($commandDefinition['command']);
-
-        if (isset($commandDefinition[static::CONFIG_GROUPS])) {
-            $command->setGroups($commandDefinition[static::CONFIG_GROUPS]);
-        }
-
-        if (isset($commandDefinition[static::CONFIG_ENV])) {
-            $command->setEnv($commandDefinition[static::CONFIG_ENV]);
-        }
-
-        if (isset($commandDefinition[static::CONFIG_STORES])) {
-            $command->setIsStoreAware($commandDefinition[static::CONFIG_STORES]);
-        }
-
-        if (isset($commandDefinition[static::CONFIG_CONDITIONS])) {
-            $this->addCommandConditions($command, $commandDefinition[static::CONFIG_CONDITIONS]);
-        }
-
-        if (isset($commandDefinition[static::CONFIG_PRE_COMMAND])) {
-            $command->setPreCommand($commandDefinition[static::CONFIG_PRE_COMMAND]);
-        }
-
-        if (isset($commandDefinition[static::CONFIG_POST_COMMAND])) {
-            $command->setPostCommand($commandDefinition[static::CONFIG_POST_COMMAND]);
-        }
-
-        $section->addCommand($command);
-    }
-
-    /**
-     * @param \Spryker\Setup\Configuration\Stage\Section\Command\CommandConfigurationInterface $command
-     * @param array $conditions
-     *
-     * @return void
-     */
-    protected function addCommandConditions(CommandConfigurationInterface $command, array $conditions)
-    {
-        foreach ($conditions as $condition) {
-            $condition = $this->getConditionFactory()->createCondition($condition);
-            $command->addCondition($condition);
-        }
-    }
-
-    /**
-     * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionFactory
-     */
-    protected function getConditionFactory()
-    {
-        return new ConditionFactory();
+        return new FilterComposite($filter);
     }
 }

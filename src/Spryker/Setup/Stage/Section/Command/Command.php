@@ -7,10 +7,9 @@
 
 namespace Spryker\Setup\Stage\Section\Command;
 
-use Spryker\Setup\Configuration\Stage\Section\Command\CommandConfigurationInterface;
 use Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface;
 
-class Command implements CommandConfigurationInterface, CommandInterface
+class Command implements CommandInterface
 {
     /**
      * @var string
@@ -36,6 +35,11 @@ class Command implements CommandConfigurationInterface, CommandInterface
      * @var bool
      */
     protected $isStoreAware = false;
+
+    /**
+     * @var bool
+     */
+    protected $isExcluded = false;
 
     /**
      * @var \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface[]
@@ -93,7 +97,7 @@ class Command implements CommandConfigurationInterface, CommandInterface
      *
      * @return $this
      */
-    public function setGroups($groups)
+    public function setGroups(array $groups)
     {
         $this->groups = $groups;
 
@@ -214,5 +218,23 @@ class Command implements CommandConfigurationInterface, CommandInterface
     public function getPostCommand()
     {
         return $this->postCommand;
+    }
+
+    /**
+     * @return $this
+     */
+    public function markAsExcluded()
+    {
+        $this->isExcluded = true;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExcluded()
+    {
+        return $this->isExcluded;
     }
 }

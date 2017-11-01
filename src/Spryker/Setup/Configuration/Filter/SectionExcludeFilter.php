@@ -7,7 +7,7 @@
 
 namespace Spryker\Setup\Configuration\Filter;
 
-class SectionFilter implements FilterInterface
+class SectionExcludeFilter implements FilterInterface
 {
     /**
      * @var array

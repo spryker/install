@@ -8,10 +8,17 @@
 namespace Spryker\Setup;
 
 use Spryker\Setup\Configuration\Builder\ConfigurationBuilder;
+use Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilder;
+use Spryker\Setup\Configuration\Builder\Section\SectionBuilder;
 use Spryker\Setup\Configuration\Configuration;
 use Spryker\Setup\Configuration\Loader\ConfigurationLoader;
 use Spryker\Setup\Configuration\Validator\ConfigurationValidator;
 use Spryker\Setup\Executable\ExecutableFactory;
+use Spryker\Setup\Runner\Environment\EnvironmentHelper;
+use Spryker\Setup\Runner\Section\Command\CommandRunner;
+use Spryker\Setup\Runner\Section\SectionRunner;
+use Spryker\Setup\Runner\SetupRunner;
+use Spryker\Setup\Stage\Section\Command\Condition\ConditionFactory;
 
 class SetupFactory
 {
@@ -22,7 +29,9 @@ class SetupFactory
     {
         return new ConfigurationBuilder(
             $this->createConfigurationLoader(),
-            $this->createConfiguration()
+            $this->createConfiguration(),
+            $this->createSectionBuilder(),
+            $this->createCommandBuilder()
         );
     }
 
@@ -53,10 +62,77 @@ class SetupFactory
     }
 
     /**
+     * @return \Spryker\Setup\Configuration\Builder\Section\SectionBuilderInterface
+     */
+    protected function createSectionBuilder()
+    {
+        return new SectionBuilder();
+    }
+
+    /**
+     * @return \Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilderInterface
+     */
+    protected function createCommandBuilder()
+    {
+        return new CommandBuilder(
+            $this->createConditionFactory()
+        );
+    }
+
+    /**
+     * @return \Spryker\Setup\Runner\SetupRunnerInterface
+     */
+    public function createSetupRunner()
+    {
+        return new SetupRunner(
+            $this->createSectionRunner(),
+            $this->createConfigurationBuilder(),
+            $this->createEnvironmentHelper()
+        );
+    }
+
+    /**
+     * @return \Spryker\Setup\Runner\Section\SectionRunnerInterface
+     */
+    protected function createSectionRunner()
+    {
+        return new SectionRunner(
+            $this->createCommandRunner()
+        );
+    }
+
+    /**
+     * @return \Spryker\Setup\Runner\Section\Command\CommandRunnerInterface
+     */
+    protected function createCommandRunner()
+    {
+        return new CommandRunner(
+            $this->createExecutableFactory(),
+            $this->createEnvironmentHelper()
+        );
+    }
+
+    /**
+     * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionFactoryInterface
+     */
+    public function createConditionFactory()
+    {
+        return new ConditionFactory();
+    }
+
+    /**
      * @return \Spryker\Setup\Executable\ExecutableFactory
      */
     public function createExecutableFactory()
     {
         return new ExecutableFactory();
+    }
+
+    /**
+     * @return \Spryker\Setup\Runner\Environment\EnvironmentHelperInterface
+     */
+    public function createEnvironmentHelper()
+    {
+        return new EnvironmentHelper();
     }
 }

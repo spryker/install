@@ -35,7 +35,7 @@ class SetupConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'condition',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition',
         ];
         $tester->execute($arguments);
 
@@ -53,7 +53,7 @@ class SetupConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'condition',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition',
         ];
         $tester->execute($arguments);
 
@@ -71,7 +71,7 @@ class SetupConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'condition',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition',
         ];
         $tester->execute($arguments);
 
@@ -89,7 +89,7 @@ class SetupConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'condition-not-found',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition-not-found',
         ];
 
         $this->expectException(ConditionNotFoundException::class);

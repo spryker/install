@@ -7,11 +7,11 @@
 
 namespace Spryker\Setup\Stage\Section;
 
-use Spryker\Setup\Configuration\Stage\Section\SectionConfigurationInterface;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Spryker\Setup\Stage\Section\Command\Exception\CommandExistsException;
+use Spryker\Setup\Stage\Section\Command\Exception\CommandNotFoundException;
 
-class Section implements SectionConfigurationInterface, SectionInterface
+class Section implements SectionInterface
 {
     /**
      * @var string
@@ -27,6 +27,16 @@ class Section implements SectionConfigurationInterface, SectionInterface
      * @var bool
      */
     protected $isExcluded = false;
+
+    /**
+     * @var string
+     */
+    protected $preCommand;
+
+    /**
+     * @var string
+     */
+    protected $postCommand;
 
     /**
      * @param string $name
@@ -88,10 +98,72 @@ class Section implements SectionConfigurationInterface, SectionInterface
     /**
      * @param string $commandName
      *
+     * @throws \Spryker\Setup\Stage\Section\Command\Exception\CommandNotFoundException
+     *
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
     public function getCommand($commandName)
     {
+        if (!isset($this->commands[$commandName])) {
+            throw new CommandNotFoundException(sprintf('Command "%s" not found in "%s" section', $commandName, $this->getName()));
+        }
+
         return $this->commands[$commandName];
+    }
+
+    /**
+     * @param string $preCommand
+     *
+     * @return $this
+     */
+    public function setPreCommand($preCommand)
+    {
+        $this->preCommand = $preCommand;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPreCommand()
+    {
+        return ($this->preCommand !== null);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreCommand()
+    {
+        return $this->preCommand;
+    }
+
+    /**
+     * @param string $postCommand
+     *
+     * @return $this
+     */
+    public function setPostCommand($postCommand)
+    {
+        $this->postCommand = $postCommand;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPostCommand()
+    {
+        return ($this->postCommand !== null);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostCommand()
+    {
+        return $this->postCommand;
     }
 }

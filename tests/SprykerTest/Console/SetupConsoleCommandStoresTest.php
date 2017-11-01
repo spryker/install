@@ -34,7 +34,7 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
         ];
         $tester->execute($arguments);
 
@@ -54,7 +54,7 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
             SetupConsoleCommand::ARGUMENT_STORE => 'DE',
         ];
         $tester->execute($arguments);
@@ -75,10 +75,10 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
             '--' . SetupConsoleCommand::OPTION_INTERACTIVE => true,
         ];
-        $tester->setInputs(['yes', 1]);
+        $tester->setInputs([1, 'yes']);
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
@@ -97,10 +97,10 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
             '--' . SetupConsoleCommand::OPTION_INTERACTIVE => true,
         ];
-        $tester->setInputs(['yes', 'DE']);
+        $tester->setInputs(['DE', 'yes']);
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
@@ -119,10 +119,10 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
             '--' . SetupConsoleCommand::OPTION_INTERACTIVE => true,
         ];
-        $tester->setInputs(['yes', '1,2']);
+        $tester->setInputs(['1,2', 'yes']);
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
@@ -141,10 +141,10 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
             '--' . SetupConsoleCommand::OPTION_INTERACTIVE => true,
         ];
-        $tester->setInputs(['yes', 'DE,AT']);
+        $tester->setInputs(['DE,AT', 'yes']);
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
@@ -163,10 +163,10 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
             '--' . SetupConsoleCommand::OPTION_INTERACTIVE => true,
         ];
-        $tester->setInputs(['yes', 0]);
+        $tester->setInputs([0, 'yes']);
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
@@ -185,10 +185,10 @@ class SetupConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'stores',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
             '--' . SetupConsoleCommand::OPTION_INTERACTIVE => true,
         ];
-        $tester->setInputs(['yes', 'all']);
+        $tester->setInputs(['all', 'yes']);
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();

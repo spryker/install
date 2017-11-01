@@ -9,7 +9,7 @@ namespace Spryker\Setup\Configuration\Filter;
 
 use Symfony\Component\Console\Style\StyleInterface;
 
-class InteractiveSectionFilter implements FilterInterface
+class InteractiveSectionExcludeFilter implements FilterInterface
 {
     /**
      * @var \Symfony\Component\Console\Style\StyleInterface

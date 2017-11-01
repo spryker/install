@@ -7,12 +7,21 @@
 
 namespace Spryker\Setup\Stage;
 
+use Spryker\Setup\Stage\Section\SectionInterface;
+
 interface StageInterface
 {
     /**
      * @return string
      */
     public function getName();
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\SectionInterface $section
+     *
+     * @return $this
+     */
+    public function addSection(SectionInterface $section);
 
     /**
      * @return \Spryker\Setup\Stage\Section\SectionInterface[]

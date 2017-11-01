@@ -7,12 +7,11 @@
 
 namespace Spryker\Setup\Stage;
 
-use Spryker\Setup\Configuration\Stage\StageConfigurationInterface;
 use Spryker\Setup\Stage\Section\Exception\SectionExistsException;
 use Spryker\Setup\Stage\Section\Exception\SectionNotFoundException;
 use Spryker\Setup\Stage\Section\SectionInterface;
 
-class Stage implements StageConfigurationInterface, StageInterface
+class Stage implements StageInterface
 {
     /**
      * @var string

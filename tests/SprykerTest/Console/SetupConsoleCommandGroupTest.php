@@ -34,7 +34,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
             '--' . SetupConsoleCommand::OPTION_GROUPS => ['group-a'],
         ];
 
@@ -55,14 +55,14 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
             '--' . SetupConsoleCommand::OPTION_EXCLUDE => ['group-a'],
         ];
 
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Command: section-b-command-a/', $output);
+        $this->assertNotRegexp('/Command: section-b-command-a/', $output, 'Command "section-b-command-a" was not expected to be executed but was');
     }
 
     /**
@@ -75,7 +75,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
         ];
 
         $tester->execute($arguments);
@@ -94,7 +94,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
             '--' . SetupConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['section-d-command-b'],
         ];
 
@@ -114,7 +114,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
             '--' . SetupConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['group-c'],
         ];
 

@@ -12,6 +12,11 @@ sections:
       command: "echo 'pre'"
       pre: "undefined-section/hidden-command-pre"
 
+    command-with-undefined-pre-command:
+      excluded: true
+      command: "echo 'pre'"
+      pre: "hidden-section/undefined-command"
+
     command-with-pre:
       command: "echo 'pre'"
       pre: "hidden-section/hidden-command-pre"

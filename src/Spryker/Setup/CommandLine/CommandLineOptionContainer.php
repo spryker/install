@@ -35,19 +35,33 @@ class CommandLineOptionContainer
     protected $isInteractive;
 
     /**
+     * @var bool
+     */
+    protected $isDryRun;
+
+    /**
+     * @var bool
+     */
+    protected $isDebugMode;
+
+    /**
      * @param array $requestedSections
      * @param array $requestedGroups
      * @param array $exclude
      * @param array $includeExcluded
      * @param bool $isInteractive
+     * @param bool $isDryRun
+     * @param bool $isDebugMode
      */
-    public function __construct(array $requestedSections, array $requestedGroups, array $exclude, array $includeExcluded, $isInteractive)
+    public function __construct(array $requestedSections, array $requestedGroups, array $exclude, array $includeExcluded, $isInteractive, $isDryRun, $isDebugMode)
     {
         $this->requestedSections = $requestedSections;
         $this->requestedGroups = $requestedGroups;
         $this->exclude = $exclude;
         $this->includeExcluded = $includeExcluded;
         $this->isInteractive = $isInteractive;
+        $this->isDryRun = $isDryRun;
+        $this->isDebugMode = $isDebugMode;
     }
 
     /**
@@ -88,5 +102,21 @@ class CommandLineOptionContainer
     public function isInteractive()
     {
         return $this->isInteractive;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDryRun()
+    {
+        return $this->isDryRun;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebugMode()
+    {
+        return $this->isDebugMode;
     }
 }

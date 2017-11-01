@@ -7,7 +7,7 @@
 
 namespace Spryker\Setup\Configuration\Filter;
 
-class CommandFilter implements FilterInterface
+class CommandExcludeFilter implements FilterInterface
 {
     const GROUPS = 'groups';
 
@@ -25,11 +25,6 @@ class CommandFilter implements FilterInterface
      * @var array
      */
     protected $excludedCommandsAndGroups;
-
-    /**
-     * @var bool
-     */
-    protected $isSectionExcluded = false;
 
     /**
      * @param array $includeExcluded
@@ -53,25 +48,20 @@ class CommandFilter implements FilterInterface
         $filtered = [];
         foreach ($items as $commandName => $commandDefinition) {
             if ($commandName === static::EXCLUDED) {
-                $this->setIsSectionExcluded($commandDefinition);
                 continue;
             }
+
+            $isExcluded = true;
+
             if ($this->shouldCommandBeAdded($commandName, $commandDefinition)) {
-                $filtered[$commandName] = $commandDefinition;
+                $isExcluded = false;
             }
+
+            $commandDefinition[static::EXCLUDED] = $isExcluded;
+            $filtered[$commandName] = $commandDefinition;
         }
 
         return $filtered;
-    }
-
-    /**
-     * @param bool $isExcluded
-     *
-     * @return void
-     */
-    protected function setIsSectionExcluded($isExcluded)
-    {
-        $this->isSectionExcluded = $isExcluded;
     }
 
     /**

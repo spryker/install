@@ -38,7 +38,7 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'catface',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'catface',
         ];
         $tester->execute($arguments);
     }
@@ -55,7 +55,7 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'no-sections',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'no-sections',
         ];
         $tester->execute($arguments);
     }
@@ -70,7 +70,7 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
         ];
         $tester->execute($arguments);
 
@@ -87,7 +87,7 @@ class SetupConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'development',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
             '--' . SetupConsoleCommand::OPTION_DRY_RUN => true,
         ];
 

@@ -9,12 +9,7 @@ namespace Spryker\Console;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
-use Spryker\Setup\Exception\SetupException;
-use Spryker\Setup\Executable\ExecutableInterface;
 use Spryker\Setup\SetupFacade;
-use Spryker\Setup\Stage\Section\Command\CommandInterface;
-use Spryker\Setup\Stage\Section\SectionInterface;
-use Spryker\Setup\Stage\StageInterface;
 use Spryker\Style\SprykerStyle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SetupConsoleCommand extends Command
 {
-    const ARGUMENT_STAGE = 'stage';
+    const ARGUMENT_ENVIRONMENT = 'environment';
     const ARGUMENT_STORE = 'store';
 
     const OPTION_DRY_RUN = 'dry-run';
@@ -45,8 +40,8 @@ class SetupConsoleCommand extends Command
     const OPTION_INTERACTIVE = 'interactive';
     const OPTION_INTERACTIVE_SHORT = 'i';
 
-    const OPTION_RESUME = 'resume';
-    const OPTION_RESUME_SHORT = 'r';
+    const OPTION_BREAKPOINT = 'breakpoint';
+    const OPTION_BREAKPOINT_SHORT = 'b';
 
     /**
      * @var \Symfony\Component\Console\Input\InputInterface
@@ -74,26 +69,21 @@ class SetupConsoleCommand extends Command
     protected $commandExitCodes = [];
 
     /**
-     * @var array|null
-     */
-    protected $interactiveSelectedStores;
-
-    /**
      * @return void
      */
     protected function configure()
     {
         $this->setName('setup')
-            ->setDescription('Run setup for a specified stage.')
-            ->addArgument(static::ARGUMENT_STAGE, InputArgument::OPTIONAL, 'Name of the stage for which the setup should be executed.', 'development')
-            ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store for which the setup should be executed.')
-            ->addOption(static::OPTION_DRY_RUN, static::OPTION_DRY_RUN_SHORT, InputOption::VALUE_NONE, 'Only output what would be executed.')
-            ->addOption(static::OPTION_SECTIONS, static::OPTION_SECTIONS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of stages to be executed.')
-            ->addOption(static::OPTION_GROUPS, static::OPTION_GROUPS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of groups to be executed. If command has no group(s) it will not be executed when this option is set.')
-            ->addOption(static::OPTION_EXCLUDE, static::OPTION_EXCLUDE_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of stages or groups to be excluded from execution.')
-            ->addOption(static::OPTION_INCLUDE_EXCLUDED, static::OPTION_INCLUDE_EXCLUDED_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Add commands/stages which are marked as excluded in the configuration.')
-            ->addOption(static::OPTION_INTERACTIVE, static::OPTION_INTERACTIVE_SHORT, InputOption::VALUE_NONE, 'Will ask prior to each step if it should be executed or not.')
-            ->addOption(static::OPTION_RESUME, static::OPTION_RESUME_SHORT, InputOption::VALUE_NONE, 'Will ask after to each command if script should resume.');
+            ->setDescription('Run setup for a specified environment.')
+            ->addArgument(static::ARGUMENT_ENVIRONMENT, InputArgument::OPTIONAL, 'Name of the environment for which the setup should be run.', 'development')
+            ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store for which the setup should be run.')
+            ->addOption(static::OPTION_DRY_RUN, static::OPTION_DRY_RUN_SHORT, InputOption::VALUE_NONE, 'Dry runs the setup, no command will be executed.')
+            ->addOption(static::OPTION_SECTIONS, static::OPTION_SECTIONS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of sections(s) to be executed. A section is a set of commands related to one topic.')
+            ->addOption(static::OPTION_GROUPS, static::OPTION_GROUPS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of group(s) to be executed. If command has no group(s) it will not be executed when this option is set. A group is a set of commands grouped together regardless their topic.')
+            ->addOption(static::OPTION_EXCLUDE, static::OPTION_EXCLUDE_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of section(s) or group(s) to be excluded from execution.')
+            ->addOption(static::OPTION_INCLUDE_EXCLUDED, static::OPTION_INCLUDE_EXCLUDED_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Include command(s)/section(s) which are marked as excluded in the configuration.')
+            ->addOption(static::OPTION_INTERACTIVE, static::OPTION_INTERACTIVE_SHORT, InputOption::VALUE_NONE, 'If set console will ask for each section interactively if the section should be executed.')
+            ->addOption(static::OPTION_BREAKPOINT, static::OPTION_BREAKPOINT_SHORT, InputOption::VALUE_NONE, 'If set the console application is in debug mode and will stop after each command.');
     }
 
     /**
@@ -106,14 +96,12 @@ class SetupConsoleCommand extends Command
     {
         $this->input = $input;
         $this->output = $this->createOutput($input, $output);
-        $this->askForStoresToBeExecuted();
 
-        $configuration = $this->getConfiguration();
-
-        $this->putEnv('FORCE_COLOR_MODE', true);
-        $this->putEnvs($configuration->getEnv());
-
-        $this->executeStage($configuration->getStage());
+        $this->getFacade()->runSetup(
+            $this->getCommandLineArgumentContainer(),
+            $this->getCommandLineOptionContainer(),
+            $this->createOutput($input, $output)
+        );
     }
 
     /**
@@ -128,153 +116,30 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @param \Spryker\Setup\Stage\StageInterface $stage
-     *
-     * @return void
+     * @return \Spryker\Setup\CommandLine\CommandLineArgumentContainer
      */
-    protected function executeStage(StageInterface $stage)
+    protected function getCommandLineArgumentContainer()
     {
-        $this->output->title(sprintf('Start setup: <fg=green>%s</>', $stage->getName()));
-
-        foreach ($stage->getSections() as $section) {
-            if ($section->isExcluded()) {
-                continue;
-            }
-
-            $this->executeSection($section);
-        }
+        return new CommandLineArgumentContainer(
+            $this->input->getArgument(static::ARGUMENT_ENVIRONMENT),
+            $this->input->getArgument(static::ARGUMENT_STORE)
+        );
     }
 
     /**
-     * @param \Spryker\Setup\Stage\Section\SectionInterface $section
-     *
-     * @return void
+     * @return \Spryker\Setup\CommandLine\CommandLineOptionContainer
      */
-    protected function executeSection(SectionInterface $section)
+    protected function getCommandLineOptionContainer()
     {
-        $this->output->section($section->getName());
-        $commands = $section->getCommands();
-        foreach ($section->getCommands() as $command) {
-            if (!$this->shouldBeExecuted($command)) {
-                continue;
-            }
-
-            if ($command->hasPreCommand()) {
-                $this->executeCommand($this->configuration->findCommand($command->getPreCommand()));
-            }
-
-            $this->executeCommand($command);
-
-            if ($command->hasPostCommand()) {
-                $this->executeCommand($this->configuration->findCommand($command->getPostCommand()));
-            }
-        }
-    }
-
-    /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
-     *
-     * @throws \Spryker\Setup\Exception\SetupException
-     *
-     * @return void
-     */
-    protected function executeCommand(CommandInterface $command)
-    {
-        $this->putEnvs($command->getEnv());
-        $this->runCommand($command);
-        $this->unsetEnvs($command->getEnv());
-        $this->putEnvs($this->getConfiguration()->getEnv());
-
-        if ($this->input->getOption(static::OPTION_RESUME) && !$this->output->confirm('Should setup resume?')) {
-            throw new SetupException('Setup aborted...');
-        }
-    }
-
-    /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
-     *
-     * @return bool
-     */
-    protected function shouldBeExecuted(CommandInterface $command)
-    {
-        if ($this->isDryRun()) {
-            $this->output->note('Dry-run: ' . $command->getName());
-
-            return false;
-        }
-
-        if ($this->isConditionalCommand($command) && !$this->conditionMatched($command)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isDryRun()
-    {
-        if ($this->isDryRun === null) {
-            $this->isDryRun = $this->input->getOption(static::OPTION_DRY_RUN);
-        }
-
-        return $this->isDryRun;
-    }
-
-    /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
-     *
-     * @return bool
-     */
-    protected function isConditionalCommand(CommandInterface $command)
-    {
-        return count($command->getConditions()) > 0;
-    }
-
-    /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
-     *
-     * @return bool
-     */
-    protected function conditionMatched(CommandInterface $command)
-    {
-        $matchedConditions = true;
-        foreach ($command->getConditions() as $condition) {
-            if (!$condition->match($this->commandExitCodes)) {
-                $matchedConditions = false;
-            }
-        }
-        return $matchedConditions;
-    }
-
-    /**
-     * @return \Spryker\Setup\Configuration\ConfigurationInterface
-     */
-    protected function getConfiguration()
-    {
-        if (!$this->configuration) {
-            $commandLineArgumentContainer = new CommandLineArgumentContainer($this->getStageName());
-            $commandLineOptionContainer = new CommandLineOptionContainer(
-                $this->getSectionsToBeExecuted(),
-                $this->getGroupsToBeExecuted(),
-                $this->getExcludedStagesAndExcludedGroups(),
-                $this->getIncludeExcluded(),
-                $this->getIsInteractive()
-            );
-
-            $this->configuration = $this->getFacade()->buildConfiguration($commandLineArgumentContainer, $commandLineOptionContainer, $this->output);
-        }
-
-        return $this->configuration;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getStageName()
-    {
-        return $this->input->getArgument(static::ARGUMENT_STAGE);
+        return new CommandLineOptionContainer(
+            $this->getSectionsToBeExecuted(),
+            $this->getGroupsToBeExecuted(),
+            $this->getExcludedStagesAndExcludedGroups(),
+            $this->getIncludeExcluded(),
+            $this->input->getOption(static::OPTION_INTERACTIVE),
+            $this->input->getOption(static::OPTION_DRY_RUN),
+            $this->input->getOption(static::OPTION_BREAKPOINT)
+        );
     }
 
     /**
@@ -310,14 +175,6 @@ class SetupConsoleCommand extends Command
     }
 
     /**
-     * @return bool
-     */
-    protected function getIsInteractive()
-    {
-        return $this->input->getOption(static::OPTION_INTERACTIVE);
-    }
-
-    /**
      * @param string $optionKey
      * @param string $commentPattern
      *
@@ -332,139 +189,6 @@ class SetupConsoleCommand extends Command
         }
 
         return $option;
-    }
-
-    /**
-     * @param array $env
-     *
-     * @return void
-     */
-    protected function putEnvs(array $env)
-    {
-        foreach ($env as $key => $value) {
-            $this->putEnv($key, $value);
-        }
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     *
-     * @return void
-     */
-    protected function putEnv($key, $value)
-    {
-        putenv(sprintf('%s=%s', $key, $value));
-    }
-
-    /**
-     * @param array $env
-     *
-     * @return void
-     */
-    protected function unsetEnvs(array $env)
-    {
-        foreach (array_keys($env) as $key) {
-            $this->unsetEnv($key);
-        }
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return void
-     */
-    protected function unsetEnv($key)
-    {
-        putenv($key);
-    }
-
-    /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
-     *
-     * @return void
-     */
-    protected function runCommand(CommandInterface $command)
-    {
-        $executable = $this->getFacade()->getExecutable($command);
-
-        if (!$command->isStoreAware()) {
-            $this->executeExecutable($executable, $command);
-
-            return;
-        }
-
-        foreach ($this->getRequestedStores() as $store) {
-            $this->putEnv('APPLICATION_STORE', $store);
-            $this->executeExecutable($executable, $command, $store);
-            $this->unsetEnv('APPLICATION_STORE');
-        }
-    }
-
-    /**
-     * @return void
-     */
-    protected function askForStoresToBeExecuted()
-    {
-        if (!$this->getIsInteractive() || !$this->getConfiguration()->getStores()) {
-            return;
-        }
-
-        $configuredStores = $this->getConfiguration()->getStores();
-        array_unshift($configuredStores, 'all');
-
-        $storesToBeExecuted = (array)$this->output->choice('Select stores to run setup for (defaults to all)', $configuredStores, 'all');
-        if ($storesToBeExecuted[0] === 'all') {
-            $this->interactiveSelectedStores = $configuredStores;
-
-            return;
-        }
-
-        $this->interactiveSelectedStores = $storesToBeExecuted;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getRequestedStores()
-    {
-        if ($this->interactiveSelectedStores) {
-            return $this->interactiveSelectedStores;
-        }
-
-        $requestedStores = [];
-        $requestedStore = $this->input->getArgument(static::ARGUMENT_STORE);
-
-        foreach ($this->configuration->getStores() as $store) {
-            if ($requestedStore && $store !== $requestedStore) {
-                continue;
-            }
-            $requestedStores[] = $store;
-        }
-
-        return $requestedStores;
-    }
-
-    /**
-     * @param \Spryker\Setup\Executable\ExecutableInterface $executable
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
-     * @param null|string $store
-     *
-     * @return void
-     */
-    protected function executeExecutable(ExecutableInterface $executable, CommandInterface $command, $store = null)
-    {
-        $commandInfo = sprintf('Command: <info>%s</info>', $command->getName());
-        $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
-        $executedInfo = sprintf(' <fg=yellow>[%s]</>', $command->getExecutable());
-
-        $this->output->text($commandInfo . $storeInfo . $executedInfo);
-        $this->output->newLine();
-
-        $exitCode = $executable->execute($this->output);
-        $this->commandExitCodes[$command->getName()] = $exitCode;
-        $this->output->note(sprintf('Done, exit code <fg=green>%s</>', $exitCode));
-        $this->output->newLine();
     }
 
     /**

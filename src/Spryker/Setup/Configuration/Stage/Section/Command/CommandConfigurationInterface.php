@@ -26,6 +26,13 @@ interface CommandConfigurationInterface
     public function setEnv(array $env);
 
     /**
+     * @param array $groups
+     *
+     * @return $this
+     */
+    public function setGroups(array $groups);
+
+    /**
      * @param bool $isStoreAware
      *
      * @return $this
@@ -52,4 +59,9 @@ interface CommandConfigurationInterface
      * @return $this
      */
     public function setPostCommand($postCommand);
+
+    /**
+     * @return $this
+     */
+    public function markAsExcluded();
 }

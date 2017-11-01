@@ -9,7 +9,7 @@ namespace Spryker\Setup\Stage\Section\Command\Condition;
 
 use Spryker\Setup\Stage\Section\Command\Condition\Exception\ConditionNotFoundException;
 
-class ConditionFactory
+class ConditionFactory implements ConditionFactoryInterface
 {
     /**
      * @var array

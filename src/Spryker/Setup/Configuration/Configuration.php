@@ -8,9 +8,15 @@
 namespace Spryker\Setup\Configuration;
 
 use Spryker\Setup\Stage\StageInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * @var \Symfony\Component\Console\Style\StyleInterface
+     */
+    protected $output;
+
     /**
      * @var \Spryker\Setup\Stage\StageInterface
      */
@@ -25,6 +31,41 @@ class Configuration implements ConfigurationInterface
      * @var array
      */
     protected $stores = [];
+
+    /**
+     * @var array
+     */
+    protected $executableStores = [];
+
+    /**
+     * @var bool
+     */
+    protected $isDryRun;
+
+    /**
+     * @var bool
+     */
+    protected $isDebugMode;
+
+    /**
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     *
+     * @return $this
+     */
+    public function setOutput(StyleInterface $output)
+    {
+        $this->output = $output;
+
+        return $this;
+    }
+
+    /**
+     * @return \Symfony\Component\Console\Style\StyleInterface
+     */
+    public function getOutput()
+    {
+        return $this->output;
+    }
 
     /**
      * @param \Spryker\Setup\Stage\StageInterface $stage
@@ -44,6 +85,46 @@ class Configuration implements ConfigurationInterface
     public function getStage()
     {
         return $this->stage;
+    }
+
+    /**
+     * @param bool $isDebugMode
+     *
+     * @return $this
+     */
+    public function setIsDebugMode($isDebugMode)
+    {
+        $this->isDebugMode = $isDebugMode;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebugMode()
+    {
+        return $this->isDebugMode;
+    }
+
+    /**
+     * @param bool $isDryRun
+     *
+     * @return $this
+     */
+    public function setIsDryRun($isDryRun)
+    {
+        $this->isDryRun = $isDryRun;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDryRun()
+    {
+        return $this->isDryRun;
     }
 
     /**
@@ -84,6 +165,26 @@ class Configuration implements ConfigurationInterface
     public function getStores()
     {
         return $this->stores;
+    }
+
+    /**
+     * @param array $executableStores
+     *
+     * @return $this
+     */
+    public function setExecutableStores(array $executableStores)
+    {
+        $this->executableStores = $executableStores;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExecutableStores()
+    {
+        return $this->executableStores;
     }
 
     /**

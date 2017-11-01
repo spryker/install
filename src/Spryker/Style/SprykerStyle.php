@@ -122,25 +122,8 @@ class SprykerStyle extends SymfonyStyle
      */
     public function note($message)
     {
-        $this->block($message, 'NOTE', 'fg=yellow', ' ! ', false, false);
-    }
-
-    /**
-     * @param array|string $messages
-     * @param null|string $type
-     * @param null|string $style
-     * @param string $prefix
-     * @param bool $padding
-     * @param bool $escape
-     *
-     * @return void
-     */
-    public function block($messages, $type = null, $style = null, $prefix = ' ', $padding = false, $escape = true)
-    {
-        $messages = is_array($messages) ? array_values($messages) : [$messages];
-
         $this->newLine();
-        $this->writeln($this->createBlock($messages, $type, $style, $prefix, $padding, $escape));
+        $this->writeln(sprintf(' <fg=green>//</> <fg=yellow>%s</>', $message));
         $this->newLine();
     }
 
@@ -153,55 +136,5 @@ class SprykerStyle extends SymfonyStyle
         if ("\n" !== substr($fetched, -1)) {
             $this->newLine();
         }
-    }
-
-    /**
-     * @param array $messages
-     * @param null|string $type
-     * @param null|string $style
-     * @param string $prefix
-     * @param bool $padding
-     * @param bool $escape
-     *
-     * @return array
-     */
-    private function createBlock(array $messages, $type = null, $style = null, $prefix = ' ', $padding = false, $escape = false)
-    {
-        $indentLength = 0;
-        $prefixLength = Helper::strlenWithoutDecoration($this->getFormatter(), $prefix);
-        $lines = [];
-
-        $lineIndentation = null;
-
-        if (null !== $type) {
-            $type = sprintf('[%s] ', $type);
-            $indentLength = strlen($type);
-            $lineIndentation = str_repeat(' ', $indentLength);
-        }
-
-        foreach ($messages as $key => $message) {
-            $lines = array_merge($lines, explode(PHP_EOL, wordwrap($message, $this->lineLength - $prefixLength - $indentLength, PHP_EOL, true)));
-
-            if (count($messages) > 1 && $key < count($messages) - 1) {
-                $lines[] = '';
-            }
-        }
-
-        $firstLineIndex = 0;
-
-        foreach ($lines as $i => &$line) {
-            if (null !== $type) {
-                $line = $firstLineIndex === $i ? $type . $line : $lineIndentation . $line;
-            }
-
-            $line = $prefix . $line;
-            $line .= str_repeat(' ', $this->lineLength - Helper::strlenWithoutDecoration($this->getFormatter(), $line));
-
-            if ($style) {
-                $line = sprintf('<%s>%s</>', $style, $line);
-            }
-        }
-
-        return $lines;
     }
 }

@@ -9,16 +9,17 @@ namespace SprykerTest\Console;
 
 use Codeception\Test\Unit;
 use Spryker\Console\SetupConsoleCommand;
+use Spryker\Setup\Stage\Section\Command\Exception\CommandNotFoundException;
 use Spryker\Setup\Stage\Section\Exception\SectionNotFoundException;
 
 /**
  * Auto-generated group annotations
  * @group SprykerTest
  * @group Console
- * @group SetupConsoleCommandPrePostTest
+ * @group SetupConsoleCommandPrePostCommandTest
  * Add your own group annotations below this line
  */
-class SetupConsoleCommandPrePostTest extends Unit
+class SetupConsoleCommandPrePostCommandTest extends Unit
 {
     /**
      * @var \SprykerTest\ConsoleTester
@@ -35,11 +36,30 @@ class SetupConsoleCommandPrePostTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'pre-post',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
             '--' . SetupConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['command-with-undefined-pre-section'],
         ];
 
         $this->expectException(SectionNotFoundException::class);
+
+        $tester->execute($arguments);
+    }
+
+    /**
+     * @return void
+     */
+    public function testThrowsExceptionIfCommandByNameNotFound()
+    {
+        $command = new SetupConsoleCommand();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
+            '--' . SetupConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['command-with-undefined-pre-command'],
+        ];
+
+        $this->expectException(CommandNotFoundException::class);
 
         $tester->execute($arguments);
     }
@@ -54,7 +74,7 @@ class SetupConsoleCommandPrePostTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'pre-post',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
         ];
 
         $tester->execute($arguments);
@@ -73,7 +93,7 @@ class SetupConsoleCommandPrePostTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_STAGE => 'pre-post',
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
         ];
 
         $tester->execute($arguments);
