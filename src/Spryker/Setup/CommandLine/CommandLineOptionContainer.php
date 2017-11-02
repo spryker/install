@@ -45,6 +45,11 @@ class CommandLineOptionContainer
     protected $isDebugMode;
 
     /**
+     * @var bool
+     */
+    protected $askBeforeContinueOnException;
+
+    /**
      * @param array $requestedSections
      * @param array $requestedGroups
      * @param array $exclude
@@ -52,9 +57,18 @@ class CommandLineOptionContainer
      * @param bool $isInteractive
      * @param bool $isDryRun
      * @param bool $isDebugMode
+     * @param bool $askBeforeContinueOnException
      */
-    public function __construct(array $requestedSections, array $requestedGroups, array $exclude, array $includeExcluded, $isInteractive, $isDryRun, $isDebugMode)
-    {
+    public function __construct(
+        array $requestedSections,
+        array $requestedGroups,
+        array $exclude,
+        array $includeExcluded,
+        $isInteractive,
+        $isDryRun,
+        $isDebugMode,
+        $askBeforeContinueOnException
+    ) {
         $this->requestedSections = $requestedSections;
         $this->requestedGroups = $requestedGroups;
         $this->exclude = $exclude;
@@ -62,6 +76,7 @@ class CommandLineOptionContainer
         $this->isInteractive = $isInteractive;
         $this->isDryRun = $isDryRun;
         $this->isDebugMode = $isDebugMode;
+        $this->askBeforeContinueOnException = $askBeforeContinueOnException;
     }
 
     /**
@@ -118,5 +133,13 @@ class CommandLineOptionContainer
     public function isDebugMode()
     {
         return $this->isDebugMode;
+    }
+
+    /**
+     * @return bool
+     */
+    public function askBeforeContinueOnException()
+    {
+        return $this->askBeforeContinueOnException;
     }
 }

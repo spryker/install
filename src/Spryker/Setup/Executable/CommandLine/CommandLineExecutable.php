@@ -7,6 +7,8 @@
 
 namespace Spryker\Setup\Executable\CommandLine;
 
+use Spryker\Setup\Configuration\ConfigurationInterface;
+use Spryker\Setup\Exception\SetupException;
 use Spryker\Setup\Executable\ExecutableInterface;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Symfony\Component\Console\Style\StyleInterface;
@@ -20,11 +22,18 @@ class CommandLineExecutable implements ExecutableInterface
     protected $command;
 
     /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @var \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function __construct(CommandInterface $command)
+    protected $configuration;
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Setup\Configuration\ConfigurationInterface $configuration
+     */
+    public function __construct(CommandInterface $command, ConfigurationInterface $configuration)
     {
         $this->command = $command;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -43,6 +52,27 @@ class CommandLineExecutable implements ExecutableInterface
             }
         }
 
+        if (!$process->isSuccessful()) {
+            $this->shouldContinueAfterException();
+        }
+
         return ($process->getExitCode() === null) ? static::CODE_SUCCESS : $process->getExitCode();
+    }
+
+    /**
+     * @throws \Spryker\Setup\Exception\SetupException
+     *
+     * @return void
+     */
+    protected function shouldContinueAfterException()
+    {
+        if (!$this->configuration->shouldAskBeforeContinueAfterException()) {
+            return;
+        }
+
+        $question = sprintf('Command <fg=green>%s</> failed! Continue with setup?', $this->command->getName());
+        if (!$this->configuration->getOutput()->confirm($question)) {
+            throw new SetupException('Aborted setup...');
+        }
     }
 }

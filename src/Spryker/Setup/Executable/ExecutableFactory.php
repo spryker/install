@@ -7,6 +7,7 @@
 
 namespace Spryker\Setup\Executable;
 
+use Spryker\Setup\Configuration\ConfigurationInterface;
 use Spryker\Setup\Executable\Collection\ExecutableCollection;
 use Spryker\Setup\Executable\CommandLine\CommandLineExecutable;
 use Spryker\Setup\Executable\Composer\ComposerInstallExecutable;
@@ -16,17 +17,18 @@ class ExecutableFactory
 {
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Setup\Configuration\ConfigurationInterface $configuration
      *
      * @return \Spryker\Setup\Executable\ExecutableInterface
      */
-    public function createExecutableFromCommand(CommandInterface $command)
+    public function createExecutableFromCommand(CommandInterface $command, ConfigurationInterface $configuration)
     {
         $executableCollection = $this->createExecutableCollection();
         if ($executableCollection->hasExecutable($command->getExecutable())) {
             return $executableCollection->getExecutable($command->getExecutable());
         }
 
-        return $this->createCommandLineExecutable($command);
+        return $this->createCommandLineExecutable($command, $configuration);
     }
 
     /**
@@ -52,11 +54,12 @@ class ExecutableFactory
 
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Setup\Configuration\ConfigurationInterface $configuration
      *
      * @return \Spryker\Setup\Executable\CommandLine\CommandLineExecutable
      */
-    protected function createCommandLineExecutable(CommandInterface $command)
+    protected function createCommandLineExecutable(CommandInterface $command, ConfigurationInterface $configuration)
     {
-        return new CommandLineExecutable($command);
+        return new CommandLineExecutable($command, $configuration);
     }
 }

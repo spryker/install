@@ -90,7 +90,7 @@ class CommandRunner implements CommandRunnerInterface
      */
     protected function runCommand(CommandInterface $command, ConfigurationInterface $configuration)
     {
-        $executable = $this->executableFactory->createExecutableFromCommand($command);
+        $executable = $this->executableFactory->createExecutableFromCommand($command, $configuration);
 
         if (!$command->isStoreAware()) {
             $this->executeExecutable($executable, $command, $configuration);

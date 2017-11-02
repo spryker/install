@@ -97,6 +97,18 @@ interface ConfigurationInterface
     public function getExecutableStores();
 
     /**
+     * @return bool
+     */
+    public function shouldAskBeforeContinueAfterException();
+
+    /**
+     * @param bool $shouldAskBeforeContinueAfterException
+     *
+     * @return $this
+     */
+    public function setAskBeforeContinueAfterException($shouldAskBeforeContinueAfterException);
+
+    /**
      * @param string $name
      *
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface

@@ -8,6 +8,7 @@
 namespace SprykerTest\Setup\Executable;
 
 use Codeception\Test\Unit;
+use Spryker\Setup\Configuration\Configuration;
 use Spryker\Setup\Executable\CommandLine\CommandLineExecutable;
 use Spryker\Setup\Executable\Composer\ComposerInstallExecutable;
 use Spryker\Setup\Executable\ExecutableFactory;
@@ -32,7 +33,7 @@ class ExecutableFactoryTest extends Unit
         $command->setExecutable('composer');
         $executableFactory = new ExecutableFactory();
 
-        $executable = $executableFactory->createExecutableFromCommand($command);
+        $executable = $executableFactory->createExecutableFromCommand($command, $this->getConfiguration());
 
         $this->assertInstanceOf(ComposerInstallExecutable::class, $executable);
     }
@@ -45,8 +46,16 @@ class ExecutableFactoryTest extends Unit
         $command = new Command('ls -la');
         $executableFactory = new ExecutableFactory();
 
-        $executable = $executableFactory->createExecutableFromCommand($command);
+        $executable = $executableFactory->createExecutableFromCommand($command, $this->getConfiguration());
 
         $this->assertInstanceOf(CommandLineExecutable::class, $executable);
+    }
+
+    /**
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
+     */
+    protected function getConfiguration()
+    {
+        return new Configuration();
     }
 }

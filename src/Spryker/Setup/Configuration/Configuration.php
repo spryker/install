@@ -48,6 +48,11 @@ class Configuration implements ConfigurationInterface
     protected $isDebugMode;
 
     /**
+     * @var bool
+     */
+    protected $continueOnException;
+
+    /**
      * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
      * @return $this
@@ -185,6 +190,26 @@ class Configuration implements ConfigurationInterface
     public function getExecutableStores()
     {
         return $this->executableStores;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldAskBeforeContinueAfterException()
+    {
+        return $this->continueOnException;
+    }
+
+    /**
+     * @param bool $shouldAskBeforeContinueAfterException
+     *
+     * @return $this
+     */
+    public function setAskBeforeContinueAfterException($shouldAskBeforeContinueAfterException)
+    {
+        $this->continueOnException = $shouldAskBeforeContinueAfterException;
+
+        return $this;
     }
 
     /**

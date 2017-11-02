@@ -103,6 +103,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         $this->configuration->setOutput($output);
         $this->configuration->setIsDryRun($commandLineOptionContainer->isDryRun());
         $this->configuration->setIsDebugMode($commandLineOptionContainer->isDebugMode());
+        $this->configuration->setAskBeforeContinueAfterException($commandLineOptionContainer->askBeforeContinueOnException());
 
         $configuration = $this->configurationLoader->loadConfiguration($commandLineArgumentContainer->getStage());
 

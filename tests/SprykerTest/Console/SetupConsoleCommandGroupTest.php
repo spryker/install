@@ -42,7 +42,7 @@ class SetupConsoleCommandGroupTest extends Unit
 
         $output = $tester->getDisplay();
         $this->assertRegexp('/Command: section-b-command-a/', $output);
-        $this->assertNotRegexp('/Execute command line command: (section-a-command-a|section-c-command-a|section-d-command-a|section-d-command-b)/', $output);
+        $this->assertNotRegexp('/Command: (section-a-command-a|section-c-command-a|section-d-command-a|section-d-command-b)/', $output);
     }
 
     /**
