@@ -37,11 +37,11 @@ class CommandLineExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $style
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
      *
      * @return int
      */
-    public function execute(StyleInterface $style)
+    public function execute(StyleInterface $output)
     {
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
         $process->run();
@@ -51,25 +51,29 @@ class CommandLineExecutable implements ExecutableInterface
         }
 
         if (!$process->isSuccessful()) {
-            $this->shouldContinueAfterException();
+            $this->shouldContinueAfterException($output);
         }
 
         return ($process->getExitCode() === null) ? static::CODE_SUCCESS : $process->getExitCode();
     }
 
     /**
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     *
      * @throws \Spryker\Setup\Exception\SetupException
      *
      * @return void
      */
-    protected function shouldContinueAfterException()
+    protected function shouldContinueAfterException(StyleInterface $output)
     {
         if (!$this->configuration->shouldAskBeforeContinueAfterException()) {
             return;
         }
 
-        $question = sprintf('Command <fg=green>%s</> failed! Continue with setup?', $this->command->getName());
-        if (!$this->configuration->getOutput()->confirm($question)) {
+        $output->newLine();
+
+        $question = sprintf('Command <fg=yellow>%s</> failed! Continue with setup?', $this->command->getName());
+        if (!$output->confirm($question)) {
             throw new SetupException('Aborted setup...');
         }
     }

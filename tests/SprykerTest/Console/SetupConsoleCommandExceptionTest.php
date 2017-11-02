@@ -36,7 +36,7 @@ class SetupConsoleCommandExceptionTest extends Unit
         $arguments = [
             'command' => $command->getName(),
             SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'exceptions',
-            '--' . SetupConsoleCommand::OPTION_EXCEPTION => true,
+            '--' . SetupConsoleCommand::OPTION_ASK_BEFORE_CONTINUE => true,
         ];
 
         $tester->setInputs(['yes']);
@@ -58,7 +58,7 @@ class SetupConsoleCommandExceptionTest extends Unit
         $arguments = [
             'command' => $command->getName(),
             SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'exceptions',
-            '--' . SetupConsoleCommand::OPTION_EXCEPTION => true,
+            '--' . SetupConsoleCommand::OPTION_ASK_BEFORE_CONTINUE => true,
         ];
 
         $tester->setInputs(['not']);

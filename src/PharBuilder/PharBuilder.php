@@ -29,6 +29,7 @@ class PharBuilder
         '/vendor/symfony/console',
         '/vendor/symfony/finder',
         '/vendor/symfony/yaml',
+        '/vendor/symfony/polyfill-mbstring',
         '/vendor/symfony/process',
     ];
 

@@ -43,8 +43,8 @@ class SetupConsoleCommand extends Command
     const OPTION_BREAKPOINT = 'breakpoint';
     const OPTION_BREAKPOINT_SHORT = 'b';
 
-    const OPTION_EXCEPTION = 'continue-on-exception';
-    const OPTION_EXCEPTION_SHORT = 'e';
+    const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
+    const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'e';
 
     /**
      * @var \Symfony\Component\Console\Input\InputInterface
@@ -87,7 +87,7 @@ class SetupConsoleCommand extends Command
             ->addOption(static::OPTION_INCLUDE_EXCLUDED, static::OPTION_INCLUDE_EXCLUDED_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Include command(s)/section(s) which are marked as excluded in the configuration.')
             ->addOption(static::OPTION_INTERACTIVE, static::OPTION_INTERACTIVE_SHORT, InputOption::VALUE_NONE, 'If set, console will ask for each section interactively if the section should be executed.')
             ->addOption(static::OPTION_BREAKPOINT, static::OPTION_BREAKPOINT_SHORT, InputOption::VALUE_NONE, 'If set, the console application is in debug mode. Execution stops after each command and waits to continue until confirmed.')
-            ->addOption(static::OPTION_EXCEPTION, static::OPTION_EXCEPTION_SHORT, InputOption::VALUE_NONE, 'By default the script will continue after an exception occurs in one command. If set, the console will ask before it continues.');
+            ->addOption(static::OPTION_ASK_BEFORE_CONTINUE, static::OPTION_ASK_BEFORE_CONTINUE_SHORT, InputOption::VALUE_NONE, 'By default the script will continue when a command failed. If set, the console will ask before it continues.');
     }
 
     /**
@@ -143,7 +143,7 @@ class SetupConsoleCommand extends Command
             $this->input->getOption(static::OPTION_INTERACTIVE),
             $this->input->getOption(static::OPTION_DRY_RUN),
             $this->input->getOption(static::OPTION_BREAKPOINT),
-            $this->input->getOption(static::OPTION_EXCEPTION)
+            $this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
         );
     }
 
