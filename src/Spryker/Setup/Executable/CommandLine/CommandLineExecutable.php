@@ -46,10 +46,8 @@ class CommandLineExecutable implements ExecutableInterface
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
         $process->run();
 
-        foreach ($process as $type => $buffer) {
-            if ($type === $process::OUT) {
-                echo $buffer;
-            }
+        foreach ($process as $buffer) {
+            echo $buffer;
         }
 
         if (!$process->isSuccessful()) {
