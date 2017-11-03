@@ -27,6 +27,7 @@ class PharBuilder
     protected $directoriesToInclude = [
         '/src/Spryker',
         '/vendor/symfony/console',
+        '/vendor/symfony/debug',
         '/vendor/symfony/finder',
         '/vendor/symfony/yaml',
         '/vendor/symfony/polyfill-mbstring',

@@ -27,6 +27,11 @@ class CommandLineExecutable implements ExecutableInterface
     protected $configuration;
 
     /**
+     * @var array
+     */
+    protected $internalBuffer = [];
+
+    /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      * @param \Spryker\Setup\Configuration\ConfigurationInterface $configuration
      */
@@ -44,7 +49,7 @@ class CommandLineExecutable implements ExecutableInterface
     public function execute(StyleInterface $output)
     {
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
-        $process->run();
+        $process->start();
 
         foreach ($process as $buffer) {
             echo $buffer;
