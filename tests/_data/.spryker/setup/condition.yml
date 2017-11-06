@@ -5,6 +5,7 @@ sections:
 
     section-a-command-b:
       command: "lskdf"
+      breakOnFailure: false
 
 
   section-b:

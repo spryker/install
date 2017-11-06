@@ -14,12 +14,14 @@ use Spryker\Setup\Stage\Section\Command\Condition\ConditionFactoryInterface;
 class CommandBuilder implements CommandBuilderInterface
 {
     const CONFIG_ENV = 'env';
+    const CONFIG_COMMAND = 'command';
     const CONFIG_STORES = 'stores';
     const CONFIG_EXCLUDED = 'excluded';
     const CONFIG_GROUPS = 'groups';
     const CONFIG_PRE_COMMAND = 'pre';
     const CONFIG_POST_COMMAND = 'post';
     const CONFIG_CONDITIONS = 'conditions';
+    const CONFIG_BREAK_ON_FAILURE = 'breakOnFailure';
 
     /**
      * @var \Spryker\Setup\Stage\Section\Command\CommandInterface
@@ -48,7 +50,7 @@ class CommandBuilder implements CommandBuilderInterface
     public function buildCommand($name, array $definition)
     {
         $command = new Command($name);
-        $command->setExecutable($definition['command']);
+        $command->setExecutable($definition[static::CONFIG_COMMAND]);
 
         $this->setExcluded($command, $definition);
         $this->setGroups($command, $definition);
@@ -57,6 +59,7 @@ class CommandBuilder implements CommandBuilderInterface
         $this->addCommandConditions($command, $definition);
         $this->setPreCommand($command, $definition);
         $this->setPostCommand($command, $definition);
+        $this->setBreakOnFailure($command, $definition);
 
         return $command;
     }
@@ -154,6 +157,19 @@ class CommandBuilder implements CommandBuilderInterface
     {
         if (isset($definition[static::CONFIG_POST_COMMAND])) {
             $command->setPostCommand($definition[static::CONFIG_POST_COMMAND]);
+        }
+    }
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param array $definition
+     *
+     * @return void
+     */
+    protected function setBreakOnFailure(CommandInterface $command, array $definition)
+    {
+        if (isset($definition[static::CONFIG_BREAK_ON_FAILURE])) {
+            $command->setBreakOnFailure($definition[static::CONFIG_BREAK_ON_FAILURE]);
         }
     }
 }

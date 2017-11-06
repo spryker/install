@@ -56,7 +56,7 @@ class CommandLineExecutable implements ExecutableInterface
         }
 
         if (!$process->isSuccessful()) {
-            $this->shouldContinueAfterException($output);
+            $this->abortSetupIfNotAllowedToContinue($output);
         }
 
         return ($process->getExitCode() === null) ? static::CODE_SUCCESS : $process->getExitCode();
@@ -69,17 +69,27 @@ class CommandLineExecutable implements ExecutableInterface
      *
      * @return void
      */
-    protected function shouldContinueAfterException(StyleInterface $output)
+    protected function abortSetupIfNotAllowedToContinue(StyleInterface $output)
+    {
+        if ($this->command->breakOnFailure() || !$this->askToContinue($output)) {
+            throw new SetupException('Aborted setup...');
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     *
+     * @return bool
+     */
+    protected function askToContinue(StyleInterface $output)
     {
         if (!$this->configuration->shouldAskBeforeContinueAfterException()) {
-            return;
+            return true;
         }
 
         $output->newLine();
-
         $question = sprintf('Command <fg=yellow>%s</> failed! Continue with setup?', $this->command->getName());
-        if (!$output->confirm($question)) {
-            throw new SetupException('Aborted setup...');
-        }
+
+        return $output->confirm($question);
     }
 }

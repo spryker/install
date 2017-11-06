@@ -14,10 +14,10 @@ use Spryker\Console\SetupConsoleCommand;
  * Auto-generated group annotations
  * @group SprykerTest
  * @group Console
- * @group SetupConsoleCommandCommandTest
+ * @group SetupConsoleCommandBreakOnFailureTest
  * Add your own group annotations below this line
  */
-class SetupConsoleCommandCommandTest extends Unit
+class SetupConsoleCommandBreakOnFailureTest extends Unit
 {
     /**
      * @var \SprykerTest\ConsoleTester
@@ -27,19 +27,19 @@ class SetupConsoleCommandCommandTest extends Unit
     /**
      * @return void
      */
-    public function testExcludedCommandByNameIsNotExecuted()
+    public function testFailedCommandDoesNotBreakSetup()
     {
         $command = new SetupConsoleCommand();
         $tester = $this->tester->getCommandTester($command);
 
         $arguments = [
             'command' => $command->getName(),
-            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
-            '--' . SetupConsoleCommand::OPTION_EXCLUDE => ['section-a-command-a'],
+            SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'break-on-failure',
         ];
+
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Command: section-a-command-a/', $output, 'Command "section-a-command-a" was not expected to be executed but was');
+        $this->assertRegexp('/Command: section-a-command-b/', $output, 'Command "section-a-command-b" was not expected to be executed but was');
     }
 }

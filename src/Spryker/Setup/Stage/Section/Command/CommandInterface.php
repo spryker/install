@@ -114,4 +114,16 @@ interface CommandInterface
      * @return bool
      */
     public function isExcluded();
+
+    /**
+     * @param bool $breakOnFailure
+     *
+     * @return bool
+     */
+    public function setBreakOnFailure($breakOnFailure);
+
+    /**
+     * @return bool
+     */
+    public function breakOnFailure();
 }

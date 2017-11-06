@@ -57,6 +57,11 @@ class Command implements CommandInterface
     protected $postCommand;
 
     /**
+     * @var bool
+     */
+    protected $breakOnFailure = true;
+
+    /**
      * @param string $name
      */
     public function __construct($name)
@@ -236,5 +241,23 @@ class Command implements CommandInterface
     public function isExcluded()
     {
         return $this->isExcluded;
+    }
+
+    /**
+     * @param bool $breakOnFailure
+     *
+     * @return void
+     */
+    public function setBreakOnFailure($breakOnFailure)
+    {
+        $this->breakOnFailure = $breakOnFailure;
+    }
+
+    /**
+     * @return bool
+     */
+    public function breakOnFailure()
+    {
+        return $this->breakOnFailure;
     }
 }
