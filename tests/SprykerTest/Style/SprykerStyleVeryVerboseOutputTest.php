@@ -19,8 +19,6 @@ use Spryker\Style\StyleInterface;
  */
 class SprykerStyleVeryVerboseOutputTest extends Unit
 {
-    const STORE = 'DE';
-
     /**
      * @var \SprykerTest\StyleTester
      */
@@ -36,11 +34,9 @@ class SprykerStyleVeryVerboseOutputTest extends Unit
         $sprykerStyle = $this->tester->getSprykerStyle(StyleInterface::VERBOSITY_VERY_VERBOSE);
         $sprykerStyle->endCommand($command, 0);
 
-        $text = sprintf('// Command %s finished in 2.12s, exit code 0', $command->getName());
-
         $block = [
             $this->tester->newLine(),
-            $text,
+            $this->tester->getCommandEndText(),
             $this->tester->newLine(),
             $this->tester->newLine(),
         ];
@@ -72,8 +68,7 @@ class SprykerStyleVeryVerboseOutputTest extends Unit
             'baz' . $this->tester->newLine(),
             $this->tester->newLine(),
             $this->tester->getCommandEndText(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->newLine(2),
             $this->tester->getCommandStartTextWithoutStore() . $this->tester->newLine(),
             $this->tester->repeat('-') . $this->tester->newLine(),
             $this->tester->newLine(),
@@ -82,14 +77,10 @@ class SprykerStyleVeryVerboseOutputTest extends Unit
             'baz' . $this->tester->newLine(),
             $this->tester->newLine(),
             $this->tester->getCommandEndText(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->newLine(3),
             $this->tester->getSectionEndText() . $this->tester->newLine(),
             $this->tester->repeat('=') . $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->newLine(3),
             $this->tester->getStageEndText() . $this->tester->newLine(),
         ];
 

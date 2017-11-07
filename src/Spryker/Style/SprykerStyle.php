@@ -10,6 +10,7 @@ namespace Spryker\Style;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Spryker\Setup\Stage\Section\SectionInterface;
 use Spryker\Setup\Stage\StageInterface;
+use Spryker\Setup\Timer\TimerInterface;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -50,10 +51,16 @@ class SprykerStyle implements StyleInterface
     protected $questionHelper;
 
     /**
+     * @var \Spryker\Setup\Timer\TimerInterface
+     */
+    protected $timer;
+
+    /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Spryker\Setup\Timer\TimerInterface $timer
      */
-    public function __construct(InputInterface $input, OutputInterface $output)
+    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer)
     {
         $this->bufferedOutput = new BufferedOutput($output->getVerbosity(), false, clone $output->getFormatter());
         $width = (new Terminal())->getWidth() ?: static::MAX_LINE_LENGTH;
@@ -61,6 +68,8 @@ class SprykerStyle implements StyleInterface
 
         $this->input = $input;
         $this->output = $output;
+
+        $this->timer = $timer;
     }
 
     /**
@@ -80,6 +89,7 @@ class SprykerStyle implements StyleInterface
      */
     public function startSetup(StageInterface $stage)
     {
+        $this->timer->start($stage);
         $message = sprintf('Setup for <fg=green>%s</> environment', $stage->getName());
         $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->getFormatter(), $message);
         $message = $message . str_pad(' ', $this->lineLength - $messageLengthWithoutDecoration);
@@ -100,7 +110,7 @@ class SprykerStyle implements StyleInterface
      */
     public function endSetup(StageInterface $stage)
     {
-        $message = sprintf('Setup <fg=green>%s</> finished in <fg=green>%ss</>', $stage->getName(), 23.34);
+        $message = sprintf('Setup <fg=green>%s</> finished in <fg=green>%ss</>', $stage->getName(), $this->timer->end($stage));
         $this->writeln($message);
     }
 
@@ -109,6 +119,7 @@ class SprykerStyle implements StyleInterface
      */
     public function startSection(SectionInterface $section)
     {
+        $this->timer->start($section);
         $message = sprintf('<bg=green;options=bold> Section %s</>', $section->getName());
         $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->getFormatter(), $message);
         $messageLength = $this->lineLength - $messageLengthWithoutDecoration;
@@ -132,7 +143,7 @@ class SprykerStyle implements StyleInterface
         $this->newLine();
 
         if ($this->output->isVerbose()) {
-            $message = sprintf('Section <fg=green>%s</> finished in <fg=green>%ss</>', $section->getName(), 23.34);
+            $message = sprintf('Section <fg=green>%s</> finished in <fg=green>%ss</>', $section->getName(), $this->timer->end($section));
             $this->writeln($message);
             $this->writeln(str_repeat('=', $this->lineLength));
             $this->newLine(3);
@@ -147,6 +158,7 @@ class SprykerStyle implements StyleInterface
      */
     public function startCommand(CommandInterface $command, $store = null)
     {
+        $this->timer->start($command);
         $commandInfo = sprintf('Command <fg=green>%s</>', $command->getName());
         $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
         $executedInfo = sprintf(' <fg=yellow>[%s]</>', $command->getExecutable());
@@ -173,7 +185,13 @@ class SprykerStyle implements StyleInterface
     public function endCommand(CommandInterface $command, $exitCode)
     {
         $exitCodeColor = ($exitCode !== 0) ? 'red' : 'green';
-        $message = sprintf('<fg=green>//</> Command <fg=green>%s</> finished in <fg=green>%ss</>, exit code <fg=%s>%s</>', $command->getName(), 2.12, $exitCodeColor, $exitCode);
+        $message = sprintf(
+            '<fg=green>//</> Command <fg=green>%s</> finished in <fg=green>%ss</>, exit code <fg=%s>%s</>',
+            $command->getName(),
+            $this->timer->end($command),
+            $exitCodeColor,
+            $exitCode
+        );
 
         if ($this->output->isVeryVerbose()) {
             $this->newLine();

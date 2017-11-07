@@ -19,8 +19,6 @@ use Spryker\Style\StyleInterface;
  */
 class SprykerStyleVerboseOutputTest extends Unit
 {
-    const STORE = 'DE';
-
     /**
      * @var \SprykerTest\StyleTester
      */
@@ -35,15 +33,11 @@ class SprykerStyleVerboseOutputTest extends Unit
         $sprykerStyle = $this->tester->getSprykerStyle(StyleInterface::VERBOSITY_VERBOSE);
         $sprykerStyle->endSection($section);
 
-        $text = sprintf('Section %s finished in 23.34s', $section->getName());
-
         $block = [
             $this->tester->newLine(),
-            $text . $this->tester->newLine(),
+            $this->tester->getSectionEndText() . $this->tester->newLine(),
             $this->tester->repeat('=') . $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->newLine(3),
         ];
 
         $this->assertSame(implode($block), $this->tester->getOutput());
@@ -57,12 +51,10 @@ class SprykerStyleVerboseOutputTest extends Unit
         $command = $this->tester->getCommand();
 
         $sprykerStyle = $this->tester->getSprykerStyle(StyleInterface::VERBOSITY_VERBOSE);
-        $sprykerStyle->startCommand($command, static::STORE);
-
-        $text = sprintf('Command %s for %s store [%s]', $command->getName(), static::STORE, $command->getExecutable());
+        $sprykerStyle->startCommand($command, $this->tester->getStore());
 
         $block = [
-            $text . $this->tester->newLine(),
+            $this->tester->getCommandStartTextWithStore() . $this->tester->newLine(),
             $this->tester->repeat('-') . $this->tester->newLine(),
             $this->tester->newLine(),
         ];
@@ -80,34 +72,9 @@ class SprykerStyleVerboseOutputTest extends Unit
         $sprykerStyle = $this->tester->getSprykerStyle(StyleInterface::VERBOSITY_VERBOSE);
         $sprykerStyle->endCommand($command, 0);
 
-        $text = sprintf('// Command %s finished in 2.12s, exit code 0', $command->getName());
-
         $block = [
-            $text,
-            $this->tester->newLine(),
-            $this->tester->newLine(),
-        ];
-
-        $this->assertSame(implode($block), $this->tester->getOutput());
-    }
-
-    /**
-     * @return void
-     */
-    public function testEndCommandVeryVerboseOutput()
-    {
-        $command = $this->tester->getCommand();
-
-        $sprykerStyle = $this->tester->getSprykerStyle(StyleInterface::VERBOSITY_VERY_VERBOSE);
-        $sprykerStyle->endCommand($command, 0);
-
-        $text = sprintf('// Command %s finished in 2.12s, exit code 0', $command->getName());
-
-        $block = [
-            $this->tester->newLine(),
-            $text,
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->getCommandEndText(),
+            $this->tester->newLine(2),
         ];
 
         $this->assertSame(implode($block), $this->tester->getOutput());
@@ -133,20 +100,15 @@ class SprykerStyleVerboseOutputTest extends Unit
             $this->tester->repeat('-') . $this->tester->newLine(),
             $this->tester->newLine(),
             $this->tester->getCommandEndText(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->newLine(2),
             $this->tester->getCommandStartTextWithoutStore() . $this->tester->newLine(),
             $this->tester->repeat('-') . $this->tester->newLine(),
             $this->tester->newLine(),
             $this->tester->getCommandEndText(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->newLine(3),
             $this->tester->getSectionEndText() . $this->tester->newLine(),
             $this->tester->repeat('=') . $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
-            $this->tester->newLine(),
+            $this->tester->newLine(3),
             $this->tester->getStageEndText() . $this->tester->newLine(),
         ];
 

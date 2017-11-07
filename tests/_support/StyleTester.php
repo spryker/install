@@ -10,8 +10,12 @@ namespace SprykerTest;
 use Codeception\Actor;
 use Codeception\Scenario;
 use Spryker\Setup\Stage\Section\Command\Command;
+use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Spryker\Setup\Stage\Section\Section;
+use Spryker\Setup\Stage\Section\SectionInterface;
 use Spryker\Setup\Stage\Stage;
+use Spryker\Setup\Stage\StageInterface;
+use Spryker\Setup\Timer\TimerInterface;
 use Spryker\Style\SprykerStyle;
 use Spryker\Style\StyleInterface;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -153,7 +157,43 @@ class StyleTester extends Actor
         $this->output->setDecorated(false);
         $this->output->setVerbosity($verbosity);
 
-        return new SprykerStyle(new ArgvInput(), $this->output);
+        return new SprykerStyle(new ArgvInput(), $this->output, $this->getTimer());
+    }
+
+    /**
+     * @return \Spryker\Setup\Timer\TimerInterface
+     */
+    protected function getTimer()
+    {
+        return new class implements TimerInterface {
+
+            /**
+             * @param object $object
+             *
+             * @return $this
+             */
+            public function start($object)
+            {
+                return new self();
+            }
+
+            /**
+             * @param object $object
+             *
+             * @return float
+             */
+            public function end($object)
+            {
+                if ($object instanceof StageInterface) {
+                    return 123.45;
+                }
+                if ($object instanceof SectionInterface) {
+                    return 12.34;
+                }
+
+                return 1.23;
+            }
+        };
     }
 
     /**
@@ -181,19 +221,25 @@ class StyleTester extends Actor
 
         $sprykerStyle->startSetup($stage);
         $sprykerStyle->startSection($section);
-        $sprykerStyle->startCommand($command);
-        $sprykerStyle->innerCommand("foo\n");
-        $sprykerStyle->innerCommand("bar\n");
-        $sprykerStyle->innerCommand("baz\n");
-        $sprykerStyle->endCommand($command, 0);
-
-        $sprykerStyle->startCommand($command);
-        $sprykerStyle->innerCommand("foo\n");
-        $sprykerStyle->innerCommand("bar\n");
-        $sprykerStyle->innerCommand("baz\n");
-        $sprykerStyle->endCommand($command, 0);
+        $this->fakeCommandRun($sprykerStyle, $command);
+        $this->fakeCommandRun($sprykerStyle, $command);
         $sprykerStyle->endSection($section);
         $sprykerStyle->endSetup($stage);
+    }
+
+    /**
+     * @param \Spryker\Style\StyleInterface $sprykerStyle
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     *
+     * @return void
+     */
+    protected function fakeCommandRun(StyleInterface $sprykerStyle, CommandInterface $command)
+    {
+        $sprykerStyle->startCommand($command);
+        $sprykerStyle->innerCommand("foo\n");
+        $sprykerStyle->innerCommand("bar\n");
+        $sprykerStyle->innerCommand("baz\n");
+        $sprykerStyle->endCommand($command, 0);
     }
 
     /**
@@ -217,7 +263,7 @@ class StyleTester extends Actor
      */
     public function getStageEndText()
     {
-        return sprintf('Setup %s finished in 23.34s', $this->getStage()->getName());
+        return sprintf('Setup %s finished in %ss', $this->getStage()->getName(), $this->getTimer()->end($this->getStage()));
     }
 
     /**
@@ -233,7 +279,7 @@ class StyleTester extends Actor
      */
     public function getSectionEndText()
     {
-        return sprintf('Section %s finished in %ss', $this->getSection()->getName(), 23.34);
+        return sprintf('Section %s finished in %ss', $this->getSection()->getName(), $this->getTimer()->end($this->getSection()));
     }
 
     /**
@@ -263,6 +309,6 @@ class StyleTester extends Actor
     {
         $command = $this->getCommand();
 
-        return sprintf('// Command %s finished in %ss, exit code 0', $command->getName(), 2.12);
+        return sprintf('// Command %s finished in %ss, exit code 0', $command->getName(), $this->getTimer()->end($this->getCommand()));
     }
 }
