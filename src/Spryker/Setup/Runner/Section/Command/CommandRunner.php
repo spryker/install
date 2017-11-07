@@ -127,7 +127,7 @@ class CommandRunner implements CommandRunnerInterface
     protected function shouldBeExecuted(CommandInterface $command, ConfigurationInterface $configuration)
     {
         if ($configuration->isDryRun()) {
-            $configuration->getOutput()->note('Dry-run: ' . $command->getName());
+            $configuration->getOutput()->dryRunCommand($command);
 
             return false;
         }
@@ -194,18 +194,12 @@ class CommandRunner implements CommandRunnerInterface
      */
     protected function executeExecutable(ExecutableInterface $executable, CommandInterface $command, ConfigurationInterface $configuration, $store = null)
     {
-        $commandInfo = sprintf('Command: <info>%s</info>', $command->getName());
-        $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
-        $executedInfo = sprintf(' <fg=yellow>[%s]</>', $command->getExecutable());
-
-        $configuration->getOutput()->text($commandInfo . $storeInfo . $executedInfo);
-        $configuration->getOutput()->newLine();
+        $configuration->getOutput()->startCommand($command, $store);
 
         $exitCode = $executable->execute($configuration->getOutput());
 
         $this->commandExitCodes[$command->getName()] = $exitCode;
 
-        $configuration->getOutput()->note(sprintf('Done, exit code <fg=green>%s</>', $exitCode));
-        $configuration->getOutput()->newLine();
+        $configuration->getOutput()->endCommand($command, $exitCode);
     }
 }

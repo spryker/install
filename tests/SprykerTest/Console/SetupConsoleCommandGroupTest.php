@@ -41,8 +41,8 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-b-command-a/', $output);
-        $this->assertNotRegexp('/Command: (section-a-command-a|section-c-command-a|section-d-command-a|section-d-command-b)/', $output);
+        $this->assertRegexp('/Command section-b-command-a/', $output);
+        $this->assertNotRegexp('/Command (section-a-command-a|section-c-command-a|section-d-command-a|section-d-command-b)/', $output);
     }
 
     /**
@@ -62,7 +62,7 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Command: section-b-command-a/', $output, 'Command "section-b-command-a" was not expected to be executed but was');
+        $this->assertNotRegexp('/Command section-b-command-a/', $output, 'Command "section-b-command-a" was not expected to be executed but was');
     }
 
     /**
@@ -81,7 +81,7 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Command: section-d-command-b/', $output);
+        $this->assertNotRegexp('/Command section-d-command-b/', $output);
     }
 
     /**
@@ -101,7 +101,7 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-d-command-b/', $output);
+        $this->assertRegexp('/Command section-d-command-b/', $output);
     }
 
     /**
@@ -121,6 +121,6 @@ class SetupConsoleCommandGroupTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-d-command-b/', $output);
+        $this->assertRegexp('/Command section-d-command-b/', $output);
     }
 }

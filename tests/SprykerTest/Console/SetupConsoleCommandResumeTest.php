@@ -42,8 +42,8 @@ class SetupConsoleCommandResumeTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a/', $output);
-        $this->assertRegexp('/Command: section-b-command-a/', $output);
+        $this->assertRegexp('/Command section-a-command-a/', $output);
+        $this->assertRegexp('/Command section-b-command-a/', $output);
     }
 
     /**

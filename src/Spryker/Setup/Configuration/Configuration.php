@@ -8,12 +8,12 @@
 namespace Spryker\Setup\Configuration;
 
 use Spryker\Setup\Stage\StageInterface;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var \Symfony\Component\Console\Style\StyleInterface
+     * @var \Spryker\Style\StyleInterface
      */
     protected $output;
 
@@ -53,7 +53,7 @@ class Configuration implements ConfigurationInterface
     protected $continueOnException;
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return $this
      */
@@ -65,7 +65,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return \Symfony\Component\Console\Style\StyleInterface
+     * @return \Spryker\Style\StyleInterface
      */
     public function getOutput()
     {

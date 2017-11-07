@@ -44,7 +44,7 @@ class SetupConsoleCommandExceptionTest extends Unit
 
         $output = $tester->getDisplay();
         $this->assertRegexp('/Command failing-command failed! Continue with setup?/', $output, 'Confirmation to continue was expected but not given');
-        $this->assertRegexp('/Command: successful-command/', $output, 'Command "successful-command" was expected to be executed but was not');
+        $this->assertRegexp('/Command successful-command/', $output, 'Command "successful-command" was expected to be executed but was not');
     }
 
     /**
@@ -69,7 +69,7 @@ class SetupConsoleCommandExceptionTest extends Unit
 
         $output = $tester->getDisplay();
         $this->assertRegexp('/Command failing-command failed! Continue with setup?/', $output, 'Confirmation to continue was expected but not given');
-        $this->assertNotRegexp('/Command: successful-command/', $output, 'Command "successful-command" was not expected to be executed but was');
+        $this->assertNotRegexp('/Command successful-command/', $output, 'Command "successful-command" was not expected to be executed but was');
     }
 
     /**
@@ -89,6 +89,6 @@ class SetupConsoleCommandExceptionTest extends Unit
 
         $output = $tester->getDisplay();
         $this->assertNotRegexp('/Command failing-command failed! Continue with setup?/', $output, 'Confirmation to continue was not expected but given');
-        $this->assertRegexp('/Command: successful-command/', $output, 'Command "successful-command" was expected to be executed but was not');
+        $this->assertRegexp('/Command successful-command/', $output, 'Command "successful-command" was expected to be executed but was not');
     }
 }

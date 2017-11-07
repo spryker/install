@@ -39,9 +39,9 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE but was not');
-        $this->assertRegexp('/Command: section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT but was not');
-        $this->assertRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US but was not');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE but was not');
+        $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT but was not');
+        $this->assertRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US but was not');
     }
 
     /**
@@ -60,9 +60,9 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
-        $this->assertNotRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
-        $this->assertNotRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
+        $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
     }
 
     /**
@@ -82,9 +82,9 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
-        $this->assertNotRegexp('/Command: section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
-        $this->assertNotRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertNotRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
+        $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
     }
 
     /**
@@ -104,9 +104,9 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
-        $this->assertNotRegexp('/Command: section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
-        $this->assertNotRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertNotRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
+        $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
     }
 
     /**
@@ -126,9 +126,9 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
-        $this->assertRegexp('/Command: section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
-        $this->assertNotRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
+        $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
     }
 
     /**
@@ -148,9 +148,9 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
-        $this->assertRegexp('/Command: section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
-        $this->assertNotRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
+        $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
     }
 
     /**
@@ -170,9 +170,9 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
-        $this->assertRegexp('/Command: section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
-        $this->assertRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US store but was not');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
+        $this->assertRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US store but was not');
     }
 
     /**
@@ -192,8 +192,8 @@ class SetupConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
-        $this->assertRegexp('/Command: section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
-        $this->assertRegexp('/Command: section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US store but was not');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
+        $this->assertRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US store but was not');
     }
 }

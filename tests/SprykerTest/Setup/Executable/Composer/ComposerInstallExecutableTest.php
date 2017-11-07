@@ -9,7 +9,7 @@ namespace SprykerTest\Setup\Executable\Composer;
 
 use Codeception\Test\Unit;
 use Spryker\Setup\Executable\Composer\ComposerInstallExecutable;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 /**
  * Auto-generated group annotations
@@ -69,7 +69,7 @@ class ComposerInstallExecutableTest extends Unit
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\Console\Style\StyleInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Style\StyleInterface
      */
     protected function createStyleInterfaceMock()
     {

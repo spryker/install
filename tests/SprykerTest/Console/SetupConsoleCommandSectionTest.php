@@ -41,8 +41,8 @@ class SetupConsoleCommandSectionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Section: section-a/', $output);
-        $this->assertNotRegexp('/Section: section-(b|b|c)/', $output);
+        $this->assertRegexp('/Section section-a/', $output);
+        $this->assertNotRegexp('/Section section-(b|b|c)/', $output);
     }
 
     /**
@@ -62,7 +62,7 @@ class SetupConsoleCommandSectionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Section: section-c/', $output);
+        $this->assertRegexp('/Section section-c/', $output);
     }
 
     /**
@@ -82,8 +82,8 @@ class SetupConsoleCommandSectionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Section: section-a/', $output);
-        $this->assertRegexp('/Section: section-(b|b|c)/', $output);
+        $this->assertNotRegexp('/Section section-a/', $output);
+        $this->assertRegexp('/Section section-(b|b|c)/', $output);
     }
 
     /**
@@ -102,7 +102,7 @@ class SetupConsoleCommandSectionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Section: section-c/', $output, 'Section "section-c" was not expected to be executed but was');
+        $this->assertNotRegexp('/Section section-c/', $output, 'Section "section-c" was not expected to be executed but was');
     }
 
     /**
@@ -122,6 +122,6 @@ class SetupConsoleCommandSectionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Section: section-c/', $output);
+        $this->assertRegexp('/Section section-c/', $output);
     }
 }

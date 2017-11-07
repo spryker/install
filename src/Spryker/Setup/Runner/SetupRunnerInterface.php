@@ -9,14 +9,14 @@ namespace Spryker\Setup\Runner;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 interface SetupRunnerInterface
 {
     /**
      * @param \Spryker\Setup\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
      * @param \Spryker\Setup\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return void
      */

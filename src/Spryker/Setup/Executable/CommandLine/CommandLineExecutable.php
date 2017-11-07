@@ -11,7 +11,7 @@ use Spryker\Setup\Configuration\ConfigurationInterface;
 use Spryker\Setup\Exception\SetupException;
 use Spryker\Setup\Executable\ExecutableInterface;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 use Symfony\Component\Process\Process;
 
 class CommandLineExecutable implements ExecutableInterface
@@ -27,11 +27,6 @@ class CommandLineExecutable implements ExecutableInterface
     protected $configuration;
 
     /**
-     * @var array
-     */
-    protected $internalBuffer = [];
-
-    /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      * @param \Spryker\Setup\Configuration\ConfigurationInterface $configuration
      */
@@ -42,7 +37,7 @@ class CommandLineExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return int
      */
@@ -52,7 +47,7 @@ class CommandLineExecutable implements ExecutableInterface
         $process->start();
 
         foreach ($process as $buffer) {
-            echo $buffer;
+            $output->innerCommand($buffer);
         }
 
         if (!$process->isSuccessful()) {
@@ -63,7 +58,7 @@ class CommandLineExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @throws \Spryker\Setup\Exception\SetupException
      *
@@ -77,7 +72,7 @@ class CommandLineExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return bool
      */

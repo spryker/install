@@ -9,14 +9,14 @@ namespace Spryker\Setup;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 class SetupFacade
 {
     /**
      * @param \Spryker\Setup\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
      * @param \Spryker\Setup\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Symfony\Component\Console\Style\StyleInterface $style
+     * @param \Spryker\Style\StyleInterface $style
      *
      * @return void
      */

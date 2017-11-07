@@ -9,13 +9,13 @@ namespace Spryker\Setup\Executable\Composer;
 
 use DateTime;
 use Spryker\Setup\Executable\ExecutableInterface;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 use Symfony\Component\Process\Process;
 
 class ComposerInstallExecutable implements ExecutableInterface
 {
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return int|null
      */
@@ -45,7 +45,7 @@ class ComposerInstallExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return int|null
      */
@@ -74,19 +74,19 @@ class ComposerInstallExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return int|null
      */
     protected function runComposerUpdate(StyleInterface $output)
     {
-        $output->note('Composer is older then 30 days, update composer... ');
+        $output->write('Composer is older then 30 days, update composer... ');
 
         $process = new Process('php composer.phar self-update', SPRYKER_ROOT);
         $process->run(
             function ($type, $buffer) use ($output) {
                 if (Process::ERR === $type) {
-                    $output->error($buffer);
+                    $output->write($buffer);
                 }
             }
         );
@@ -95,19 +95,19 @@ class ComposerInstallExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return int|null
      */
     protected function installComposer(StyleInterface $output)
     {
-        $output->note('Composer not installed, start download...');
+        $output->write('Composer not installed, start download...');
 
         $process = new Process('curl -sS https://getcomposer.org/installer | php', SPRYKER_ROOT);
         $process->run(
             function ($type, $buffer) use ($output) {
                 if (Process::ERR === $type) {
-                    $output->error($buffer);
+                    $output->write($buffer);
                 }
             }
         );

@@ -13,7 +13,7 @@ use Spryker\Setup\Configuration\Builder\ConfigurationBuilderInterface;
 use Spryker\Setup\Configuration\ConfigurationInterface;
 use Spryker\Setup\Runner\Environment\EnvironmentHelperInterface;
 use Spryker\Setup\Runner\Section\SectionRunnerInterface;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 class SetupRunner implements SetupRunnerInterface
 {
@@ -50,7 +50,7 @@ class SetupRunner implements SetupRunnerInterface
     /**
      * @param \Spryker\Setup\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
      * @param \Spryker\Setup\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return void
      */
@@ -69,6 +69,8 @@ class SetupRunner implements SetupRunnerInterface
         $this->environmentHelper->putEnvs($configuration->getEnv());
 
         $this->executeStage($configuration);
+
+        $output->endSetup($configuration->getStage());
     }
 
     /**
@@ -79,7 +81,7 @@ class SetupRunner implements SetupRunnerInterface
     protected function executeStage(ConfigurationInterface $configuration)
     {
         $stage = $configuration->getStage();
-        $configuration->getOutput()->title(sprintf('Start setup: <fg=green>%s</>', $stage->getName()));
+        $configuration->getOutput()->startSetup($stage);
 
         foreach ($stage->getSections() as $section) {
             if ($section->isExcluded()) {

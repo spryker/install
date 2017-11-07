@@ -19,7 +19,7 @@ use Spryker\Setup\Configuration\Filter\SectionExcludeFilter;
 use Spryker\Setup\Configuration\Filter\UnsetFilter;
 use Spryker\Setup\Configuration\Loader\ConfigurationLoaderInterface;
 use Spryker\Setup\Stage\Stage;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
@@ -47,7 +47,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected $commandLineOptionContainer;
 
     /**
-     * @var \Symfony\Component\Console\Style\StyleInterface
+     * @var \Spryker\Style\StyleInterface
      */
     protected $output;
 
@@ -87,7 +87,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @param \Spryker\Setup\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
      * @param \Spryker\Setup\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */

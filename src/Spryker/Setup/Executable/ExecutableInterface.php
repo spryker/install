@@ -7,7 +7,7 @@
 
 namespace Spryker\Setup\Executable;
 
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 interface ExecutableInterface
 {
@@ -15,7 +15,7 @@ interface ExecutableInterface
     const CODE_ERROR = 1;
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return int
      */

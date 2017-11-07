@@ -8,19 +8,19 @@
 namespace Spryker\Setup\Configuration;
 
 use Spryker\Setup\Stage\StageInterface;
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 interface ConfigurationInterface
 {
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      *
      * @return $this
      */
     public function setOutput(StyleInterface $output);
 
     /**
-     * @return \Symfony\Component\Console\Style\StyleInterface
+     * @return \Spryker\Style\StyleInterface
      */
     public function getOutput();
 

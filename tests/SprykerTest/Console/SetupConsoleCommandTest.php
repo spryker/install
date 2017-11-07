@@ -95,6 +95,6 @@ class SetupConsoleCommandTest extends Unit
 
         $output = $tester->getDisplay();
         $this->assertRegexp('/Dry-run: section-a-command-a/', $output);
-        $this->assertNotRegexp('/Command: section-a-command-a/', $output);
+        $this->assertNotRegexp('/Command section-a-command-a/', $output);
     }
 }

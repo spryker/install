@@ -40,7 +40,7 @@ class SetupConsoleCommandConditionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-b-command-a/', $output, 'Command "section-b-command-a" was not expected to be executed');
+        $this->assertRegexp('/Command section-b-command-a/', $output, 'Command "section-b-command-a" was not expected to be executed');
     }
 
     /**
@@ -58,7 +58,7 @@ class SetupConsoleCommandConditionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Command: section-b-command-b/', $output, 'Command "section-b-command-b" was not expected to be executed');
+        $this->assertNotRegexp('/Command section-b-command-b/', $output, 'Command "section-b-command-b" was not expected to be executed');
     }
 
     /**
@@ -76,7 +76,7 @@ class SetupConsoleCommandConditionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-b-command-c/', $output, 'Command "section-b-command-c" was expected to be executed but was not');
+        $this->assertRegexp('/Command section-b-command-c/', $output, 'Command "section-b-command-c" was expected to be executed but was not');
     }
 
     /**

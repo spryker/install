@@ -41,7 +41,7 @@ class SetupConsoleCommandInteractionTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command: section-a-command-a/', $output, 'Command "section-a-command-a" was expected to be executed but was not');
-        $this->assertNotRegexp('/Command: section-b-command-a/', $output, 'Command "section-b-command-a" was not expected to be executed but was');
+        $this->assertRegexp('/Command section-a-command-a/', $output, 'Command "section-a-command-a" was expected to be executed but was not');
+        $this->assertNotRegexp('/Command section-b-command-a/', $output, 'Command "section-b-command-a" was not expected to be executed but was');
     }
 }

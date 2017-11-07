@@ -34,7 +34,7 @@ class SectionRunner implements SectionRunnerInterface
      */
     public function run(SectionInterface $section, ConfigurationInterface $configuration)
     {
-        $configuration->getOutput()->section($section->getName());
+        $configuration->getOutput()->startSection($section);
 
         if ($section->hasPreCommand()) {
             $preCommand = $configuration->findCommand($section->getPreCommand());
@@ -49,5 +49,7 @@ class SectionRunner implements SectionRunnerInterface
             $postCommand = $configuration->findCommand($section->getPostCommand());
             $this->commandRunner->run($postCommand, $configuration);
         }
+
+        $configuration->getOutput()->endSection($section);
     }
 }

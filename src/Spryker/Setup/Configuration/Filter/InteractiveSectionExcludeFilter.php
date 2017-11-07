@@ -7,17 +7,17 @@
 
 namespace Spryker\Setup\Configuration\Filter;
 
-use Symfony\Component\Console\Style\StyleInterface;
+use Spryker\Style\StyleInterface;
 
 class InteractiveSectionExcludeFilter implements FilterInterface
 {
     /**
-     * @var \Symfony\Component\Console\Style\StyleInterface
+     * @var \Spryker\Style\StyleInterface
      */
     protected $output;
 
     /**
-     * @param \Symfony\Component\Console\Style\StyleInterface $output
+     * @param \Spryker\Style\StyleInterface $output
      */
     public function __construct(StyleInterface $output)
     {

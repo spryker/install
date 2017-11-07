@@ -80,7 +80,7 @@ class SetupConsoleCommandPrePostCommandTest extends Unit
         $tester->execute($arguments);
         $output = $tester->getDisplay();
 
-        $this->assertRegexp('/Command: hidden-command-pre/', $output, 'Command "hidden-command-pre" was expected to be executed before command but was not');
+        $this->assertRegexp('/Command hidden-command-pre/', $output, 'Command "hidden-command-pre" was expected to be executed before command but was not');
     }
 
     /**
@@ -99,6 +99,6 @@ class SetupConsoleCommandPrePostCommandTest extends Unit
         $tester->execute($arguments);
         $output = $tester->getDisplay();
 
-        $this->assertRegexp('/Command: hidden-command-post/', $output, 'Command "hidden-command-post" was expected to be executed before command but was not');
+        $this->assertRegexp('/Command hidden-command-post/', $output, 'Command "hidden-command-post" was expected to be executed before command but was not');
     }
 }

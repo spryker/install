@@ -9,6 +9,7 @@ namespace SprykerTest\Console;
 
 use Codeception\Test\Unit;
 use Spryker\Console\SetupConsoleCommand;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Auto-generated group annotations
@@ -37,9 +38,9 @@ class SetupConsoleCommandCommandTest extends Unit
             SetupConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
             '--' . SetupConsoleCommand::OPTION_EXCLUDE => ['section-a-command-a'],
         ];
-        $tester->execute($arguments);
+        $tester->execute($arguments, ['verbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE]);
 
         $output = $tester->getDisplay();
-        $this->assertNotRegexp('/Command: section-a-command-a/', $output, 'Command "section-a-command-a" was not expected to be executed but was');
+        $this->assertNotRegexp('/Command section-a-command-a/', $output, 'Command "section-a-command-a" was not expected to be executed but was');
     }
 }
