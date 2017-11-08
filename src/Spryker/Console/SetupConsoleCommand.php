@@ -11,7 +11,6 @@ use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
 use Spryker\Setup\SetupFacade;
 use Spryker\Setup\SetupFactory;
-use Spryker\Setup\Timer\Timer;
 use Spryker\Style\SprykerStyle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

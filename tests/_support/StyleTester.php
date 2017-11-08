@@ -319,6 +319,6 @@ class StyleTester extends Actor
     {
         $command = $this->getCommand();
 
-        return sprintf('Command %s [%s] (%s)', $command->getName(), $command->getExecutable(),$this->getTimer()->end($command));
+        return sprintf('Command %s [%s] (%s)', $command->getName(), $command->getExecutable(), $this->getTimer()->end($command));
     }
 }

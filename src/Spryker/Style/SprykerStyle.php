@@ -57,7 +57,7 @@ class SprykerStyle implements StyleInterface
     protected $timer;
 
     /**
-     * @var \Spryker\Setup\Logger\SetupLoggerInterface
+     * @var \Spryker\Setup\Logger\SetupLoggerInterface|null
      */
     protected $logger;
 

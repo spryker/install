@@ -62,10 +62,11 @@ interface StyleInterface
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      * @param int $exitCode
+     * @param null|string $store
      *
      * @return mixed
      */
-    public function endCommand(CommandInterface $command, $exitCode);
+    public function endCommand(CommandInterface $command, $exitCode, $store = null);
 
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
