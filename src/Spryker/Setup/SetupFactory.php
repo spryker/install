@@ -7,6 +7,9 @@
 
 namespace Spryker\Setup;
 
+use Monolog\Handler\BufferHandler;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Spryker\Setup\Configuration\Builder\ConfigurationBuilder;
 use Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilder;
 use Spryker\Setup\Configuration\Builder\Section\SectionBuilder;
@@ -151,6 +154,36 @@ class SetupFactory
      */
     public function createOutputLogger()
     {
-        return new SetupOutputLogger();
+        return new SetupOutputLogger($this->createLogger());
+    }
+
+    /**
+     * @return \Psr\Log\LoggerInterface
+     */
+    protected function createLogger()
+    {
+        return new Logger('setup', [
+            $this->createBufferedStreamHandler(),
+        ]);
+    }
+
+    /**
+     * @return \Monolog\Handler\HandlerInterface
+     */
+    protected function createBufferedStreamHandler()
+    {
+        return new BufferHandler(
+            $this->createStreamHandler()
+        );
+    }
+
+    /**
+     * @return \Monolog\Handler\HandlerInterface
+     */
+    protected function createStreamHandler()
+    {
+        $streamHandler = new StreamHandler('/data/shop/development/current/.spryker/setup/logs/' . date('Y-m-d-H:i:s') . '.log');
+
+        return $streamHandler;
     }
 }

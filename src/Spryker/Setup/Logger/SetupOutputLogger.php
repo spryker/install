@@ -7,16 +7,21 @@
 
 namespace Spryker\Setup\Logger;
 
+use Psr\Log\LoggerInterface;
+
 class SetupOutputLogger implements SetupLoggerInterface
 {
     /**
-     * @var string
+     * @var \Psr\Log\LoggerInterface
      */
-    protected $pathToLogFile;
+    protected $logger;
 
-    public function __construct()
+    /**
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger)
     {
-        $this->pathToLogFile = SPRYKER_ROOT . '/.spryker/setup/logs/' . time() . '.log';
+        $this->logger = $logger;
     }
 
     /**
@@ -26,19 +31,25 @@ class SetupOutputLogger implements SetupLoggerInterface
      */
     public function log($message)
     {
-        $this->createDirectoryIfNotExists();
-
-        file_put_contents($this->pathToLogFile, $message);
+        $formattedMessage = $this->formatMessage($message);
+        if (!empty($formattedMessage)) {
+            $this->logger->info($formattedMessage);
+        }
     }
 
     /**
-     * @return void
+     * @param string $message
+     *
+     * @return string
      */
-    protected function createDirectoryIfNotExists()
+    private function formatMessage($message)
     {
-        $directory = dirname($this->pathToLogFile);
-        if (is_dir($directory) || !is_writable($directory)) {
-            mkdir($directory, 0777, true);
-        }
+        $message = str_replace(PHP_EOL, '', $message);
+        $message = strip_tags($message);
+        $message = preg_replace('/\\x1b[[][^A-Za-z]*[A-Za-z]/', '', $message);
+        $message = preg_replace('/[-=]{2,}/', '', $message);
+        $message = trim($message, " \t\n\r\0\x0B-=");
+
+        return $message;
     }
 }

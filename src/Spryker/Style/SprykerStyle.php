@@ -393,8 +393,8 @@ class SprykerStyle implements StyleInterface
      */
     protected function log($messages)
     {
-//        if ($this->logger) {
-//            $this->logger->log(implode((array)$messages));
-//        }
+        if ($this->logger) {
+            $this->logger->log(implode((array)$messages));
+        }
     }
 }
