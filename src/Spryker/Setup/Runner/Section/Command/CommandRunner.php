@@ -200,6 +200,6 @@ class CommandRunner implements CommandRunnerInterface
 
         $this->commandExitCodes[$command->getName()] = $exitCode;
 
-        $configuration->getOutput()->endCommand($command, $exitCode);
+        $configuration->getOutput()->endCommand($command, $exitCode, $store);
     }
 }

@@ -289,7 +289,7 @@ class StyleTester extends Actor
     {
         $command = $this->getCommand();
 
-        return sprintf('Command %s for %s store [%s]', $command->getName(), static::STORE, $command->getExecutable());
+        return sprintf('Command %s for %s store [%s] (In progress...)', $command->getName(), static::STORE, $command->getExecutable());
     }
 
     /**
@@ -299,7 +299,7 @@ class StyleTester extends Actor
     {
         $command = $this->getCommand();
 
-        return sprintf('Command %s [%s]', $command->getName(), $command->getExecutable());
+        return sprintf('Command %s [%s] (In progress...)', $command->getName(), $command->getExecutable());
     }
 
     /**
@@ -310,5 +310,15 @@ class StyleTester extends Actor
         $command = $this->getCommand();
 
         return sprintf('// Command %s finished in %ss, exit code 0', $command->getName(), $this->getTimer()->end($this->getCommand()));
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommandEndOverwrittenText()
+    {
+        $command = $this->getCommand();
+
+        return sprintf('Command %s [%s] (%s)', $command->getName(), $command->getExecutable(),$this->getTimer()->end($command));
     }
 }

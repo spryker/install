@@ -14,11 +14,13 @@ use Spryker\Setup\Configuration\Configuration;
 use Spryker\Setup\Configuration\Loader\ConfigurationLoader;
 use Spryker\Setup\Configuration\Validator\ConfigurationValidator;
 use Spryker\Setup\Executable\ExecutableFactory;
+use Spryker\Setup\Logger\SetupOutputLogger;
 use Spryker\Setup\Runner\Environment\EnvironmentHelper;
 use Spryker\Setup\Runner\Section\Command\CommandRunner;
 use Spryker\Setup\Runner\Section\SectionRunner;
 use Spryker\Setup\Runner\SetupRunner;
 use Spryker\Setup\Stage\Section\Command\Condition\ConditionFactory;
+use Spryker\Setup\Timer\Timer;
 
 class SetupFactory
 {
@@ -134,5 +136,21 @@ class SetupFactory
     public function createEnvironmentHelper()
     {
         return new EnvironmentHelper();
+    }
+
+    /**
+     * @return \Spryker\Setup\Timer\TimerInterface
+     */
+    public function createTimer()
+    {
+        return new Timer();
+    }
+
+    /**
+     * @return \Spryker\Setup\Logger\SetupLoggerInterface
+     */
+    public function createOutputLogger()
+    {
+        return new SetupOutputLogger();
     }
 }

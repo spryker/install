@@ -110,20 +110,7 @@ class SprykerStyleNormalOutputTest extends Unit
     /**
      * @return void
      */
-    public function testEndCommandNormalOutput()
-    {
-        $command = $this->tester->getCommand();
-
-        $sprykerStyle = $this->tester->getSprykerStyle();
-        $sprykerStyle->endCommand($command, 0);
-
-        $this->assertSame('', $this->tester->getOutput());
-    }
-
-    /**
-     * @return void
-     */
-    public function testNoteNormalOutput()
+    public function testNoteNotPrintedInNormalOutput()
     {
         $sprykerStyle = $this->tester->getSprykerStyle();
         $sprykerStyle->note('My note');
@@ -147,8 +134,8 @@ class SprykerStyleNormalOutputTest extends Unit
             $this->tester->fullLineLength($this->tester->getSectionStartText()),
             $this->tester->repeat(' ') . $this->tester->newLine(),
             $this->tester->newLine(),
-            $this->tester->getCommandStartTextWithoutStore() . $this->tester->newLine(),
-            $this->tester->getCommandStartTextWithoutStore() . $this->tester->newLine(),
+            $this->tester->getCommandEndOverwrittenText() . $this->tester->newLine(),
+            $this->tester->getCommandEndOverwrittenText() . $this->tester->newLine(),
             $this->tester->newLine(),
             $this->tester->getStageEndText() . $this->tester->newLine(),
         ];

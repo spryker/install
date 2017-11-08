@@ -35,6 +35,6 @@ class Timer implements TimerInterface
     {
         $start = $this->timer[spl_object_hash($object)];
 
-        return sprintf('%.f2', microtime(true) - $start);
+        return sprintf('%.2f', microtime(true) - $start);
     }
 }

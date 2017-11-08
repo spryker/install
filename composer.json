@@ -34,5 +34,8 @@
   "config": {
     "use-include-path": true,
     "process-timeout": 600
-  }
+  },
+  "bin": [
+    "bin/spryker"
+  ]
 }

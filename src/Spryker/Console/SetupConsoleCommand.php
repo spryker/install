@@ -10,6 +10,7 @@ namespace Spryker\Console;
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
 use Spryker\Setup\SetupFacade;
+use Spryker\Setup\SetupFactory;
 use Spryker\Setup\Timer\Timer;
 use Spryker\Style\SprykerStyle;
 use Symfony\Component\Console\Command\Command;
@@ -117,7 +118,12 @@ class SetupConsoleCommand extends Command
      */
     protected function createOutput(InputInterface $input, OutputInterface $output)
     {
-        return new SprykerStyle($input, $output, new Timer());
+        return new SprykerStyle(
+            $input,
+            $output,
+            $this->getFactory()->createTimer(),
+            $this->getFactory()->createOutputLogger()
+        );
     }
 
     /**
@@ -203,5 +209,13 @@ class SetupConsoleCommand extends Command
     protected function getFacade()
     {
         return new SetupFacade();
+    }
+
+    /**
+     * @return \Spryker\Setup\SetupFactory
+     */
+    protected function getFactory()
+    {
+        return new SetupFactory();
     }
 }

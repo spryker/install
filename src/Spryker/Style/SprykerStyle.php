@@ -7,6 +7,7 @@
 
 namespace Spryker\Style;
 
+use Spryker\Setup\Logger\SetupLoggerInterface;
 use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Spryker\Setup\Stage\Section\SectionInterface;
 use Spryker\Setup\Stage\StageInterface;
@@ -56,11 +57,17 @@ class SprykerStyle implements StyleInterface
     protected $timer;
 
     /**
+     * @var \Spryker\Setup\Logger\SetupLoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Spryker\Setup\Timer\TimerInterface $timer
+     * @param \Spryker\Setup\Logger\SetupLoggerInterface|null $logger
      */
-    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer)
+    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, SetupLoggerInterface $logger = null)
     {
         $this->bufferedOutput = new BufferedOutput($output->getVerbosity(), false, clone $output->getFormatter());
         $width = (new Terminal())->getWidth() ?: static::MAX_LINE_LENGTH;
@@ -70,6 +77,7 @@ class SprykerStyle implements StyleInterface
         $this->output = $output;
 
         $this->timer = $timer;
+        $this->logger = $logger;
     }
 
     /**
@@ -126,7 +134,7 @@ class SprykerStyle implements StyleInterface
 
         $this->writeln([
             sprintf('<bg=green>%s</>', str_repeat(' ', $this->lineLength)),
-            sprintf('<bg=green;options=bold> Section %s%s</>', $section->getName(), str_pad(' ', $messageLength)),
+            sprintf('<bg=green;options=bold>%s%s</>', $message, str_pad(' ', $messageLength)),
             sprintf('<bg=green>%s</>', str_repeat(' ', $this->lineLength)),
         ]);
 
@@ -159,11 +167,10 @@ class SprykerStyle implements StyleInterface
     public function startCommand(CommandInterface $command, $store = null)
     {
         $this->timer->start($command);
-        $commandInfo = sprintf('Command <fg=green>%s</>', $command->getName());
-        $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
-        $executedInfo = sprintf(' <fg=yellow>[%s]</>', $command->getExecutable());
-
-        $message = $commandInfo . $storeInfo . $executedInfo;
+        $message = $this->getStartCommandMessage($command, $store);
+        if ($this->output->getVerbosity() === static::VERBOSITY_NORMAL) {
+            $message .= sprintf(' <fg=magenta>(In progress..)</>');
+        }
 
         if ($this->output->isVerbose()) {
             $this->writeln($message);
@@ -178,29 +185,93 @@ class SprykerStyle implements StyleInterface
 
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param null|string $store
+     *
+     * @return string
+     */
+    protected function getStartCommandMessage(CommandInterface $command, $store = null)
+    {
+        $commandInfo = sprintf('Command <fg=green>%s</>', $command->getName());
+        $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
+        $executedInfo = sprintf(' <fg=yellow>[%s]</>', $command->getExecutable());
+
+        return $commandInfo . $storeInfo . $executedInfo;
+    }
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      * @param int $exitCode
+     * @param null|string $store
      *
      * @return void
      */
-    public function endCommand(CommandInterface $command, $exitCode)
+    public function endCommand(CommandInterface $command, $exitCode, $store = null)
     {
-        $exitCodeColor = ($exitCode !== 0) ? 'red' : 'green';
-        $message = sprintf(
-            '<fg=green>//</> Command <fg=green>%s</> finished in <fg=green>%ss</>, exit code <fg=%s>%s</>',
-            $command->getName(),
-            $this->timer->end($command),
-            $exitCodeColor,
-            $exitCode
-        );
-
         if ($this->output->isVeryVerbose()) {
             $this->newLine();
         }
 
         if ($this->output->isVerbose()) {
-            $this->writeln($message);
+            $this->writeln($this->getVerboseCommandEndMessage($command, $exitCode));
             $this->newLine();
+
+            return;
         }
+
+        if ($this->output->getVerbosity() === static::VERBOSITY_NORMAL) {
+            $message = $this->getStartCommandMessage($command, $store);
+            $message .= sprintf(' <fg=green>(%s)</>', $this->timer->end($command));
+
+            $this->moveLineUp();
+            $this->moveCursorToBeginOfLine();
+            $this->eraseLine();
+
+            $this->writeln($message);
+        }
+    }
+
+    /**
+     * @param int $count
+     *
+     * @return void
+     */
+    protected function moveLineUp($count = 1)
+    {
+        $output = sprintf("\x1B[%sA", $count);
+        $this->write($output);
+    }
+
+    /**
+     * @return void
+     */
+    protected function moveCursorToBeginOfLine()
+    {
+        $this->write("\x0D");
+    }
+
+    /**
+     * @return void
+     */
+    protected function eraseLine()
+    {
+        $this->write("\x1B[2K");
+    }
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param int $exitCode
+     *
+     * @return string
+     */
+    protected function getVerboseCommandEndMessage(CommandInterface $command, $exitCode)
+    {
+        return sprintf(
+            '<fg=green>//</> Command <fg=green>%s</> finished in <fg=green>%ss</>, exit code <fg=%s>%s</>',
+            $command->getName(),
+            $this->timer->end($command),
+            ($exitCode !== 0) ? 'red' : 'green',
+            $exitCode
+        );
     }
 
     /**
@@ -247,6 +318,7 @@ class SprykerStyle implements StyleInterface
      */
     public function write($messages, $options = 0)
     {
+        $this->log($messages);
         $this->output->write($messages, false, $options);
     }
 
@@ -258,6 +330,7 @@ class SprykerStyle implements StyleInterface
      */
     protected function writeln($messages, $options = 0)
     {
+        $this->log($messages);
         $this->output->writeln($messages, $options);
     }
 
@@ -311,5 +384,17 @@ class SprykerStyle implements StyleInterface
     protected function getFormatter()
     {
         return $this->output->getFormatter();
+    }
+
+    /**
+     * @param array|string $messages
+     *
+     * @return void
+     */
+    protected function log($messages)
+    {
+//        if ($this->logger) {
+//            $this->logger->log(implode((array)$messages));
+//        }
     }
 }
