@@ -169,7 +169,7 @@ class SprykerStyle implements StyleInterface
         $this->timer->start($command);
         $message = $this->getStartCommandMessage($command, $store);
         if ($this->output->getVerbosity() === static::VERBOSITY_NORMAL) {
-            $message .= sprintf(' <fg=magenta>(In progress..)</>');
+            $message .= sprintf(' <fg=magenta>(In progress...)</>');
         }
 
         if ($this->output->isVerbose()) {
