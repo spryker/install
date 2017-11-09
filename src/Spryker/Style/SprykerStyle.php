@@ -218,6 +218,17 @@ class SprykerStyle implements StyleInterface
             return;
         }
 
+        $this->endCommandOutputIfNormalOutput($command, $store);
+    }
+
+    /**
+     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param null|string $store
+     *
+     * @return void
+     */
+    protected function endCommandOutputIfNormalOutput(CommandInterface $command, $store = null)
+    {
         if ($this->output->getVerbosity() === static::VERBOSITY_NORMAL) {
             $message = $this->getStartCommandMessage($command, $store);
             $message .= sprintf(' <fg=green>(%s)</>', $this->timer->end($command));
