@@ -13,18 +13,17 @@ use Spryker\Setup\Stage\Section\SectionInterface;
 use Spryker\Setup\Stage\StageInterface;
 use Spryker\Setup\Timer\TimerInterface;
 use Symfony\Component\Console\Helper\Helper;
-use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Terminal;
 
 class SprykerStyle implements StyleInterface
 {
     const MAX_LINE_LENGTH = 120;
+
+    use InputHelper;
+    use CursorHelper;
 
     /**
      * @var \Symfony\Component\Console\Output\BufferedOutput
@@ -47,17 +46,12 @@ class SprykerStyle implements StyleInterface
     protected $input;
 
     /**
-     * @var \Symfony\Component\Console\Helper\SymfonyQuestionHelper
-     */
-    protected $questionHelper;
-
-    /**
      * @var \Spryker\Setup\Timer\TimerInterface
      */
     protected $timer;
 
     /**
-     * @var \Spryker\Setup\Logger\SetupLoggerInterface|null
+     * @var \Spryker\Setup\Logger\SetupLoggerInterface
      */
     protected $logger;
 
@@ -65,9 +59,9 @@ class SprykerStyle implements StyleInterface
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Spryker\Setup\Timer\TimerInterface $timer
-     * @param \Spryker\Setup\Logger\SetupLoggerInterface|null $logger
+     * @param \Spryker\Setup\Logger\SetupLoggerInterface $logger
      */
-    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, SetupLoggerInterface $logger = null)
+    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, SetupLoggerInterface $logger)
     {
         $this->bufferedOutput = new BufferedOutput($output->getVerbosity(), false, clone $output->getFormatter());
         $width = (new Terminal())->getWidth() ?: static::MAX_LINE_LENGTH;
@@ -99,7 +93,7 @@ class SprykerStyle implements StyleInterface
     {
         $this->timer->start($stage);
         $message = sprintf('Setup for <fg=green>%s</> environment', $stage->getName());
-        $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->getFormatter(), $message);
+        $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->output->getFormatter(), $message);
         $message = $message . str_pad(' ', $this->lineLength - $messageLengthWithoutDecoration);
 
         $this->writeln([
@@ -129,7 +123,7 @@ class SprykerStyle implements StyleInterface
     {
         $this->timer->start($section);
         $message = sprintf('<bg=green;options=bold> Section %s</>', $section->getName());
-        $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->getFormatter(), $message);
+        $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->output->getFormatter(), $message);
         $messageLength = $this->lineLength - $messageLengthWithoutDecoration;
 
         $this->writeln([
@@ -231,7 +225,7 @@ class SprykerStyle implements StyleInterface
     {
         if ($this->output->getVerbosity() === static::VERBOSITY_NORMAL) {
             $message = $this->getStartCommandMessage($command, $store);
-            $message .= sprintf(' <fg=green>(%s)</>', $this->timer->end($command));
+            $message .= sprintf(' <fg=green>(%ss)</>', $this->timer->end($command));
 
             $this->moveLineUp();
             $this->moveCursorToBeginOfLine();
@@ -239,33 +233,6 @@ class SprykerStyle implements StyleInterface
 
             $this->writeln($message);
         }
-    }
-
-    /**
-     * @param int $count
-     *
-     * @return void
-     */
-    protected function moveLineUp($count = 1)
-    {
-        $output = sprintf("\x1B[%sA", $count);
-        $this->write($output);
-    }
-
-    /**
-     * @return void
-     */
-    protected function moveCursorToBeginOfLine()
-    {
-        $this->write("\x0D");
-    }
-
-    /**
-     * @return void
-     */
-    protected function eraseLine()
-    {
-        $this->write("\x1B[2K");
     }
 
     /**
@@ -329,7 +296,7 @@ class SprykerStyle implements StyleInterface
      */
     public function write($messages, $options = 0)
     {
-        $this->log($messages);
+        $this->logger->log($messages);
         $this->output->write($messages, false, $options);
     }
 
@@ -341,71 +308,7 @@ class SprykerStyle implements StyleInterface
      */
     protected function writeln($messages, $options = 0)
     {
-        $this->log($messages);
+        $this->logger->log($messages);
         $this->output->writeln($messages, $options);
-    }
-
-    /**
-     * @param string $question
-     * @param bool $default
-     *
-     * @return string
-     */
-    public function confirm($question, $default = true)
-    {
-        return $this->askQuestion(new ConfirmationQuestion($question, $default));
-    }
-
-    /**
-     * @param string $question
-     * @param array $choices
-     * @param string|int|null $default
-     *
-     * @return bool|mixed|null|string
-     */
-    public function choice($question, array $choices, $default = null)
-    {
-        if ($default) {
-            $values = array_flip($choices);
-            $default = $values[$default];
-        }
-        $question = new ChoiceQuestion($question, $choices, $default);
-        $question->setMultiselect(true);
-
-        return $this->askQuestion($question);
-    }
-
-    /**
-     * @param \Symfony\Component\Console\Question\Question $question
-     *
-     * @return string
-     */
-    protected function askQuestion(Question $question)
-    {
-        if (!$this->questionHelper) {
-            $this->questionHelper = new SymfonyQuestionHelper();
-        }
-
-        return $this->questionHelper->ask($this->input, $this->output, $question);
-    }
-
-    /**
-     * @return \Symfony\Component\Console\Formatter\OutputFormatterInterface
-     */
-    protected function getFormatter()
-    {
-        return $this->output->getFormatter();
-    }
-
-    /**
-     * @param array|string $messages
-     *
-     * @return void
-     */
-    protected function log($messages)
-    {
-        if ($this->logger) {
-            $this->logger->log(implode((array)$messages));
-        }
     }
 }

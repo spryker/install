@@ -44,6 +44,7 @@ class SetupOutputLogger implements SetupLoggerInterface
      */
     private function formatMessage($message)
     {
+        $message = implode((array)$message);
         $message = str_replace(PHP_EOL, '', $message);
         $message = strip_tags($message);
         $message = preg_replace('/\\x1b[[][^A-Za-z]*[A-Za-z]/', '', $message);

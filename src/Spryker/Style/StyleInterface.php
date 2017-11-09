@@ -114,7 +114,7 @@ interface StyleInterface
      *
      * @return bool
      */
-    public function confirm($question, $default = true);
+    public function confirm($question, $default);
 
     /**
      * @param string $question

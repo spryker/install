@@ -64,7 +64,7 @@ class CommandRunner implements CommandRunnerInterface
         $this->environmentHelper->unsetEnvs($command->getEnv());
         $this->environmentHelper->putEnvs($configuration->getEnv());
 
-        if ($configuration->isDebugMode() && !$configuration->getOutput()->confirm('Should setup resume?')) {
+        if ($configuration->isDebugMode() && !$configuration->getOutput()->confirm('Should setup resume?', true)) {
             throw new SetupException('Setup aborted...');
         }
     }

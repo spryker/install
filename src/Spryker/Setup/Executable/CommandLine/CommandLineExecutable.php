@@ -85,6 +85,6 @@ class CommandLineExecutable implements ExecutableInterface
         $output->newLine();
         $question = sprintf('Command <fg=yellow>%s</> failed! Continue with setup?', $this->command->getName());
 
-        return $output->confirm($question);
+        return $output->confirm($question, true);
     }
 }
