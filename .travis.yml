@@ -8,10 +8,8 @@ php:
 before_script:
     - composer self-update
     - composer install --prefer-dist --no-interaction
-
-before_script:
-    - mkdir -p ./spryker/logs
-    - chmod -R 777 ./spryker/logs
+    - mkdir -p ./spryker/setup/logs
+    - chmod -R 777 ./spryker/setup/logs
 
 script:
     - vendor/bin/codecept run --coverage-xml
