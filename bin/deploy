@@ -15,11 +15,12 @@ if (!defined('SPRYKER_COMPOSER_INSTALL')) {
     throw new \Exception('Could not resolve path to vendor/autoload.php');
 }
 
+require_once SPRYKER_COMPOSER_INSTALL;
+
 use Spryker\Console\DeployConsoleCommand;
 use Symfony\Component\Console\Application;
 
-require_once SPRYKER_COMPOSER_INSTALL;
-
+$application = new Application();
 $application->addCommands([
     new DeployConsoleCommand(),
 ]);
