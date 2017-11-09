@@ -7,9 +7,9 @@
 
 namespace Spryker\Style;
 
-use Spryker\Setup\Stage\Section\Command\CommandInterface;
-use Spryker\Setup\Stage\Section\SectionInterface;
-use Spryker\Setup\Stage\StageInterface;
+use Spryker\Deploy\Stage\Section\Command\CommandInterface;
+use Spryker\Deploy\Stage\Section\SectionInterface;
+use Spryker\Deploy\Stage\StageInterface;
 
 interface StyleInterface
 {
@@ -24,35 +24,35 @@ interface StyleInterface
     const OUTPUT_PLAIN = 4;
 
     /**
-     * @param \Spryker\Setup\Stage\StageInterface $stage
+     * @param \Spryker\Deploy\Stage\StageInterface $stage
      *
      * @return void
      */
-    public function startSetup(StageInterface $stage);
+    public function startDeploy(StageInterface $stage);
 
     /**
-     * @param \Spryker\Setup\Stage\StageInterface $stage
+     * @param \Spryker\Deploy\Stage\StageInterface $stage
      *
      * @return void
      */
-    public function endSetup(StageInterface $stage);
+    public function endDeploy(StageInterface $stage);
 
     /**
-     * @param \Spryker\Setup\Stage\Section\SectionInterface $section
+     * @param \Spryker\Deploy\Stage\Section\SectionInterface $section
      *
      * @return void
      */
     public function startSection(SectionInterface $section);
 
     /**
-     * @param \Spryker\Setup\Stage\Section\SectionInterface $section
+     * @param \Spryker\Deploy\Stage\Section\SectionInterface $section
      *
      * @return void
      */
     public function endSection(SectionInterface $section);
 
     /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
      * @param null|string $store
      *
      * @return void
@@ -60,7 +60,7 @@ interface StyleInterface
     public function startCommand(CommandInterface $command, $store = null);
 
     /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
      * @param int $exitCode
      * @param null|string $store
      *
@@ -69,7 +69,7 @@ interface StyleInterface
     public function endCommand(CommandInterface $command, $exitCode, $store = null);
 
     /**
-     * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
      *
      * @return void
      */
