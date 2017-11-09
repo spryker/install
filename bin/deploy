@@ -24,5 +24,6 @@ $application = new Application();
 $application->addCommands([
     new DeployConsoleCommand(),
 ]);
+$application->setDefaultCommand('deploy', true);
 
 $application->run();
