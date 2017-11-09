@@ -15,7 +15,7 @@ if (!defined('SPRYKER_COMPOSER_INSTALL')) {
     throw new \Exception('Could not resolve path to vendor/autoload.php');
 }
 
-define(SPRYKER_ROOT, getcwd());
+define('SPRYKER_ROOT', getcwd());
 
 require_once SPRYKER_COMPOSER_INSTALL;
 
