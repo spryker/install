@@ -80,13 +80,11 @@ class ComposerInstallExecutable implements ExecutableInterface
      */
     protected function runComposerUpdate(StyleInterface $output)
     {
-        $output->write('Composer is older then 30 days, update composer... ');
-
         $process = new Process('php composer.phar self-update', SPRYKER_ROOT);
         $process->run(
             function ($type, $buffer) use ($output) {
                 if (Process::ERR === $type) {
-                    $output->write($buffer);
+                    $output->innerCommand($buffer);
                 }
             }
         );
@@ -101,13 +99,11 @@ class ComposerInstallExecutable implements ExecutableInterface
      */
     protected function installComposer(StyleInterface $output)
     {
-        $output->write('Composer not installed, start download...');
-
         $process = new Process('curl -sS https://getcomposer.org/installer | php', SPRYKER_ROOT);
         $process->run(
             function ($type, $buffer) use ($output) {
                 if (Process::ERR === $type) {
-                    $output->write($buffer);
+                    $output->innerCommand($buffer);
                 }
             }
         );
