@@ -117,7 +117,9 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Spryker\Setup\Stage\Section\SectionInterface $section
+     *
+     * @return void
      */
     public function startSection(SectionInterface $section)
     {

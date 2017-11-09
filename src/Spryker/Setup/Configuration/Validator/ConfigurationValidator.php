@@ -11,6 +11,8 @@ use Spryker\Setup\Configuration\Exception\ConfigurationException;
 
 class ConfigurationValidator implements ConfigurationValidatorInterface
 {
+    const SECTIONS = 'sections';
+
     /**
      * @param array $configuration
      *
@@ -31,7 +33,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
      */
     protected function validateSections(array $configuration)
     {
-        if (!isset($configuration['sections'])) {
+        if (!isset($configuration[static::SECTIONS])) {
             throw new ConfigurationException('No sections defined your configuration.');
         }
     }
@@ -45,7 +47,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
      */
     protected function validateCommands(array $configuration)
     {
-        foreach ($configuration['sections'] as $sectionName => $commands) {
+        foreach ($configuration[static::SECTIONS] as $sectionName => $commands) {
             if (count($commands) === 0) {
                 throw new ConfigurationException(sprintf('No commands defined in section "%s".', $sectionName));
             }

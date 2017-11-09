@@ -64,14 +64,14 @@ interface StyleInterface
      * @param int $exitCode
      * @param null|string $store
      *
-     * @return mixed
+     * @return void
      */
     public function endCommand(CommandInterface $command, $exitCode, $store = null);
 
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      *
-     * @return mixed
+     * @return void
      */
     public function dryRunCommand(CommandInterface $command);
 
@@ -90,19 +90,15 @@ interface StyleInterface
     public function note($output);
 
     /**
-     * Add newline(s).
-     *
-     * @param int $count The number of newlines
+     * @param int $count
      *
      * @return void
      */
     public function newLine($count = 1);
 
     /**
-     * Writes a message to the output.
-     *
-     * @param string|array $messages The message as an array of lines or a single string
-     * @param int $options A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
+     * @param string|array $messages
+     * @param int $options
      *
      * @return void
      */

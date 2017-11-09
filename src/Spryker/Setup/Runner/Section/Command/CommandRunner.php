@@ -132,11 +132,7 @@ class CommandRunner implements CommandRunnerInterface
             return false;
         }
 
-        if ($command->isExcluded()) {
-            return false;
-        }
-
-        if ($this->hasConditionAndConditionNotMatched($command)) {
+        if ($command->isExcluded() || $this->hasConditionAndConditionNotMatched($command)) {
             return false;
         }
 
@@ -164,7 +160,7 @@ class CommandRunner implements CommandRunnerInterface
      */
     protected function isConditionalCommand(CommandInterface $command)
     {
-        return count($command->getConditions()) > 0;
+        return (count($command->getConditions()) > 0);
     }
 
     /**
@@ -197,7 +193,6 @@ class CommandRunner implements CommandRunnerInterface
         $configuration->getOutput()->startCommand($command, $store);
 
         $exitCode = $executable->execute($configuration->getOutput());
-
         $this->commandExitCodes[$command->getName()] = $exitCode;
 
         $configuration->getOutput()->endCommand($command, $exitCode, $store);
