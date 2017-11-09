@@ -7,10 +7,10 @@
 
 namespace Spryker\Deploy;
 
-use Spryker\Deploy\Logger\LoggerFactory;
 use Spryker\Deploy\Logger\DeployLoggerInterface;
-use Spryker\Deploy\Runner\RunnerFactory;
+use Spryker\Deploy\Logger\LoggerFactory;
 use Spryker\Deploy\Runner\DeployRunnerInterface;
+use Spryker\Deploy\Runner\RunnerFactory;
 use Spryker\Deploy\Timer\Timer;
 use Spryker\Deploy\Timer\TimerInterface;
 

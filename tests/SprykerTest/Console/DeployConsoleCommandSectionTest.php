@@ -14,7 +14,7 @@ use Spryker\Console\DeployConsoleCommand;
  * Auto-generated group annotations
  * @group SprykerTest
  * @group Console
- * @group SetupConsoleCommandSectionTest
+ * @group DeployConsoleCommandSectionTest
  * Add your own group annotations below this line
  */
 class DeployConsoleCommandSectionTest extends Unit

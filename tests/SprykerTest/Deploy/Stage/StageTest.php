@@ -15,7 +15,7 @@ use Spryker\Deploy\Stage\Stage;
 /**
  * Auto-generated group annotations
  * @group SprykerTest
- * @group Setup
+ * @group Deploy
  * @group Stage
  * @group StageTest
  * Add your own group annotations below this line

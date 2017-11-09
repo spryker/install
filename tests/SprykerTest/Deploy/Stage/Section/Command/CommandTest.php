@@ -13,7 +13,7 @@ use Spryker\Deploy\Stage\Section\Command\Command;
 /**
  * Auto-generated group annotations
  * @group SprykerTest
- * @group Setup
+ * @group Deploy
  * @group Stage
  * @group Section
  * @group Command
