@@ -16,5 +16,5 @@ interface FilterInterface
      *
      * @return array
      */
-    public function filter(array $items);
+    public function filter(array $items): array;
 }

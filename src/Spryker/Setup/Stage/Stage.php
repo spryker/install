@@ -26,7 +26,7 @@ class Stage implements StageInterface
     /**
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
@@ -34,7 +34,7 @@ class Stage implements StageInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -44,9 +44,9 @@ class Stage implements StageInterface
      *
      * @throws \Spryker\Setup\Stage\Section\Exception\SectionExistsException
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\StageInterface
      */
-    public function addSection(SectionInterface $section)
+    public function addSection(SectionInterface $section): StageInterface
     {
         if (isset($this->sections[$section->getName()])) {
             throw new SectionExistsException(sprintf('Section with name "%s" already exists.', $section->getName()));
@@ -60,7 +60,7 @@ class Stage implements StageInterface
     /**
      * @return \Spryker\Setup\Stage\Section\SectionInterface[]
      */
-    public function getSections()
+    public function getSections(): array
     {
         return $this->sections;
     }
@@ -72,7 +72,7 @@ class Stage implements StageInterface
      *
      * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function getSection($sectionName)
+    public function getSection(string $sectionName): SectionInterface
     {
         if (!isset($this->sections[$sectionName])) {
             throw new SectionNotFoundException(sprintf('Section "%s" not found in "%s" stage', $sectionName, $this->name));

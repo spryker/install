@@ -27,7 +27,7 @@ class EnvironmentHelper implements EnvironmentHelperInterface
      *
      * @return void
      */
-    public function putEnv($key, $value)
+    public function putEnv(string $key, $value)
     {
         putenv(sprintf('%s=%s', $key, $value));
     }
@@ -49,7 +49,7 @@ class EnvironmentHelper implements EnvironmentHelperInterface
      *
      * @return void
      */
-    public function unsetEnv($key)
+    public function unsetEnv(string $key)
     {
         putenv($key);
     }

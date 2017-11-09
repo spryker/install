@@ -9,6 +9,7 @@ namespace Spryker\Setup\Configuration\Builder;
 
 use Spryker\Setup\CommandLine\CommandLineArgumentContainer;
 use Spryker\Setup\CommandLine\CommandLineOptionContainer;
+use Spryker\Setup\Configuration\ConfigurationInterface;
 use Spryker\Style\StyleInterface;
 
 interface ConfigurationBuilderInterface
@@ -24,5 +25,5 @@ interface ConfigurationBuilderInterface
         CommandLineArgumentContainer $commandLineArgumentContainer,
         CommandLineOptionContainer $commandLineOptionContainer,
         StyleInterface $output
-    );
+    ): ConfigurationInterface;
 }

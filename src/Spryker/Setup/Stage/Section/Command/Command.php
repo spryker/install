@@ -64,7 +64,7 @@ class Command implements CommandInterface
     /**
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
@@ -72,7 +72,7 @@ class Command implements CommandInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -80,9 +80,9 @@ class Command implements CommandInterface
     /**
      * @param string $executable
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function setExecutable($executable)
+    public function setExecutable(string $executable): CommandInterface
     {
         $this->executable = $executable;
 
@@ -92,7 +92,7 @@ class Command implements CommandInterface
     /**
      * @return string
      */
-    public function getExecutable()
+    public function getExecutable(): string
     {
         return $this->executable;
     }
@@ -100,9 +100,9 @@ class Command implements CommandInterface
     /**
      * @param array $groups
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function setGroups(array $groups)
+    public function setGroups(array $groups): CommandInterface
     {
         $this->groups = $groups;
 
@@ -112,9 +112,9 @@ class Command implements CommandInterface
     /**
      * @param array $env
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function setEnv(array $env)
+    public function setEnv(array $env): CommandInterface
     {
         $this->env = $env;
 
@@ -124,7 +124,7 @@ class Command implements CommandInterface
     /**
      * @return array
      */
-    public function getEnv()
+    public function getEnv(): array
     {
         return $this->env;
     }
@@ -132,9 +132,9 @@ class Command implements CommandInterface
     /**
      * @param bool $isStoreAware
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function setIsStoreAware($isStoreAware)
+    public function setIsStoreAware(bool $isStoreAware): CommandInterface
     {
         $this->isStoreAware = $isStoreAware;
 
@@ -144,7 +144,7 @@ class Command implements CommandInterface
     /**
      * @return bool
      */
-    public function isStoreAware()
+    public function isStoreAware(): bool
     {
         return $this->isStoreAware;
     }
@@ -152,9 +152,9 @@ class Command implements CommandInterface
     /**
      * @param \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface $condition
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function addCondition(ConditionInterface $condition)
+    public function addCondition(ConditionInterface $condition): CommandInterface
     {
         $this->conditions[] = $condition;
 
@@ -164,7 +164,7 @@ class Command implements CommandInterface
     /**
      * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface[]
      */
-    public function getConditions()
+    public function getConditions(): array
     {
         return $this->conditions;
     }
@@ -172,9 +172,9 @@ class Command implements CommandInterface
     /**
      * @param string $preCommand
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function setPreCommand($preCommand)
+    public function setPreCommand(string $preCommand): CommandInterface
     {
         $this->preCommand = $preCommand;
 
@@ -184,7 +184,7 @@ class Command implements CommandInterface
     /**
      * @return bool
      */
-    public function hasPreCommand()
+    public function hasPreCommand(): bool
     {
         return ($this->preCommand !== null);
     }
@@ -192,7 +192,7 @@ class Command implements CommandInterface
     /**
      * @return string
      */
-    public function getPreCommand()
+    public function getPreCommand(): string
     {
         return $this->preCommand;
     }
@@ -200,9 +200,9 @@ class Command implements CommandInterface
     /**
      * @param string $postCommand
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function setPostCommand($postCommand)
+    public function setPostCommand(string $postCommand): CommandInterface
     {
         $this->postCommand = $postCommand;
 
@@ -212,7 +212,7 @@ class Command implements CommandInterface
     /**
      * @return bool
      */
-    public function hasPostCommand()
+    public function hasPostCommand(): bool
     {
         return ($this->postCommand !== null);
     }
@@ -220,15 +220,15 @@ class Command implements CommandInterface
     /**
      * @return string
      */
-    public function getPostCommand()
+    public function getPostCommand(): string
     {
         return $this->postCommand;
     }
 
     /**
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function markAsExcluded()
+    public function markAsExcluded(): CommandInterface
     {
         $this->isExcluded = true;
 
@@ -238,7 +238,7 @@ class Command implements CommandInterface
     /**
      * @return bool
      */
-    public function isExcluded()
+    public function isExcluded(): bool
     {
         return $this->isExcluded;
     }
@@ -246,17 +246,19 @@ class Command implements CommandInterface
     /**
      * @param bool $breakOnFailure
      *
-     * @return void
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function setBreakOnFailure($breakOnFailure)
+    public function setBreakOnFailure(bool $breakOnFailure): CommandInterface
     {
         $this->breakOnFailure = $breakOnFailure;
+
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function breakOnFailure()
+    public function breakOnFailure(): bool
     {
         return $this->breakOnFailure;
     }

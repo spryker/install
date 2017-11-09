@@ -14,12 +14,12 @@ interface TimerInterface
      *
      * @return $this
      */
-    public function start($object);
+    public function start($object): self;
 
     /**
      * @param object $object
      *
      * @return float
      */
-    public function end($object);
+    public function end($object): float;
 }

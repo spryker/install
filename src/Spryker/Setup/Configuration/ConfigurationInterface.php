@@ -7,6 +7,7 @@
 
 namespace Spryker\Setup\Configuration;
 
+use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Spryker\Setup\Stage\StageInterface;
 use Spryker\Style\StyleInterface;
 
@@ -17,101 +18,101 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setOutput(StyleInterface $output);
+    public function setOutput(StyleInterface $output): self;
 
     /**
      * @return \Spryker\Style\StyleInterface
      */
-    public function getOutput();
+    public function getOutput(): StyleInterface;
 
     /**
      * @param \Spryker\Setup\Stage\StageInterface $stage
      *
      * @return $this
      */
-    public function setStage(StageInterface $stage);
+    public function setStage(StageInterface $stage): self;
 
     /**
      * @return \Spryker\Setup\Stage\StageInterface
      */
-    public function getStage();
+    public function getStage(): StageInterface;
 
     /**
      * @param bool $isDebugMode
      *
      * @return $this
      */
-    public function setIsDebugMode($isDebugMode);
+    public function setIsDebugMode(bool $isDebugMode): self;
 
     /**
      * @return bool
      */
-    public function isDebugMode();
+    public function isDebugMode(): bool;
 
     /**
      * @param bool $isDryRun
      *
      * @return $this
      */
-    public function setIsDryRun($isDryRun);
+    public function setIsDryRun(bool $isDryRun): self;
 
     /**
      * @return bool
      */
-    public function isDryRun();
+    public function isDryRun(): bool;
 
     /**
      * @param array $env
      *
      * @return $this
      */
-    public function setEnv(array $env);
+    public function setEnv(array $env): self;
 
     /**
      * @return array
      */
-    public function getEnv();
+    public function getEnv(): array;
 
     /**
      * @param array $stores
      *
      * @return $this
      */
-    public function setStores(array $stores);
+    public function setStores(array $stores): self;
 
     /**
      * @return array
      */
-    public function getStores();
+    public function getStores(): array;
 
     /**
      * @param array $executableStores
      *
      * @return $this
      */
-    public function setExecutableStores(array $executableStores);
+    public function setExecutableStores(array $executableStores): self;
 
     /**
      * @return array
      */
-    public function getExecutableStores();
+    public function getExecutableStores(): array;
 
     /**
      * @return bool
      */
-    public function shouldAskBeforeContinueAfterException();
+    public function shouldAskBeforeContinueAfterException(): bool;
 
     /**
      * @param bool $shouldAskBeforeContinueAfterException
      *
      * @return $this
      */
-    public function setAskBeforeContinueAfterException($shouldAskBeforeContinueAfterException);
+    public function setAskBeforeContinueAfterException(bool $shouldAskBeforeContinueAfterException): self;
 
     /**
      * @param string $name
      *
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function findCommand($name);
+    public function findCommand(string $name): CommandInterface;
 }

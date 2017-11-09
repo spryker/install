@@ -14,10 +14,12 @@ use Spryker\Setup\Configuration\Builder\Section\SectionBuilderInterface;
 use Spryker\Setup\Configuration\ConfigurationInterface;
 use Spryker\Setup\Configuration\Filter\CommandExcludeFilter;
 use Spryker\Setup\Configuration\Filter\FilterComposite;
+use Spryker\Setup\Configuration\Filter\FilterInterface;
 use Spryker\Setup\Configuration\Filter\InteractiveSectionExcludeFilter;
 use Spryker\Setup\Configuration\Filter\SectionExcludeFilter;
 use Spryker\Setup\Configuration\Filter\UnsetFilter;
 use Spryker\Setup\Configuration\Loader\ConfigurationLoaderInterface;
+use Spryker\Setup\Stage\Section\SectionInterface;
 use Spryker\Setup\Stage\Stage;
 use Spryker\Style\StyleInterface;
 
@@ -95,7 +97,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         CommandLineArgumentContainer $commandLineArgumentContainer,
         CommandLineOptionContainer $commandLineOptionContainer,
         StyleInterface $output
-    ) {
+    ): ConfigurationInterface {
         $this->commandLineArgumentContainer = $commandLineArgumentContainer;
         $this->commandLineOptionContainer = $commandLineOptionContainer;
         $this->output = $output;
@@ -164,7 +166,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @return array
      */
-    protected function askForStoresToBeExecuted()
+    protected function askForStoresToBeExecuted(): array
     {
         if (!$this->commandLineOptionContainer->isInteractive() || !$this->configuration->getStores()) {
             return [];
@@ -187,7 +189,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return void
      */
-    protected function addStageToConfiguration($stageName, array $sections)
+    protected function addStageToConfiguration(string $stageName, array $sections)
     {
         $stage = new Stage($stageName);
 
@@ -203,7 +205,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return array
      */
-    protected function filterSections(array $sections)
+    protected function filterSections(array $sections): array
     {
         return $this->getSectionFilter()->filter($sections);
     }
@@ -211,7 +213,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @return \Spryker\Setup\Configuration\Filter\FilterInterface
      */
-    protected function getSectionFilter()
+    protected function getSectionFilter(): FilterInterface
     {
         $filter = [
             new UnsetFilter('pre'),
@@ -240,7 +242,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    protected function buildSection($sectionName, array $sectionDefinition)
+    protected function buildSection($sectionName, array $sectionDefinition): SectionInterface
     {
         $section = $this->sectionBuilder->buildSection($sectionName, $sectionDefinition);
 
@@ -264,7 +266,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @return \Spryker\Setup\Configuration\Filter\FilterInterface
      */
-    protected function getCommandFilter()
+    protected function getCommandFilter(): FilterInterface
     {
         $filter = [
             new UnsetFilter('pre'),

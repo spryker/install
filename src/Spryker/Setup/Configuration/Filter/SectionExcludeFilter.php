@@ -48,7 +48,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return array
      */
-    public function filter(array $items)
+    public function filter(array $items): array
     {
         $filtered = [];
 
@@ -70,7 +70,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function shouldSectionBeAdded($sectionName, array $sectionDefinition)
+    protected function shouldSectionBeAdded(string $sectionName, array $sectionDefinition): bool
     {
         if ($this->containsRequestedGroup($sectionDefinition)) {
             return true;
@@ -90,7 +90,7 @@ class SectionExcludeFilter implements FilterInterface
     /**
      * @return bool
      */
-    protected function onlyRunSelected()
+    protected function onlyRunSelected(): bool
     {
         return (count($this->sectionsToBeExecuted) > 0);
     }
@@ -100,7 +100,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function containsRequestedGroup(array $sectionDefinition)
+    protected function containsRequestedGroup(array $sectionDefinition): bool
     {
         foreach ($this->filterForRequestedGroupCheck($sectionDefinition) as $commandDefinition) {
             if (array_intersect($commandDefinition['groups'], $this->groupsToBeExecuted)) {
@@ -116,7 +116,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return array
      */
-    protected function filterForRequestedGroupCheck(array $sectionDefinition)
+    protected function filterForRequestedGroupCheck(array $sectionDefinition): array
     {
         $filtered = [];
 
@@ -134,7 +134,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isSectionRequested($sectionName)
+    protected function isSectionRequested(string $sectionName): bool
     {
         return in_array($sectionName, $this->sectionsToBeExecuted);
     }
@@ -145,7 +145,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isSectionExcluded($sectionName, array $sectionDefinition)
+    protected function isSectionExcluded(string $sectionName, array $sectionDefinition): bool
     {
         if ($this->isExcludedByName($sectionName)) {
             return true;
@@ -163,7 +163,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function shouldBeIncluded($sectionName)
+    protected function shouldBeIncluded(string $sectionName): bool
     {
         return (count($this->includeExcluded) > 0 && in_array($sectionName, $this->includeExcluded));
     }
@@ -173,7 +173,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isExcludedByName($sectionName)
+    protected function isExcludedByName(string $sectionName): bool
     {
         return count($this->excludedSections) > 0 && in_array($sectionName, $this->excludedSections);
     }
@@ -183,7 +183,7 @@ class SectionExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isExcludedByDefinition(array $sectionDefinition)
+    protected function isExcludedByDefinition(array $sectionDefinition): bool
     {
         return (isset($sectionDefinition[static::EXCLUDED])) ? $sectionDefinition[static::EXCLUDED] : false;
     }

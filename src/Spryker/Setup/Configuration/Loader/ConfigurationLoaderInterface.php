@@ -14,5 +14,5 @@ interface ConfigurationLoaderInterface
      *
      * @return array
      */
-    public function loadConfiguration($stageName);
+    public function loadConfiguration(string $stageName): array;
 }

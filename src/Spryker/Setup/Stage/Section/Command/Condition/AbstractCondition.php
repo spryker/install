@@ -23,7 +23,7 @@ abstract class AbstractCondition implements ConditionInterface
      * @param string $command
      * @param int $exitCode
      */
-    public function __construct($command, $exitCode)
+    public function __construct(string $command, int $exitCode)
     {
         $this->command = $command;
         $this->exitCode = $exitCode;

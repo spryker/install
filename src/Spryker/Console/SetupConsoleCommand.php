@@ -12,6 +12,7 @@ use Spryker\Setup\CommandLine\CommandLineOptionContainer;
 use Spryker\Setup\SetupFacade;
 use Spryker\Setup\SetupFactory;
 use Spryker\Style\SprykerStyle;
+use Spryker\Style\StyleInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -115,7 +116,7 @@ class SetupConsoleCommand extends Command
      *
      * @return \Spryker\Style\StyleInterface
      */
-    protected function createOutput(InputInterface $input, OutputInterface $output)
+    protected function createOutput(InputInterface $input, OutputInterface $output): StyleInterface
     {
         return new SprykerStyle(
             $input,
@@ -128,7 +129,7 @@ class SetupConsoleCommand extends Command
     /**
      * @return \Spryker\Setup\CommandLine\CommandLineArgumentContainer
      */
-    protected function getCommandLineArgumentContainer()
+    protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
         return new CommandLineArgumentContainer(
             $this->input->getArgument(static::ARGUMENT_ENVIRONMENT),
@@ -139,7 +140,7 @@ class SetupConsoleCommand extends Command
     /**
      * @return \Spryker\Setup\CommandLine\CommandLineOptionContainer
      */
-    protected function getCommandLineOptionContainer()
+    protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
         return new CommandLineOptionContainer(
             $this->getSectionsToBeExecuted(),
@@ -156,7 +157,7 @@ class SetupConsoleCommand extends Command
     /**
      * @return array
      */
-    protected function getSectionsToBeExecuted()
+    protected function getSectionsToBeExecuted(): array
     {
         return $this->getOptionAndComment(static::OPTION_SECTIONS, 'Setup will only run this section(s) "%s"');
     }
@@ -164,7 +165,7 @@ class SetupConsoleCommand extends Command
     /**
      * @return array
      */
-    protected function getGroupsToBeExecuted()
+    protected function getGroupsToBeExecuted(): array
     {
         return $this->getOptionAndComment(static::OPTION_GROUPS, 'Setup will only run this group(s) "%s"');
     }
@@ -180,7 +181,7 @@ class SetupConsoleCommand extends Command
     /**
      * @return array
      */
-    protected function getIncludeExcluded()
+    protected function getIncludeExcluded(): array
     {
         return $this->getOptionAndComment(static::OPTION_INCLUDE_EXCLUDED, 'Setup will include this excluded section(s) or command(s) "%s"');
     }
@@ -189,9 +190,9 @@ class SetupConsoleCommand extends Command
      * @param string $optionKey
      * @param string $commentPattern
      *
-     * @return mixed
+     * @return array
      */
-    protected function getOptionAndComment($optionKey, $commentPattern)
+    protected function getOptionAndComment($optionKey, $commentPattern): array
     {
         $option = $this->input->getOption($optionKey);
 
@@ -205,7 +206,7 @@ class SetupConsoleCommand extends Command
     /**
      * @return \Spryker\Setup\SetupFacade
      */
-    protected function getFacade()
+    protected function getFacade(): SetupFacade
     {
         return new SetupFacade();
     }
@@ -213,7 +214,7 @@ class SetupConsoleCommand extends Command
     /**
      * @return \Spryker\Setup\SetupFactory
      */
-    protected function getFactory()
+    protected function getFactory(): SetupFactory
     {
         return new SetupFactory();
     }

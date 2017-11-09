@@ -8,18 +8,24 @@
 namespace Spryker\Setup\Configuration;
 
 use Spryker\Setup\Configuration\Builder\ConfigurationBuilder;
+use Spryker\Setup\Configuration\Builder\ConfigurationBuilderInterface;
 use Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilder;
+use Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilderInterface;
 use Spryker\Setup\Configuration\Builder\Section\SectionBuilder;
+use Spryker\Setup\Configuration\Builder\Section\SectionBuilderInterface;
 use Spryker\Setup\Configuration\Loader\ConfigurationLoader;
+use Spryker\Setup\Configuration\Loader\ConfigurationLoaderInterface;
 use Spryker\Setup\Configuration\Validator\ConfigurationValidator;
+use Spryker\Setup\Configuration\Validator\ConfigurationValidatorInterface;
 use Spryker\Setup\Stage\Section\Command\Condition\ConditionFactory;
+use Spryker\Setup\Stage\Section\Command\Condition\ConditionFactoryInterface;
 
 class ConfigurationFactory
 {
     /**
      * @return \Spryker\Setup\Configuration\Builder\ConfigurationBuilderInterface
      */
-    public function createConfigurationBuilder()
+    public function createConfigurationBuilder(): ConfigurationBuilderInterface
     {
         return new ConfigurationBuilder(
             $this->createConfigurationLoader(),
@@ -32,7 +38,7 @@ class ConfigurationFactory
     /**
      * @return \Spryker\Setup\Configuration\Loader\ConfigurationLoaderInterface
      */
-    protected function createConfigurationLoader()
+    protected function createConfigurationLoader(): ConfigurationLoaderInterface
     {
         return new ConfigurationLoader(
             $this->createConfigurationValidator()
@@ -42,7 +48,7 @@ class ConfigurationFactory
     /**
      * @return \Spryker\Setup\Configuration\Validator\ConfigurationValidatorInterface
      */
-    protected function createConfigurationValidator()
+    protected function createConfigurationValidator(): ConfigurationValidatorInterface
     {
         return new ConfigurationValidator();
     }
@@ -50,7 +56,7 @@ class ConfigurationFactory
     /**
      * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    protected function createConfiguration()
+    protected function createConfiguration(): ConfigurationInterface
     {
         return new Configuration();
     }
@@ -58,7 +64,7 @@ class ConfigurationFactory
     /**
      * @return \Spryker\Setup\Configuration\Builder\Section\SectionBuilderInterface
      */
-    protected function createSectionBuilder()
+    protected function createSectionBuilder(): SectionBuilderInterface
     {
         return new SectionBuilder();
     }
@@ -66,7 +72,7 @@ class ConfigurationFactory
     /**
      * @return \Spryker\Setup\Configuration\Builder\Section\Command\CommandBuilderInterface
      */
-    protected function createCommandBuilder()
+    protected function createCommandBuilder(): CommandBuilderInterface
     {
         return new CommandBuilder(
             $this->createConditionFactory()
@@ -76,7 +82,7 @@ class ConfigurationFactory
     /**
      * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionFactoryInterface
      */
-    protected function createConditionFactory()
+    protected function createConditionFactory(): ConditionFactoryInterface
     {
         return new ConditionFactory();
     }

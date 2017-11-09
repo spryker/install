@@ -7,18 +7,22 @@
 
 namespace Spryker\Setup\Runner;
 
+use Spryker\Setup\Configuration\Builder\ConfigurationBuilderInterface;
 use Spryker\Setup\Configuration\ConfigurationFactory;
 use Spryker\Setup\Executable\ExecutableFactory;
 use Spryker\Setup\Runner\Environment\EnvironmentHelper;
+use Spryker\Setup\Runner\Environment\EnvironmentHelperInterface;
 use Spryker\Setup\Runner\Section\Command\CommandRunner;
+use Spryker\Setup\Runner\Section\Command\CommandRunnerInterface;
 use Spryker\Setup\Runner\Section\SectionRunner;
+use Spryker\Setup\Runner\Section\SectionRunnerInterface;
 
 class RunnerFactory
 {
     /**
      * @return \Spryker\Setup\Runner\SetupRunnerInterface
      */
-    public function createSetupRunner()
+    public function createSetupRunner(): SetupRunnerInterface
     {
         return new SetupRunner(
             $this->createSectionRunner(),
@@ -30,7 +34,7 @@ class RunnerFactory
     /**
      * @return \Spryker\Setup\Runner\Section\SectionRunnerInterface
      */
-    protected function createSectionRunner()
+    protected function createSectionRunner(): SectionRunnerInterface
     {
         return new SectionRunner(
             $this->createCommandRunner()
@@ -40,7 +44,7 @@ class RunnerFactory
     /**
      * @return \Spryker\Setup\Runner\Section\Command\CommandRunnerInterface
      */
-    protected function createCommandRunner()
+    protected function createCommandRunner(): CommandRunnerInterface
     {
         return new CommandRunner(
             $this->createExecutableFactory(),
@@ -51,7 +55,7 @@ class RunnerFactory
     /**
      * @return \Spryker\Setup\Executable\ExecutableFactory
      */
-    protected function createExecutableFactory()
+    protected function createExecutableFactory(): ExecutableFactory
     {
         return new ExecutableFactory();
     }
@@ -59,7 +63,7 @@ class RunnerFactory
     /**
      * @return \Spryker\Setup\Runner\Environment\EnvironmentHelperInterface
      */
-    protected function createEnvironmentHelper()
+    protected function createEnvironmentHelper(): EnvironmentHelperInterface
     {
         return new EnvironmentHelper();
     }
@@ -67,7 +71,7 @@ class RunnerFactory
     /**
      * @return \Spryker\Setup\Configuration\Builder\ConfigurationBuilderInterface
      */
-    protected function createConfigurationBuilder()
+    protected function createConfigurationBuilder(): ConfigurationBuilderInterface
     {
         return $this->createConfigurationFactory()->createConfigurationBuilder();
     }
@@ -75,7 +79,7 @@ class RunnerFactory
     /**
      * @return \Spryker\Setup\Configuration\ConfigurationFactory
      */
-    protected function createConfigurationFactory()
+    protected function createConfigurationFactory(): ConfigurationFactory
     {
         return new ConfigurationFactory();
     }

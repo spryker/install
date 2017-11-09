@@ -17,9 +17,9 @@ class Timer implements TimerInterface
     /**
      * @param object $object
      *
-     * @return $this
+     * @return \Spryker\Setup\Timer\TimerInterface
      */
-    public function start($object)
+    public function start($object): TimerInterface
     {
         $this->timer[spl_object_hash($object)] = microtime(true);
 
@@ -29,9 +29,9 @@ class Timer implements TimerInterface
     /**
      * @param object $object
      *
-     * @return string
+     * @return float
      */
-    public function end($object)
+    public function end($object): float
     {
         $start = $this->timer[spl_object_hash($object)];
 

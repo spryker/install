@@ -14,24 +14,24 @@ interface StageInterface
     /**
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * @param \Spryker\Setup\Stage\Section\SectionInterface $section
      *
      * @return $this
      */
-    public function addSection(SectionInterface $section);
+    public function addSection(SectionInterface $section): self;
 
     /**
      * @return \Spryker\Setup\Stage\Section\SectionInterface[]
      */
-    public function getSections();
+    public function getSections(): array;
 
     /**
      * @param string $sectionName
      *
      * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function getSection($sectionName);
+    public function getSection(string $sectionName): SectionInterface;
 }

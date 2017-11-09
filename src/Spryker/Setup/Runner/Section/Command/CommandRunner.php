@@ -124,7 +124,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return bool
      */
-    protected function shouldBeExecuted(CommandInterface $command, ConfigurationInterface $configuration)
+    protected function shouldBeExecuted(CommandInterface $command, ConfigurationInterface $configuration): bool
     {
         if ($configuration->isDryRun()) {
             $configuration->getOutput()->dryRunCommand($command);
@@ -144,7 +144,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return bool
      */
-    protected function hasConditionAndConditionNotMatched(CommandInterface $command)
+    protected function hasConditionAndConditionNotMatched(CommandInterface $command): bool
     {
         if (!$this->isConditionalCommand($command) || $this->conditionMatched($command)) {
             return false;
@@ -158,7 +158,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return bool
      */
-    protected function isConditionalCommand(CommandInterface $command)
+    protected function isConditionalCommand(CommandInterface $command): bool
     {
         return (count($command->getConditions()) > 0);
     }
@@ -168,7 +168,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return bool
      */
-    protected function conditionMatched(CommandInterface $command)
+    protected function conditionMatched(CommandInterface $command): bool
     {
         $matchedConditions = true;
         foreach ($command->getConditions() as $condition) {
@@ -188,8 +188,12 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return void
      */
-    protected function executeExecutable(ExecutableInterface $executable, CommandInterface $command, ConfigurationInterface $configuration, $store = null)
-    {
+    protected function executeExecutable(
+        ExecutableInterface $executable,
+        CommandInterface $command,
+        ConfigurationInterface $configuration,
+        string $store = null
+    ) {
         $configuration->getOutput()->startCommand($command, $store);
 
         $exitCode = $executable->execute($configuration->getOutput());

@@ -19,5 +19,5 @@ interface ExecutableInterface
      *
      * @return int
      */
-    public function execute(StyleInterface $output);
+    public function execute(StyleInterface $output): int;
 }

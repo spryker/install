@@ -41,7 +41,7 @@ class CommandLineExecutable implements ExecutableInterface
      *
      * @return int
      */
-    public function execute(StyleInterface $output)
+    public function execute(StyleInterface $output): int
     {
         $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
         $process->start();
@@ -76,7 +76,7 @@ class CommandLineExecutable implements ExecutableInterface
      *
      * @return bool
      */
-    protected function askToContinue(StyleInterface $output)
+    protected function askToContinue(StyleInterface $output): bool
     {
         if (!$this->configuration->shouldAskBeforeContinueAfterException()) {
             return true;

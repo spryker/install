@@ -14,68 +14,68 @@ interface SectionInterface
     /**
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * @return $this
      */
-    public function markAsExcluded();
+    public function markAsExcluded(): self;
 
     /**
      * @return bool
      */
-    public function isExcluded();
+    public function isExcluded(): bool;
 
     /**
      * @param \Spryker\Setup\Stage\Section\Command\CommandInterface $command
      *
      * @return $this
      */
-    public function addCommand(CommandInterface $command);
+    public function addCommand(CommandInterface $command): self;
 
     /**
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface[]
      */
-    public function getCommands();
+    public function getCommands(): array;
 
     /**
      * @param string $commandName
      *
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function getCommand($commandName);
+    public function getCommand(string $commandName): CommandInterface;
 
     /**
      * @param string $preCommand
      *
      * @return $this
      */
-    public function setPreCommand($preCommand);
+    public function setPreCommand(string $preCommand): self;
 
     /**
      * @return bool
      */
-    public function hasPreCommand();
+    public function hasPreCommand(): bool;
 
     /**
      * @return string
      */
-    public function getPreCommand();
+    public function getPreCommand(): string;
 
     /**
      * @param string $postCommand
      *
      * @return $this
      */
-    public function setPostCommand($postCommand);
+    public function setPostCommand(string $postCommand): self;
 
     /**
      * @return bool
      */
-    public function hasPostCommand();
+    public function hasPostCommand(): bool;
 
     /**
      * @return string
      */
-    public function getPostCommand();
+    public function getPostCommand(): string;
 }

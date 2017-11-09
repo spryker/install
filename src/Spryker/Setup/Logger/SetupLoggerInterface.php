@@ -10,7 +10,7 @@ namespace Spryker\Setup\Logger;
 interface SetupLoggerInterface
 {
     /**
-     * @param string $message
+     * @param string|array $message
      *
      * @return void
      */

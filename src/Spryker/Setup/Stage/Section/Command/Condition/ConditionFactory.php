@@ -24,9 +24,9 @@ class ConditionFactory implements ConditionFactoryInterface
      *
      * @throws \Spryker\Setup\Stage\Section\Command\Condition\Exception\ConditionNotFoundException
      *
-     * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface|\Spryker\Setup\Stage\Section\Command\Condition\ExitCodeCondition
+     * @return \Spryker\Setup\Stage\Section\Command\Condition\ConditionInterface
      */
-    public function createCondition(array $condition)
+    public function createCondition(array $condition): ConditionInterface
     {
         foreach ($this->conditionNameToConditionClassMap as $conditionName => $conditionClass) {
             if (isset($condition[$conditionName])) {

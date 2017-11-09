@@ -33,7 +33,7 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
      *
      * @return array
      */
-    public function loadConfiguration($stageName)
+    public function loadConfiguration(string $stageName): array
     {
         $configFile = SPRYKER_ROOT . '/.spryker/setup/' . $stageName . '.yml';
         if (!file_exists($configFile)) {

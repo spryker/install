@@ -41,7 +41,7 @@ class Section implements SectionInterface
     /**
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
@@ -49,7 +49,7 @@ class Section implements SectionInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -59,9 +59,9 @@ class Section implements SectionInterface
      *
      * @throws \Spryker\Setup\Stage\Section\Command\Exception\CommandExistsException
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function addCommand(CommandInterface $command)
+    public function addCommand(CommandInterface $command): SectionInterface
     {
         if (isset($this->commands[$command->getName()])) {
             throw new CommandExistsException(sprintf('Command with name "%s" already exists.', $command->getName()));
@@ -72,17 +72,19 @@ class Section implements SectionInterface
     }
 
     /**
-     * @return void
+     * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function markAsExcluded()
+    public function markAsExcluded(): SectionInterface
     {
         $this->isExcluded = true;
+
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isExcluded()
+    public function isExcluded(): bool
     {
         return $this->isExcluded;
     }
@@ -90,7 +92,7 @@ class Section implements SectionInterface
     /**
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface[]
      */
-    public function getCommands()
+    public function getCommands(): array
     {
         return $this->commands;
     }
@@ -102,7 +104,7 @@ class Section implements SectionInterface
      *
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function getCommand($commandName)
+    public function getCommand(string $commandName): CommandInterface
     {
         if (!isset($this->commands[$commandName])) {
             throw new CommandNotFoundException(sprintf('Command "%s" not found in "%s" section', $commandName, $this->getName()));
@@ -114,9 +116,9 @@ class Section implements SectionInterface
     /**
      * @param string $preCommand
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function setPreCommand($preCommand)
+    public function setPreCommand(string $preCommand): SectionInterface
     {
         $this->preCommand = $preCommand;
 
@@ -126,7 +128,7 @@ class Section implements SectionInterface
     /**
      * @return bool
      */
-    public function hasPreCommand()
+    public function hasPreCommand(): bool
     {
         return ($this->preCommand !== null);
     }
@@ -134,7 +136,7 @@ class Section implements SectionInterface
     /**
      * @return string
      */
-    public function getPreCommand()
+    public function getPreCommand(): string
     {
         return $this->preCommand;
     }
@@ -142,9 +144,9 @@ class Section implements SectionInterface
     /**
      * @param string $postCommand
      *
-     * @return $this
+     * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function setPostCommand($postCommand)
+    public function setPostCommand(string $postCommand): SectionInterface
     {
         $this->postCommand = $postCommand;
 
@@ -154,7 +156,7 @@ class Section implements SectionInterface
     /**
      * @return bool
      */
-    public function hasPostCommand()
+    public function hasPostCommand(): bool
     {
         return ($this->postCommand !== null);
     }
@@ -162,7 +164,7 @@ class Section implements SectionInterface
     /**
      * @return string
      */
-    public function getPostCommand()
+    public function getPostCommand(): string
     {
         return $this->postCommand;
     }

@@ -22,7 +22,7 @@ class SectionBuilder implements SectionBuilderInterface
      *
      * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function buildSection($name, array $definition)
+    public function buildSection(string $name, array $definition): SectionInterface
     {
         $section = new Section($name);
         $this->setExcluded($section, $definition);

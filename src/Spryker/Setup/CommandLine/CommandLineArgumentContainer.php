@@ -15,15 +15,15 @@ class CommandLineArgumentContainer
     protected $stage;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $store;
 
     /**
      * @param string $stage
-     * @param string $store
+     * @param string|null $store
      */
-    public function __construct($stage, $store)
+    public function __construct(string $stage, string $store = null)
     {
         $this->stage = $stage;
         $this->store = $store;
@@ -32,13 +32,13 @@ class CommandLineArgumentContainer
     /**
      * @return string
      */
-    public function getStage()
+    public function getStage(): string
     {
         return $this->stage;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getStore()
     {

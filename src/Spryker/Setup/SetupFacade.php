@@ -28,7 +28,7 @@ class SetupFacade
     /**
      * @return \Spryker\Setup\SetupFactory
      */
-    protected function getFactory()
+    protected function getFactory(): SetupFactory
     {
         return new SetupFactory();
     }

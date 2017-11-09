@@ -7,6 +7,8 @@
 
 namespace Spryker\Setup\Configuration\Builder\Section\Command;
 
+use Spryker\Setup\Stage\Section\Command\CommandInterface;
+
 interface CommandBuilderInterface
 {
     /**
@@ -15,5 +17,5 @@ interface CommandBuilderInterface
      *
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function buildCommand($name, array $definition);
+    public function buildCommand(string $name, array $definition): CommandInterface;
 }

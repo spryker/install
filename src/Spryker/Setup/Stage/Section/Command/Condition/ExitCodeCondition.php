@@ -14,7 +14,7 @@ class ExitCodeCondition extends AbstractCondition
      *
      * @return bool
      */
-    public function match(array $exitCodes)
+    public function match(array $exitCodes): bool
     {
         if (!isset($exitCodes[$this->command]) || $exitCodes[$this->command] !== $this->exitCode) {
             return false;

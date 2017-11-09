@@ -22,7 +22,7 @@ interface EnvironmentHelperInterface
      *
      * @return void
      */
-    public function putEnv($key, $value);
+    public function putEnv(string $key, $value);
 
     /**
      * @param array $env
@@ -36,5 +36,5 @@ interface EnvironmentHelperInterface
      *
      * @return void
      */
-    public function unsetEnv($key);
+    public function unsetEnv(string $key);
 }

@@ -27,7 +27,7 @@ class FilterComposite implements FilterInterface
      *
      * @return array
      */
-    public function filter(array $items)
+    public function filter(array $items): array
     {
         foreach ($this->filter as $filter) {
             $items = $filter->filter($items);

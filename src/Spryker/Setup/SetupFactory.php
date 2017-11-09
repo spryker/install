@@ -8,15 +8,18 @@
 namespace Spryker\Setup;
 
 use Spryker\Setup\Logger\LoggerFactory;
+use Spryker\Setup\Logger\SetupLoggerInterface;
 use Spryker\Setup\Runner\RunnerFactory;
+use Spryker\Setup\Runner\SetupRunnerInterface;
 use Spryker\Setup\Timer\Timer;
+use Spryker\Setup\Timer\TimerInterface;
 
 class SetupFactory
 {
     /**
      * @return \Spryker\Setup\Runner\SetupRunnerInterface
      */
-    public function createSetupRunner()
+    public function createSetupRunner(): SetupRunnerInterface
     {
         return $this->createRunnerFactory()->createSetupRunner();
     }
@@ -24,7 +27,7 @@ class SetupFactory
     /**
      * @return \Spryker\Setup\Runner\RunnerFactory
      */
-    protected function createRunnerFactory()
+    protected function createRunnerFactory(): RunnerFactory
     {
         return new RunnerFactory();
     }
@@ -32,7 +35,7 @@ class SetupFactory
     /**
      * @return \Spryker\Setup\Timer\TimerInterface
      */
-    public function createTimer()
+    public function createTimer(): TimerInterface
     {
         return new Timer();
     }
@@ -40,7 +43,7 @@ class SetupFactory
     /**
      * @return \Spryker\Setup\Logger\SetupLoggerInterface
      */
-    public function createOutputLogger()
+    public function createOutputLogger(): SetupLoggerInterface
     {
         return $this->createdLoggerFactory()->createOutputLogger();
     }
@@ -48,7 +51,7 @@ class SetupFactory
     /**
      * @return \Spryker\Setup\Logger\LoggerFactory
      */
-    protected function createdLoggerFactory()
+    protected function createdLoggerFactory(): LoggerFactory
     {
         return new LoggerFactory();
     }

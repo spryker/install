@@ -7,6 +7,8 @@
 
 namespace Spryker\Setup\Configuration\Builder\Section;
 
+use Spryker\Setup\Stage\Section\SectionInterface;
+
 interface SectionBuilderInterface
 {
     /**
@@ -15,5 +17,5 @@ interface SectionBuilderInterface
      *
      * @return \Spryker\Setup\Stage\Section\SectionInterface
      */
-    public function buildSection($name, array $definition);
+    public function buildSection(string $name, array $definition): SectionInterface;
 }

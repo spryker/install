@@ -17,7 +17,7 @@ class UnsetFilter implements FilterInterface
     /**
      * @param string $keyToUnset
      */
-    public function __construct($keyToUnset)
+    public function __construct(string $keyToUnset)
     {
         $this->keyToUnset = $keyToUnset;
     }
@@ -27,7 +27,7 @@ class UnsetFilter implements FilterInterface
      *
      * @return array
      */
-    public function filter(array $items)
+    public function filter(array $items): array
     {
         if (isset($items[$this->keyToUnset])) {
             unset($items[$this->keyToUnset]);

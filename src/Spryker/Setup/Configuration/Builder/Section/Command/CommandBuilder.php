@@ -45,9 +45,9 @@ class CommandBuilder implements CommandBuilderInterface
      * @param string $name
      * @param array $definition
      *
-     * @return \Spryker\Setup\Stage\Section\Command\Command
+     * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function buildCommand($name, array $definition)
+    public function buildCommand(string $name, array $definition): CommandInterface
     {
         $command = new Command($name);
         $command->setExecutable($definition[static::CONFIG_COMMAND]);

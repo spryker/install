@@ -25,7 +25,7 @@ class SetupOutputLogger implements SetupLoggerInterface
     }
 
     /**
-     * @param string $message
+     * @param string|array $message
      *
      * @return void
      */
@@ -38,7 +38,7 @@ class SetupOutputLogger implements SetupLoggerInterface
     }
 
     /**
-     * @param string $message
+     * @param string|array $message
      *
      * @return string
      */

@@ -64,10 +64,10 @@ class CommandLineOptionContainer
         array $requestedGroups,
         array $exclude,
         array $includeExcluded,
-        $isInteractive,
-        $isDryRun,
-        $isDebugMode,
-        $askBeforeContinueOnException
+        bool $isInteractive,
+        bool $isDryRun,
+        bool $isDebugMode,
+        bool $askBeforeContinueOnException
     ) {
         $this->requestedSections = $requestedSections;
         $this->requestedGroups = $requestedGroups;
@@ -82,7 +82,7 @@ class CommandLineOptionContainer
     /**
      * @return array
      */
-    public function getRequestedSections()
+    public function getRequestedSections(): array
     {
         return $this->requestedSections;
     }
@@ -90,7 +90,7 @@ class CommandLineOptionContainer
     /**
      * @return array
      */
-    public function getRequestedGroups()
+    public function getRequestedGroups(): array
     {
         return $this->requestedGroups;
     }
@@ -98,7 +98,7 @@ class CommandLineOptionContainer
     /**
      * @return array
      */
-    public function getExclude()
+    public function getExclude(): array
     {
         return $this->exclude;
     }
@@ -106,7 +106,7 @@ class CommandLineOptionContainer
     /**
      * @return array
      */
-    public function getIncludeExcluded()
+    public function getIncludeExcluded(): array
     {
         return $this->includeExcluded;
     }
@@ -114,7 +114,7 @@ class CommandLineOptionContainer
     /**
      * @return bool
      */
-    public function isInteractive()
+    public function isInteractive(): bool
     {
         return $this->isInteractive;
     }
@@ -122,7 +122,7 @@ class CommandLineOptionContainer
     /**
      * @return bool
      */
-    public function isDryRun()
+    public function isDryRun(): bool
     {
         return $this->isDryRun;
     }
@@ -130,7 +130,7 @@ class CommandLineOptionContainer
     /**
      * @return bool
      */
-    public function isDebugMode()
+    public function isDebugMode(): bool
     {
         return $this->isDebugMode;
     }
@@ -138,7 +138,7 @@ class CommandLineOptionContainer
     /**
      * @return bool
      */
-    public function askBeforeContinueOnException()
+    public function askBeforeContinueOnException(): bool
     {
         return $this->askBeforeContinueOnException;
     }

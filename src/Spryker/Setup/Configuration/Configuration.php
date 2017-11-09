@@ -7,6 +7,7 @@
 
 namespace Spryker\Setup\Configuration;
 
+use Spryker\Setup\Stage\Section\Command\CommandInterface;
 use Spryker\Setup\Stage\StageInterface;
 use Spryker\Style\StyleInterface;
 
@@ -55,9 +56,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param \Spryker\Style\StyleInterface $output
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setOutput(StyleInterface $output)
+    public function setOutput(StyleInterface $output): ConfigurationInterface
     {
         $this->output = $output;
 
@@ -67,7 +68,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return \Spryker\Style\StyleInterface
      */
-    public function getOutput()
+    public function getOutput(): StyleInterface
     {
         return $this->output;
     }
@@ -75,9 +76,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param \Spryker\Setup\Stage\StageInterface $stage
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setStage(StageInterface $stage)
+    public function setStage(StageInterface $stage): ConfigurationInterface
     {
         $this->stage = $stage;
 
@@ -87,7 +88,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return \Spryker\Setup\Stage\StageInterface
      */
-    public function getStage()
+    public function getStage(): StageInterface
     {
         return $this->stage;
     }
@@ -95,9 +96,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param bool $isDebugMode
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setIsDebugMode($isDebugMode)
+    public function setIsDebugMode(bool $isDebugMode): ConfigurationInterface
     {
         $this->isDebugMode = $isDebugMode;
 
@@ -107,7 +108,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return bool
      */
-    public function isDebugMode()
+    public function isDebugMode(): bool
     {
         return $this->isDebugMode;
     }
@@ -115,9 +116,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param bool $isDryRun
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setIsDryRun($isDryRun)
+    public function setIsDryRun(bool $isDryRun): ConfigurationInterface
     {
         $this->isDryRun = $isDryRun;
 
@@ -127,7 +128,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return bool
      */
-    public function isDryRun()
+    public function isDryRun(): bool
     {
         return $this->isDryRun;
     }
@@ -135,9 +136,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param array $env
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setEnv(array $env)
+    public function setEnv(array $env): ConfigurationInterface
     {
         $this->env = $env;
 
@@ -147,7 +148,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return array
      */
-    public function getEnv()
+    public function getEnv(): array
     {
         return $this->env;
     }
@@ -155,9 +156,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param array $stores
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setStores(array $stores)
+    public function setStores(array $stores): ConfigurationInterface
     {
         $this->stores = $stores;
 
@@ -167,7 +168,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return array
      */
-    public function getStores()
+    public function getStores(): array
     {
         return $this->stores;
     }
@@ -175,9 +176,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param array $executableStores
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setExecutableStores(array $executableStores)
+    public function setExecutableStores(array $executableStores): ConfigurationInterface
     {
         $this->executableStores = $executableStores;
 
@@ -187,7 +188,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return array
      */
-    public function getExecutableStores()
+    public function getExecutableStores(): array
     {
         return $this->executableStores;
     }
@@ -195,7 +196,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @return bool
      */
-    public function shouldAskBeforeContinueAfterException()
+    public function shouldAskBeforeContinueAfterException(): bool
     {
         return $this->continueOnException;
     }
@@ -203,9 +204,9 @@ class Configuration implements ConfigurationInterface
     /**
      * @param bool $shouldAskBeforeContinueAfterException
      *
-     * @return $this
+     * @return \Spryker\Setup\Configuration\ConfigurationInterface
      */
-    public function setAskBeforeContinueAfterException($shouldAskBeforeContinueAfterException)
+    public function setAskBeforeContinueAfterException(bool $shouldAskBeforeContinueAfterException): ConfigurationInterface
     {
         $this->continueOnException = $shouldAskBeforeContinueAfterException;
 
@@ -217,7 +218,7 @@ class Configuration implements ConfigurationInterface
      *
      * @return \Spryker\Setup\Stage\Section\Command\CommandInterface
      */
-    public function findCommand($name)
+    public function findCommand(string $name): CommandInterface
     {
         list($section, $command) = explode('/', $name);
 

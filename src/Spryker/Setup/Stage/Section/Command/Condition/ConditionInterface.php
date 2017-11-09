@@ -14,5 +14,5 @@ interface ConditionInterface
      *
      * @return bool
      */
-    public function match(array $exitCodes);
+    public function match(array $exitCodes): bool;
 }

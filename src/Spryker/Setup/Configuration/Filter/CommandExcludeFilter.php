@@ -43,7 +43,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return array
      */
-    public function filter(array $items)
+    public function filter(array $items): array
     {
         $filtered = [];
         foreach ($items as $commandName => $commandDefinition) {
@@ -70,7 +70,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function shouldCommandBeAdded($commandName, array $commandDefinition)
+    protected function shouldCommandBeAdded(string $commandName, array $commandDefinition): bool
     {
         $commandGroups = $this->getCommandGroups($commandDefinition);
 
@@ -94,7 +94,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return array
      */
-    protected function getCommandGroups(array $commandDefinition)
+    protected function getCommandGroups(array $commandDefinition): array
     {
         return (isset($commandDefinition[static::GROUPS])) ? $commandDefinition[static::GROUPS] : [];
     }
@@ -102,7 +102,7 @@ class CommandExcludeFilter implements FilterInterface
     /**
      * @return bool
      */
-    protected function runOnlySpecified()
+    protected function runOnlySpecified(): bool
     {
         return (count($this->groupsToBeExecuted) > 0);
     }
@@ -114,7 +114,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isCommandExcluded($commandName, array $commandDefinition, array $commandGroups)
+    protected function isCommandExcluded(string $commandName, array $commandDefinition, array $commandGroups): bool
     {
         if ($this->isExcludedByName($commandName)) {
             return true;
@@ -132,7 +132,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isExcludedByName($commandName)
+    protected function isExcludedByName(string $commandName): bool
     {
         return in_array($commandName, $this->excludedCommandsAndGroups);
     }
@@ -142,7 +142,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isExcludedByDefinition(array $commandDefinition)
+    protected function isExcludedByDefinition(array $commandDefinition): bool
     {
         return (isset($commandDefinition[static::EXCLUDED])) ? $commandDefinition[static::EXCLUDED] : false;
     }
@@ -152,7 +152,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isGroupExcluded(array $commandGroups)
+    protected function isGroupExcluded(array $commandGroups): bool
     {
         return (count($this->excludedCommandsAndGroups) > 0 && (count(array_intersect($this->excludedCommandsAndGroups, $commandGroups)) > 0));
     }
@@ -162,7 +162,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function isGroupRequested(array $commandGroups)
+    protected function isGroupRequested(array $commandGroups): bool
     {
         return (count($this->groupsToBeExecuted) > 0 && (count(array_intersect($this->groupsToBeExecuted, $commandGroups)) > 0));
     }
@@ -173,7 +173,7 @@ class CommandExcludeFilter implements FilterInterface
      *
      * @return bool
      */
-    protected function shouldBeIncluded($commandName, array $commandGroups)
+    protected function shouldBeIncluded(string $commandName, array $commandGroups): bool
     {
         if (count($this->includeExcluded) > 0) {
             return (in_array($commandName, $this->includeExcluded) || count(array_intersect($this->includeExcluded, $commandGroups)) > 0);
