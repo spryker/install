@@ -34,7 +34,7 @@ class DeployConsoleCommandPrePostSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-section',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'pre-post-section',
         ];
 
         $tester->execute($arguments);
@@ -53,7 +53,7 @@ class DeployConsoleCommandPrePostSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-section',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'pre-post-section',
         ];
 
         $tester->execute($arguments);

@@ -107,12 +107,12 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         $this->configuration->setIsDebugMode($commandLineOptionContainer->isDebugMode());
         $this->configuration->setAskBeforeContinueAfterException($commandLineOptionContainer->askBeforeContinueOnException());
 
-        $configuration = $this->configurationLoader->loadConfiguration($commandLineArgumentContainer->getStage());
+        $configuration = $this->configurationLoader->loadConfiguration($commandLineOptionContainer->getRecipe());
 
         $this->setEnv($configuration);
         $this->setStores($configuration);
         $this->setExecutableStores();
-        $this->addStageToConfiguration($commandLineArgumentContainer->getStage(), $configuration['sections']);
+        $this->addStageToConfiguration($commandLineOptionContainer->getRecipe(), $configuration['sections']);
 
         return $this->configuration;
     }
@@ -156,7 +156,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         $requestedStore = $this->commandLineArgumentContainer->getStore();
 
         $arrayFilterCallback = function ($store) use ($requestedStore) {
-            return (!$requestedStore || $store === $requestedStore);
+            return ($requestedStore === null || $store === $requestedStore);
         };
         $requestedStores = array_filter($this->configuration->getStores(), $arrayFilterCallback);
 

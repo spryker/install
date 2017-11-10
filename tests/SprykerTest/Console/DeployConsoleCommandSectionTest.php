@@ -34,7 +34,7 @@ class DeployConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
             '--' . DeployConsoleCommand::OPTION_SECTIONS => ['section-a'],
         ];
 
@@ -55,7 +55,7 @@ class DeployConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
             '--' . DeployConsoleCommand::OPTION_SECTIONS => ['section-c'],
         ];
 
@@ -75,7 +75,7 @@ class DeployConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
             '--' . DeployConsoleCommand::OPTION_EXCLUDE => ['section-a'],
         ];
 
@@ -96,7 +96,7 @@ class DeployConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
         ];
 
         $tester->execute($arguments);
@@ -115,7 +115,7 @@ class DeployConsoleCommandSectionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
             '--' . DeployConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['section-c'],
         ];
 

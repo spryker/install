@@ -34,7 +34,7 @@ class DeployConsoleCommandInteractionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'interactive',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'interactive',
             '--' . DeployConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['yes', 'no']);

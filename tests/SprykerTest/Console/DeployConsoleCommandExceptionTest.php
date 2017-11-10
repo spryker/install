@@ -35,7 +35,7 @@ class DeployConsoleCommandExceptionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'exceptions',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'exceptions',
             '--' . DeployConsoleCommand::OPTION_ASK_BEFORE_CONTINUE => true,
         ];
 
@@ -57,7 +57,7 @@ class DeployConsoleCommandExceptionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'exceptions',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'exceptions',
             '--' . DeployConsoleCommand::OPTION_ASK_BEFORE_CONTINUE => true,
         ];
 
@@ -82,7 +82,7 @@ class DeployConsoleCommandExceptionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'exceptions',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'exceptions',
         ];
 
         $tester->execute($arguments);

@@ -35,7 +35,7 @@ class DeployConsoleCommandCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
             '--' . DeployConsoleCommand::OPTION_EXCLUDE => ['section-a-command-a'],
         ];
         $tester->execute($arguments, ['verbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE]);

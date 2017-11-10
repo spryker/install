@@ -35,7 +35,7 @@ class DeployConsoleCommandResumeTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'interactive',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'interactive',
             '--' . DeployConsoleCommand::OPTION_BREAKPOINT => true,
         ];
         $tester->setInputs(['yes', 'yes']);
@@ -56,7 +56,7 @@ class DeployConsoleCommandResumeTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'interactive',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'interactive',
             '--' . DeployConsoleCommand::OPTION_BREAKPOINT => true,
         ];
         $tester->setInputs(['yes', 'no']);

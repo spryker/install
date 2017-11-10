@@ -24,6 +24,9 @@ class DeployConsoleCommand extends Command
     const ARGUMENT_ENVIRONMENT = 'environment';
     const ARGUMENT_STORE = 'store';
 
+    const OPTION_RECIPE = 'recipe';
+    const OPTION_RECIPE_SHORT = 'r';
+
     const OPTION_DRY_RUN = 'dry-run';
     const OPTION_DRY_RUN_SHORT = 'd';
 
@@ -78,10 +81,11 @@ class DeployConsoleCommand extends Command
      */
     protected function configure()
     {
+        $environment = $this->getEnvironment();
         $this->setName('deploy')
             ->setDescription('Run deploy for a specified environment.')
-            ->addArgument(static::ARGUMENT_ENVIRONMENT, InputArgument::OPTIONAL, 'Name of the environment for which the deploy should be run.', 'development')
             ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store for which the deploy should be run.')
+            ->addOption(static::OPTION_RECIPE, static::OPTION_RECIPE_SHORT, InputOption::VALUE_REQUIRED, 'Name of the recipe you want to use for deploy.', $environment)
             ->addOption(static::OPTION_DRY_RUN, static::OPTION_DRY_RUN_SHORT, InputOption::VALUE_NONE, 'Dry runs the deploy, no command will be executed.')
             ->addOption(static::OPTION_SECTIONS, static::OPTION_SECTIONS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of sections(s) to be executed. A section is a set of commands related to one topic.')
             ->addOption(static::OPTION_GROUPS, static::OPTION_GROUPS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of group(s) to be executed. If command has no group(s) it will not be executed when this option is set. A group is a set of commands grouped together regardless their topic.')
@@ -132,7 +136,6 @@ class DeployConsoleCommand extends Command
     protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
         return new CommandLineArgumentContainer(
-            $this->input->getArgument(static::ARGUMENT_ENVIRONMENT),
             $this->input->getArgument(static::ARGUMENT_STORE)
         );
     }
@@ -143,6 +146,7 @@ class DeployConsoleCommand extends Command
     protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
         return new CommandLineOptionContainer(
+            $this->input->getOption(static::OPTION_RECIPE),
             $this->getSectionsToBeExecuted(),
             $this->getGroupsToBeExecuted(),
             $this->getExcludedStagesAndExcludedGroups(),
@@ -217,5 +221,14 @@ class DeployConsoleCommand extends Command
     protected function getFactory(): DeployFactory
     {
         return new DeployFactory();
+    }
+
+    /**
+     * @return array|false|string
+     */
+    protected function getEnvironment()
+    {
+        $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
+        return $environment;
     }
 }

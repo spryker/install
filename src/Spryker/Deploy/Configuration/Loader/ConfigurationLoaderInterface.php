@@ -10,9 +10,9 @@ namespace Spryker\Deploy\Configuration\Loader;
 interface ConfigurationLoaderInterface
 {
     /**
-     * @param string $stageName
+     * @param string $recipe
      *
      * @return array
      */
-    public function loadConfiguration(string $stageName): array;
+    public function loadConfiguration(string $recipe): array;
 }

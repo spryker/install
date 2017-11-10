@@ -27,27 +27,59 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     }
 
     /**
-     * @param string $stageName
-     *
-     * @throws \Spryker\Deploy\Configuration\Loader\Exception\ConfigurationFileNotFoundException
+     * @param string $recipe
      *
      * @return array
      */
-    public function loadConfiguration(string $stageName): array
+    public function loadConfiguration(string $recipe): array
     {
-        $configFile = SPRYKER_ROOT . '/config/deploy/' . $stageName . '.yml';
-        if (!file_exists($configFile)) {
-            throw new ConfigurationFileNotFoundException(
-                sprintf(
-                    'File "%s" does not exists. Please add the expected file.',
-                    $configFile
-                )
-            );
-        }
+        $pathToRecipe = $this->getPathToRecipe($recipe);
 
-        $configuration = (array)Yaml::parse(file_get_contents($configFile));
+        $configuration = (array)Yaml::parse(file_get_contents($pathToRecipe));
         $this->configurationValidator->validate($configuration);
 
         return $configuration;
+    }
+
+    /**
+     * @param string $recipe
+     *
+     * @throws \Spryker\Deploy\Configuration\Loader\Exception\ConfigurationFileNotFoundException
+     *
+     * @return string
+     */
+    protected function getPathToRecipe(string $recipe): string
+    {
+        $recipePaths = $this->buildRecipePaths($recipe);
+
+        foreach ($recipePaths as $recipePath) {
+            if (file_exists($recipePath)) {
+                return $recipePath;
+            }
+        }
+
+        throw new ConfigurationFileNotFoundException(
+            sprintf(
+                'Could not resolve path for your recipe. Check %s.',
+                implode(', ', $recipePaths)
+            )
+        );
+    }
+
+    /**
+     * @param string $recipe
+     *
+     * @return array
+     */
+    protected function buildRecipePaths(string $recipe): array
+    {
+        $recipePaths = [
+            sprintf('%s/config/deploy/%s.yml', SPRYKER_ROOT, $recipe),
+            sprintf('%s/config/deploy/%s', SPRYKER_ROOT, $recipe),
+            sprintf('%s/%s', SPRYKER_ROOT, $recipe),
+            $recipe,
+        ];
+
+        return $recipePaths;
     }
 }

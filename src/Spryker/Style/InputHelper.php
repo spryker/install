@@ -15,6 +15,16 @@ use Symfony\Component\Console\Question\Question;
 trait InputHelper
 {
     /**
+     * @var \Symfony\Component\Console\Input\InputInterface
+     */
+    protected $input;
+
+    /**
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
+    protected $output;
+
+    /**
      * @param string $question
      * @param bool $default
      *

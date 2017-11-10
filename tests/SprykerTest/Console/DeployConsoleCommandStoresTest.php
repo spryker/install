@@ -34,7 +34,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
         ];
         $tester->execute($arguments);
 
@@ -54,7 +54,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
             DeployConsoleCommand::ARGUMENT_STORE => 'DE',
         ];
         $tester->execute($arguments);
@@ -75,7 +75,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
             '--' . DeployConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs([1, 'yes']);
@@ -97,7 +97,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
             '--' . DeployConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['DE', 'yes']);
@@ -119,7 +119,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
             '--' . DeployConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['1,2', 'yes']);
@@ -141,7 +141,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
             '--' . DeployConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['DE,AT', 'yes']);
@@ -163,7 +163,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
             '--' . DeployConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs([0, 'yes']);
@@ -185,7 +185,7 @@ class DeployConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'stores',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'stores',
             '--' . DeployConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['all', 'yes']);

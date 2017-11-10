@@ -36,7 +36,7 @@ class DeployConsoleCommandPrePostCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'pre-post-command',
             '--' . DeployConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['command-with-undefined-pre-section'],
         ];
 
@@ -55,7 +55,7 @@ class DeployConsoleCommandPrePostCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'pre-post-command',
             '--' . DeployConsoleCommand::OPTION_INCLUDE_EXCLUDED => ['command-with-undefined-pre-command'],
         ];
 
@@ -74,7 +74,7 @@ class DeployConsoleCommandPrePostCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'pre-post-command',
         ];
 
         $tester->execute($arguments);
@@ -93,7 +93,7 @@ class DeployConsoleCommandPrePostCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'pre-post-command',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'pre-post-command',
         ];
 
         $tester->execute($arguments);

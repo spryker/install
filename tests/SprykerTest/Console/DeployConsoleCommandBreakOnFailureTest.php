@@ -34,7 +34,7 @@ class DeployConsoleCommandBreakOnFailureTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'break-on-failure',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'break-on-failure',
         ];
 
         $tester->execute($arguments);

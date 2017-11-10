@@ -10,31 +10,16 @@ namespace Spryker\Deploy\CommandLine;
 class CommandLineArgumentContainer
 {
     /**
-     * @var string
-     */
-    protected $stage;
-
-    /**
      * @var string|null
      */
     protected $store;
 
     /**
-     * @param string $stage
      * @param string|null $store
      */
-    public function __construct(string $stage, string $store = null)
+    public function __construct(string $store = null)
     {
-        $this->stage = $stage;
         $this->store = $store;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStage(): string
-    {
-        return $this->stage;
     }
 
     /**

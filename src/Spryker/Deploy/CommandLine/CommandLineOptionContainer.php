@@ -10,6 +10,11 @@ namespace Spryker\Deploy\CommandLine;
 class CommandLineOptionContainer
 {
     /**
+     * @var string
+     */
+    protected $recipe;
+
+    /**
      * @var array
      */
     protected $requestedSections;
@@ -50,6 +55,7 @@ class CommandLineOptionContainer
     protected $askBeforeContinueOnException;
 
     /**
+     * @param string $recipe
      * @param array $requestedSections
      * @param array $requestedGroups
      * @param array $exclude
@@ -60,6 +66,7 @@ class CommandLineOptionContainer
      * @param bool $askBeforeContinueOnException
      */
     public function __construct(
+        string $recipe,
         array $requestedSections,
         array $requestedGroups,
         array $exclude,
@@ -69,6 +76,7 @@ class CommandLineOptionContainer
         bool $isDebugMode,
         bool $askBeforeContinueOnException
     ) {
+        $this->recipe = $recipe;
         $this->requestedSections = $requestedSections;
         $this->requestedGroups = $requestedGroups;
         $this->exclude = $exclude;
@@ -77,6 +85,14 @@ class CommandLineOptionContainer
         $this->isDryRun = $isDryRun;
         $this->isDebugMode = $isDebugMode;
         $this->askBeforeContinueOnException = $askBeforeContinueOnException;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecipe(): string
+    {
+        return $this->recipe;
     }
 
     /**

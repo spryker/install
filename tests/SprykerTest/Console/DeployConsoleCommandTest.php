@@ -38,7 +38,7 @@ class DeployConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'catface',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'catface',
         ];
         $tester->execute($arguments);
     }
@@ -55,7 +55,22 @@ class DeployConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'no-sections',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'no-sections',
+        ];
+        $tester->execute($arguments);
+    }
+
+    /**
+     * @return void
+     */
+    public function testLoadRecipeWithTypeSuffix()
+    {
+        $command = new DeployConsoleCommand();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development.yml',
         ];
         $tester->execute($arguments);
     }
@@ -70,7 +85,7 @@ class DeployConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
         ];
         $tester->execute($arguments);
 
@@ -87,7 +102,7 @@ class DeployConsoleCommandTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'development',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'development',
             '--' . DeployConsoleCommand::OPTION_DRY_RUN => true,
         ];
 

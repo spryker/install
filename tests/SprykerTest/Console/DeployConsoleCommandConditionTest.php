@@ -35,7 +35,7 @@ class DeployConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'condition',
         ];
         $tester->execute($arguments);
 
@@ -53,7 +53,7 @@ class DeployConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'condition',
         ];
         $tester->execute($arguments);
 
@@ -71,7 +71,7 @@ class DeployConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'condition',
         ];
         $tester->execute($arguments);
 
@@ -89,7 +89,7 @@ class DeployConsoleCommandConditionTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            DeployConsoleCommand::ARGUMENT_ENVIRONMENT => 'condition-not-found',
+            '--' . DeployConsoleCommand::OPTION_RECIPE => 'condition-not-found',
         ];
 
         $this->expectException(ConditionNotFoundException::class);
