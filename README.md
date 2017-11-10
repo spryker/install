@@ -1,11 +1,5 @@
-# Spryker Setup tool builder
+# Spryker Deploy
 
-[![Build Status](https://travis-ci.com/spryker/phar.svg?token=7jVDNZFJxpvBrFetYhbF&branch=master)](https://travis-ci.com/spryker/phar)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spryker/phar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spryker/phar/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/spryker/phar/badge.svg?t=bWiy2S)](https://coveralls.io/github/spryker/phar)
-
-## Create a new spryker.phar
-
-- Run `composer install --no-dev` to install only needed dependencies.
-- Run `bin/builder` to create a new spryker.phar.
-- Run `mv spryker.phar /usr/local/bin/spryker`.
+[![Build Status](https://travis-ci.com/spryker/deploy.svg?token=7jVDNZFJxpvBrFetYhbF&branch=master)](https://travis-ci.com/spryker/deploy)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spryker/deploy/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spryker/deploy/?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/spryker/deploy/badge.svg?t=bWiy2S)](https://coveralls.io/github/spryker/deploy)
