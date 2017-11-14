@@ -32,6 +32,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     const CONFIG_CONDITIONS = 'conditions';
     const CONFIG_PRE_COMMAND = 'pre';
     const CONFIG_POST_COMMAND = 'post';
+    const ALL_STORES = 'all';
 
     /**
      * @var \Spryker\Deploy\Configuration\Loader\ConfigurationLoaderInterface
@@ -155,7 +156,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
         $requestedStore = $this->commandLineArgumentContainer->getStore();
 
-        $arrayFilterCallback = function ($store) use ($requestedStore) {
+        $arrayFilterCallback = function (string $store) use ($requestedStore) {
             return ($requestedStore === null || $store === $requestedStore);
         };
         $requestedStores = array_filter($this->configuration->getStores(), $arrayFilterCallback);
@@ -173,10 +174,10 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         }
 
         $configuredStores = $this->configuration->getStores();
-        array_unshift($configuredStores, 'all');
+        array_unshift($configuredStores, static::ALL_STORES);
 
-        $storesToBeExecuted = (array)$this->output->choice('Select stores to run deploy for (defaults to all)', $configuredStores, 'all');
-        if ($storesToBeExecuted[0] === 'all') {
+        $storesToBeExecuted = (array)$this->output->choice('Select stores to run deploy for (defaults to all)', $configuredStores, static::ALL_STORES);
+        if ($storesToBeExecuted[0] === static::ALL_STORES) {
             return $configuredStores;
         }
 

@@ -224,11 +224,12 @@ class DeployConsoleCommand extends Command
     }
 
     /**
-     * @return array|false|string
+     * @return string
      */
     protected function getEnvironment()
     {
         $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
+
         return $environment;
     }
 }

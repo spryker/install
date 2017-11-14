@@ -10,7 +10,7 @@ namespace Spryker\Deploy\Stage\Section\Command\Condition;
 class ExitCodeCondition extends AbstractCondition
 {
     /**
-     * @param array $exitCodes
+     * @param int[] $exitCodes
      *
      * @return bool
      */
