@@ -34,7 +34,8 @@ class Timer implements TimerInterface
     public function end($object): float
     {
         $start = $this->timer[spl_object_hash($object)];
+        $runtime = microtime(true) - $start;
 
-        return (float)sprintf('%.2f', microtime(true) - $start);
+        return round($runtime, 2);
     }
 }

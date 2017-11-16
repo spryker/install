@@ -11,12 +11,15 @@ use Spryker\Deploy\Stage\Section\Command\Condition\Exception\ConditionNotFoundEx
 
 class ConditionFactory implements ConditionFactoryInterface
 {
+    const CONDITION_NAME_IF_EXIT_CODE = 'ifExitCode';
+    const CONDITION_NAME_NOT_EXIT_CODE = 'notExitCode';
+
     /**
      * @var array
      */
     protected $conditionNameToConditionClassMap = [
-        'ifExitCode' => ExitCodeCondition::class,
-        'notExitCode' => NotExitCodeCondition::class,
+        self::CONDITION_NAME_IF_EXIT_CODE => ExitCodeCondition::class,
+        self::CONDITION_NAME_NOT_EXIT_CODE => NotExitCodeCondition::class,
     ];
 
     /**

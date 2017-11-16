@@ -24,17 +24,17 @@ class Configuration implements ConfigurationInterface
     protected $stage;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $env = [];
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $stores = [];
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $executableStores = [];
 
@@ -134,7 +134,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param array $env
+     * @param string[] $env
      *
      * @return \Spryker\Deploy\Configuration\ConfigurationInterface
      */
@@ -146,7 +146,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getEnv(): array
     {
@@ -154,7 +154,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param array $stores
+     * @param string[] $stores
      *
      * @return \Spryker\Deploy\Configuration\ConfigurationInterface
      */
@@ -166,7 +166,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getStores(): array
     {
@@ -174,7 +174,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param array $executableStores
+     * @param string[] $executableStores
      *
      * @return \Spryker\Deploy\Configuration\ConfigurationInterface
      */
@@ -186,7 +186,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getExecutableStores(): array
     {

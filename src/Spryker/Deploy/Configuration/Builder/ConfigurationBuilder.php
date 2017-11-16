@@ -217,8 +217,8 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected function getSectionFilter(): FilterInterface
     {
         $filter = [
-            new UnsetFilter('pre'),
-            new UnsetFilter('post'),
+            new UnsetFilter(static::CONFIG_PRE_COMMAND),
+            new UnsetFilter(static::CONFIG_POST_COMMAND),
         ];
 
         if ($this->commandLineOptionContainer->isInteractive()) {
@@ -270,8 +270,8 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected function getCommandFilter(): FilterInterface
     {
         $filter = [
-            new UnsetFilter('pre'),
-            new UnsetFilter('post'),
+            new UnsetFilter(static::CONFIG_PRE_COMMAND),
+            new UnsetFilter(static::CONFIG_POST_COMMAND),
             new CommandExcludeFilter(
                 $this->commandLineOptionContainer->getIncludeExcluded(),
                 $this->commandLineOptionContainer->getRequestedGroups(),
