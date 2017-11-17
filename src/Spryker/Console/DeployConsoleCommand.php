@@ -40,7 +40,7 @@ class DeployConsoleCommand extends Command
     const OPTION_EXCLUDE_SHORT = 'x';
 
     const OPTION_INCLUDE_EXCLUDED = 'include-excluded';
-    const OPTION_INCLUDE_EXCLUDED_SHORT = 'a';
+    const OPTION_INCLUDE_EXCLUDED_SHORT = 'e';
 
     const OPTION_INTERACTIVE = 'interactive';
     const OPTION_INTERACTIVE_SHORT = 'i';
@@ -49,7 +49,7 @@ class DeployConsoleCommand extends Command
     const OPTION_BREAKPOINT_SHORT = 'b';
 
     const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
-    const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'e';
+    const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'a';
 
     /**
      * @var \Symfony\Component\Console\Input\InputInterface
