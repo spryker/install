@@ -1,0 +1,13 @@
+sections:
+  hidden-section:
+    excluded: true
+    hidden-command-pre:
+      command: "echo 'pre command'"
+    hidden-command-post:
+      command: "echo 'post command'"
+
+  section-a:
+    pre: "hidden-section/hidden-command-pre"
+    post: "hidden-section/hidden-command-post"
+    command-a:
+      command: "echo 'pre'"

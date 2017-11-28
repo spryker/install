@@ -1,0 +1,27 @@
+# IDEs
+/.idea
+/.project
+/nbproject
+/.buildpath
+/.settings
+*.sublime-*
+*.AppleDouble
+*.AppleDB
+*.AppleDesktop
+Temporary Items
+.apdisk
+GPATH
+GRTAGS
+GTAGS
+
+# OS
+.DS_Store
+
+.scrutinizer
+vendor/
+composer.phar
+spryker.phar
+
+tests/_output
+.spryker
+!tests/_data/.spryker

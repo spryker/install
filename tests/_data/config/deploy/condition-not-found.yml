@@ -1,0 +1,7 @@
+sections:
+  section-a:
+    section-a-command-a:
+      command: "echo 'section-b-command-a'"
+      conditions:
+        - command: section-a-command-a
+          notExistingCondition: 0

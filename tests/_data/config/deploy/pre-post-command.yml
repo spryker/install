@@ -1,0 +1,31 @@
+sections:
+  hidden-section:
+    excluded: true
+    hidden-command-pre:
+      command: "echo 'pre command'"
+    hidden-command-post:
+      command: "echo 'post command'"
+
+  section:
+    command-with-undefined-pre-section:
+      excluded: true
+      command: "echo 'pre'"
+      pre: "undefined-section/hidden-command-pre"
+
+    command-with-undefined-pre-command:
+      excluded: true
+      command: "echo 'pre'"
+      pre: "hidden-section/undefined-command"
+
+    command-with-pre:
+      command: "echo 'pre'"
+      pre: "hidden-section/hidden-command-pre"
+
+    command-with-post:
+      command: "echo 'post'"
+      post: "hidden-section/hidden-command-post"
+
+    command-with-pre-and-post:
+      command: "echo 'pre and post'"
+      pre: "hidden-section/hidden-command-pre"
+      post: "hidden-section/hidden-command-post"
