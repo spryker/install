@@ -10,7 +10,7 @@
     "monolog/monolog": "^1.23"
   },
   "require-dev": {
-    "codeception/codeception": "2.3",
+    "codeception/codeception": "*",
     "symfony/var-dumper": "^3.0.0",
     "phpstan/phpstan": "^0.8.5",
     "spryker/code-sniffer": "dev-master as 1.0.0",
