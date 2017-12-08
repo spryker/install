@@ -27,9 +27,9 @@ suites:
         modules:
             enabled:
                 - Asserts
-    Deploy:
-        path: SprykerTest/Deploy
-        class_name: DeployTester
+    Install:
+        path: SprykerTest/Install
+        class_name: InstallTester
         modules:
             enabled:
                 - Asserts

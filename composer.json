@@ -1,5 +1,5 @@
 {
-  "name": "spryker/deploy",
+  "name": "spryker/install",
   "description": "Project",
   "license": "MIT",
   "require": {
@@ -33,6 +33,6 @@
     "process-timeout": 600
   },
   "bin": [
-    "bin/deploy"
+    "bin/install"
   ]
 }

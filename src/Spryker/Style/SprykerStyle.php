@@ -7,11 +7,11 @@
 
 namespace Spryker\Style;
 
-use Spryker\Deploy\Logger\DeployLoggerInterface;
-use Spryker\Deploy\Stage\Section\Command\CommandInterface;
-use Spryker\Deploy\Stage\Section\SectionInterface;
-use Spryker\Deploy\Stage\StageInterface;
-use Spryker\Deploy\Timer\TimerInterface;
+use Spryker\Install\Logger\InstallLoggerInterface;
+use Spryker\Install\Stage\Section\Command\CommandInterface;
+use Spryker\Install\Stage\Section\SectionInterface;
+use Spryker\Install\Stage\StageInterface;
+use Spryker\Install\Timer\TimerInterface;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -46,22 +46,22 @@ class SprykerStyle implements StyleInterface
     protected $input;
 
     /**
-     * @var \Spryker\Deploy\Timer\TimerInterface
+     * @var \Spryker\Install\Timer\TimerInterface
      */
     protected $timer;
 
     /**
-     * @var \Spryker\Deploy\Logger\DeployLoggerInterface
+     * @var \Spryker\Install\Logger\InstallLoggerInterface
      */
     protected $logger;
 
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Spryker\Deploy\Timer\TimerInterface $timer
-     * @param \Spryker\Deploy\Logger\DeployLoggerInterface $logger
+     * @param \Spryker\Install\Timer\TimerInterface $timer
+     * @param \Spryker\Install\Logger\InstallLoggerInterface $logger
      */
-    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, DeployLoggerInterface $logger)
+    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, InstallLoggerInterface $logger)
     {
         $this->bufferedOutput = new BufferedOutput($output->getVerbosity(), false, clone $output->getFormatter());
         $width = (new Terminal())->getWidth() ?: static::MAX_LINE_LENGTH;
@@ -85,14 +85,14 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\StageInterface $stage
+     * @param \Spryker\Install\Stage\StageInterface $stage
      *
      * @return void
      */
-    public function startDeploy(StageInterface $stage)
+    public function startInstall(StageInterface $stage)
     {
         $this->timer->start($stage);
-        $message = sprintf('Deploy <fg=green>%s</> environment', $stage->getName());
+        $message = sprintf('Install <fg=green>%s</> environment', $stage->getName());
         $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->output->getFormatter(), $message);
         $message = $message . str_pad(' ', $this->lineLength - $messageLengthWithoutDecoration);
 
@@ -106,18 +106,18 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\StageInterface $stage
+     * @param \Spryker\Install\Stage\StageInterface $stage
      *
      * @return void
      */
-    public function endDeploy(StageInterface $stage)
+    public function endInstall(StageInterface $stage)
     {
-        $message = sprintf('Deploy <fg=green>%s</> finished in <fg=green>%ss</>', $stage->getName(), $this->timer->end($stage));
+        $message = sprintf('Install <fg=green>%s</> finished in <fg=green>%ss</>', $stage->getName(), $this->timer->end($stage));
         $this->writeln($message);
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\SectionInterface $section
+     * @param \Spryker\Install\Stage\Section\SectionInterface $section
      *
      * @return void
      */
@@ -138,7 +138,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\SectionInterface $section
+     * @param \Spryker\Install\Stage\Section\SectionInterface $section
      *
      * @return void
      */
@@ -155,7 +155,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param null|string $store
      *
      * @return void
@@ -180,7 +180,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param null|string $store
      *
      * @return string
@@ -195,7 +195,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param int $exitCode
      * @param null|string $store
      *
@@ -218,7 +218,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param null|string $store
      *
      * @return void
@@ -238,7 +238,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param int $exitCode
      *
      * @return string
@@ -255,7 +255,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param \Spryker\Deploy\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      *
      * @return void
      */
