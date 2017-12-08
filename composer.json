@@ -3,14 +3,14 @@
   "description": "Project",
   "license": "MIT",
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.1",
     "symfony/console": "^3.0.0",
     "symfony/process": "^3.0.0",
     "symfony/yaml": "^3.0.0",
     "monolog/monolog": "^1.23"
   },
   "require-dev": {
-    "codeception/codeception": "^2.2.10",
+    "codeception/codeception": "2.3",
     "symfony/var-dumper": "^3.0.0",
     "phpstan/phpstan": "^0.8.5",
     "spryker/code-sniffer": "dev-master as 1.0.0",
