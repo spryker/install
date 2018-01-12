@@ -43,7 +43,7 @@ class CommandLineExecutable implements ExecutableInterface
      */
     public function execute(StyleInterface $output): int
     {
-        $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, null, null, 600);
+        $process = new Process($this->command->getExecutable(), SPRYKER_ROOT, getenv(), null, 600);
         $process->start();
 
         foreach ($process as $buffer) {
