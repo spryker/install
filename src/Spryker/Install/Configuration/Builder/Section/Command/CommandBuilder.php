@@ -56,6 +56,7 @@ class CommandBuilder implements CommandBuilderInterface
         $this->setGroups($command, $definition);
         $this->setEnv($command, $definition);
         $this->setIsStoreAware($command, $definition);
+        $this->setStores($command, $definition);
         $this->addCommandConditions($command, $definition);
         $this->setPreCommand($command, $definition);
         $this->setPostCommand($command, $definition);
@@ -112,8 +113,31 @@ class CommandBuilder implements CommandBuilderInterface
     protected function setIsStoreAware(CommandInterface $command, array $definition)
     {
         if (isset($definition[static::CONFIG_STORES])) {
-            $command->setIsStoreAware($definition[static::CONFIG_STORES]);
+            $command->setIsStoreAware($this->getIsStoreAware($definition));
         }
+    }
+
+    /**
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
+     * @param array $definition
+     *
+     * @return void
+     */
+    protected function setStores(CommandInterface $command, array $definition)
+    {
+        if (isset($definition[static::CONFIG_STORES]) && is_array($definition[static::CONFIG_STORES])) {
+            $command->setStores($definition[static::CONFIG_STORES]);
+        }
+    }
+
+    /**
+     * @param array $definition
+     *
+     * @return bool
+     */
+    protected function getIsStoreAware(array $definition)
+    {
+        return (is_array($definition[static::CONFIG_STORES])) ? true : $definition[static::CONFIG_STORES];
     }
 
     /**

@@ -8,10 +8,3 @@ sections:
     section-a-command-a:
       command: "echo hello"
       stores: true
-
-  section-b:
-    section-b-command-a:
-      command: "echo hello"
-      stores:
-        - DE
-        - AT

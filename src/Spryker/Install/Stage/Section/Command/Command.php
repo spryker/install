@@ -62,6 +62,11 @@ class Command implements CommandInterface
     protected $breakOnFailure = true;
 
     /**
+     * @var string[]
+     */
+    protected $stores = [];
+
+    /**
      * @param string $name
      */
     public function __construct(string $name)
@@ -147,6 +152,34 @@ class Command implements CommandInterface
     public function isStoreAware(): bool
     {
         return $this->isStoreAware;
+    }
+
+    /**
+     * @param string[] $stores
+     *
+     * @return \Spryker\Install\Stage\Section\Command\CommandInterface
+     */
+    public function setStores(array $stores): CommandInterface
+    {
+        $this->stores = $stores;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getStores(): array
+    {
+        return $this->stores;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasStores(): bool
+    {
+        return (count($this->stores) > 0);
     }
 
     /**
