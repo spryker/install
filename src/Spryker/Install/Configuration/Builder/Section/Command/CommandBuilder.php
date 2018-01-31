@@ -118,6 +118,16 @@ class CommandBuilder implements CommandBuilderInterface
     }
 
     /**
+     * @param array $definition
+     *
+     * @return bool
+     */
+    protected function getIsStoreAware(array $definition)
+    {
+        return (is_array($definition[static::CONFIG_STORES])) ? true : $definition[static::CONFIG_STORES];
+    }
+
+    /**
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param array $definition
      *
@@ -128,16 +138,6 @@ class CommandBuilder implements CommandBuilderInterface
         if (isset($definition[static::CONFIG_STORES]) && is_array($definition[static::CONFIG_STORES])) {
             $command->setStores($definition[static::CONFIG_STORES]);
         }
-    }
-
-    /**
-     * @param array $definition
-     *
-     * @return bool
-     */
-    protected function getIsStoreAware(array $definition)
-    {
-        return (is_array($definition[static::CONFIG_STORES])) ? true : $definition[static::CONFIG_STORES];
     }
 
     /**
