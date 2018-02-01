@@ -39,9 +39,12 @@ class InstallConsoleCommandStoresTest extends Unit
         $tester->execute($arguments);
 
         $output = $tester->getDisplay();
-        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE but was not');
-        $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT but was not');
-        $this->assertRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US but was not');
+        $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
+        $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
+        $this->assertRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US store but was not');
+
+        $this->assertRegexp('/Command section-b-command-a for DE store/', $output, 'Command "section-b-command-a" was expected to be executed for DE store but was not');
+        $this->assertRegexp('/Command section-b-command-a for AT store/', $output, 'Command "section-b-command-a" was expected to be executed for AT store but was not');
     }
 
     /**
@@ -63,6 +66,33 @@ class InstallConsoleCommandStoresTest extends Unit
         $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
         $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
         $this->assertNotRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was not expected to be executed for US store but was');
+
+        $this->assertRegexp('/Command section-b-command-a for DE store/', $output, 'Command "section-b-command-a" was expected to be executed for DE store but was not');
+        $this->assertNotRegexp('/Command section-b-command-a for US store/', $output, 'Command "section-b-command-a" was not expected to be executed for AT store but was');
+        $this->assertNotRegexp('/Command section-b-command-a for US store/', $output, 'Command "section-b-command-a" was not expected to be executed for US store but was');
+    }
+
+    /**
+     * @return void
+     */
+    public function testOnlyCommandsWhichAreAwareOfRequestedStoreAreExecuted()
+    {
+        $command = new InstallConsoleCommand();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores',
+            InstallConsoleCommand::ARGUMENT_STORE => 'US',
+        ];
+        $tester->execute($arguments);
+
+        $output = $tester->getDisplay();
+        $this->assertRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US store but was not');
+        $this->assertNotRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was not expected to be executed for DE store but was');
+        $this->assertNotRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was not expected to be executed for AT store but was');
+
+        $this->assertNotRegexp('/Command section-b-command-a for US store/', $output, 'Command "section-b-command-a" was not expected to be executed for US store but was');
     }
 
     /**
@@ -75,7 +105,7 @@ class InstallConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores',
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores-interactive',
             '--' . InstallConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs([1, 'yes']);
@@ -97,7 +127,7 @@ class InstallConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores',
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores-interactive',
             '--' . InstallConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['DE', 'yes']);
@@ -119,7 +149,7 @@ class InstallConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores',
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores-interactive',
             '--' . InstallConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['1,2', 'yes']);
@@ -141,7 +171,7 @@ class InstallConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores',
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores-interactive',
             '--' . InstallConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['DE,AT', 'yes']);
@@ -163,7 +193,7 @@ class InstallConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores',
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores-interactive',
             '--' . InstallConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs([0, 'yes']);
@@ -185,7 +215,7 @@ class InstallConsoleCommandStoresTest extends Unit
 
         $arguments = [
             'command' => $command->getName(),
-            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores',
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'stores-interactive',
             '--' . InstallConsoleCommand::OPTION_INTERACTIVE => true,
         ];
         $tester->setInputs(['all', 'yes']);

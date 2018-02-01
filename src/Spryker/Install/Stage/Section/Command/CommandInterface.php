@@ -60,6 +60,23 @@ interface CommandInterface
     public function isStoreAware(): bool;
 
     /**
+     * @param string[] $stores
+     *
+     * @return $this
+     */
+    public function setStores(array $stores): self;
+
+    /**
+     * @return string[]
+     */
+    public function getStores(): array;
+
+    /**
+     * @return bool
+     */
+    public function hasStores(): bool;
+
+    /**
      * @param \Spryker\Install\Stage\Section\Command\Condition\ConditionInterface $condition
      *
      * @return $this

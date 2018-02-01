@@ -98,11 +98,26 @@ class CommandRunner implements CommandRunnerInterface
             return;
         }
 
-        foreach ($configuration->getExecutableStores() as $store) {
+        foreach ($this->getExecutableStoresForCommand($command, $configuration) as $store) {
             $this->environmentHelper->putEnv('APPLICATION_STORE', $store);
             $this->executeExecutable($executable, $command, $configuration, $store);
             $this->environmentHelper->unsetEnv('APPLICATION_STORE');
         }
+    }
+
+    /**
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
+     * @param \Spryker\Install\Configuration\ConfigurationInterface $configuration
+     *
+     * @return string[]
+     */
+    protected function getExecutableStoresForCommand(CommandInterface $command, ConfigurationInterface $configuration): array
+    {
+        if (!$command->hasStores()) {
+            return $configuration->getExecutableStores();
+        }
+
+        return array_intersect($configuration->getExecutableStores(), $command->getStores());
     }
 
     /**
