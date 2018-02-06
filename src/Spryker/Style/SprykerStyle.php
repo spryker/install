@@ -124,7 +124,7 @@ class SprykerStyle implements StyleInterface
     public function startSection(SectionInterface $section)
     {
         $this->timer->start($section);
-        $message = sprintf('<bg=green;options=bold> Section %s</>', $section->getName());
+        $message = sprintf('<fg=blue;bg=green;options=bold> Section %s</>', $section->getName());
         $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->output->getFormatter(), $message);
         $messageLength = $this->lineLength - $messageLengthWithoutDecoration;
 
