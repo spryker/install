@@ -1,6 +1,6 @@
 {
   "name": "spryker/install",
-  "description": "Project",
+  "description": "Spryker install tool",
   "license": "MIT",
   "require": {
     "php": ">=7.1",
