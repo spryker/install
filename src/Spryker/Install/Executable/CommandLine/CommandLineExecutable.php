@@ -68,6 +68,8 @@ class CommandLineExecutable implements ExecutableInterface
     protected function abortInstallIfNotAllowedToContinue(StyleInterface $output)
     {
         if ($this->command->breakOnFailure() || !$this->askToContinue($output)) {
+            $output->flushBuffer();
+
             throw new InstallException('Aborted install...');
         }
     }

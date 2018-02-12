@@ -120,4 +120,9 @@ interface StyleInterface
      * @return bool|mixed|null|string
      */
     public function choice($question, array $choices, $default = null);
+
+    /**
+     * @return void
+     */
+    public function flushBuffer();
 }
