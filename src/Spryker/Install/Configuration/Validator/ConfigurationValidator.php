@@ -34,7 +34,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
     protected function validateSections(array $configuration)
     {
         if (!isset($configuration[static::SECTIONS])) {
-            throw new ConfigurationException('No sections defined your configuration.');
+            throw new ConfigurationException('No sections defined in your configuration.');
         }
     }
 

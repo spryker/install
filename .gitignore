@@ -25,3 +25,4 @@ spryker.phar
 tests/_output
 .spryker
 !tests/_data/.spryker
+tests/_support/_generated/

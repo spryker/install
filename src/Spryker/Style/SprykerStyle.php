@@ -56,6 +56,11 @@ class SprykerStyle implements StyleInterface
     protected $logger;
 
     /**
+     * @var array
+     */
+    protected $outputBuffer = [];
+
+    /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Spryker\Install\Timer\TimerInterface $timer
@@ -274,6 +279,20 @@ class SprykerStyle implements StyleInterface
     public function innerCommand($output)
     {
         if ($this->output->isVeryVerbose()) {
+            $this->write($output);
+        }
+
+        if (!$this->output->isVeryVerbose()) {
+            $this->outputBuffer[] = $output;
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function flushBuffer()
+    {
+        foreach ($this->outputBuffer as $output) {
             $this->write($output);
         }
     }

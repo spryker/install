@@ -49,6 +49,7 @@ class InstallConsoleCommandTest extends Unit
     public function testThrowsExceptionWhenConfigFileDoesNotContainSections()
     {
         $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('No sections defined in your configuration.');
 
         $command = new InstallConsoleCommand();
         $tester = $this->tester->getCommandTester($command);
@@ -56,6 +57,24 @@ class InstallConsoleCommandTest extends Unit
         $arguments = [
             'command' => $command->getName(),
             '--' . InstallConsoleCommand::OPTION_RECIPE => 'no-sections',
+        ];
+        $tester->execute($arguments);
+    }
+
+    /**
+     * @return void
+     */
+    public function testThrowsExceptionWhenASectionHasNoCommands()
+    {
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('No commands defined in section "section-one".');
+
+        $command = new InstallConsoleCommand();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'no-command',
         ];
         $tester->execute($arguments);
     }
