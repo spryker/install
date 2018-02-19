@@ -22,6 +22,7 @@ class CommandBuilder implements CommandBuilderInterface
     const CONFIG_POST_COMMAND = 'post';
     const CONFIG_CONDITIONS = 'conditions';
     const CONFIG_BREAK_ON_FAILURE = 'breakOnFailure';
+    const CONFIG_TIMEOUT = 'timeout';
 
     /**
      * @var \Spryker\Install\Stage\Section\Command\CommandInterface
@@ -61,6 +62,7 @@ class CommandBuilder implements CommandBuilderInterface
         $this->setPreCommand($command, $definition);
         $this->setPostCommand($command, $definition);
         $this->setBreakOnFailure($command, $definition);
+        $this->setTimeout($command, $definition);
 
         return $command;
     }
@@ -194,6 +196,19 @@ class CommandBuilder implements CommandBuilderInterface
     {
         if (isset($definition[static::CONFIG_BREAK_ON_FAILURE])) {
             $command->setBreakOnFailure($definition[static::CONFIG_BREAK_ON_FAILURE]);
+        }
+    }
+
+    /**
+     * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
+     * @param array $definition
+     *
+     * @return void
+     */
+    protected function setTimeout(CommandInterface $command, array $definition)
+    {
+        if (isset($definition[static::CONFIG_TIMEOUT])) {
+            $command->setTimeout($definition[static::CONFIG_TIMEOUT]);
         }
     }
 }

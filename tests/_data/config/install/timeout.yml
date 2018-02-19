@@ -1,0 +1,9 @@
+sections:
+  section-a:
+    section-a-command-a:
+      command: "echo 'runs normal'"
+      timeout: 20
+
+    section-a-command-b:
+      command: "sleep 2"
+      timeout: 1
