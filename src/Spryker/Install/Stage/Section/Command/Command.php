@@ -67,6 +67,11 @@ class Command implements CommandInterface
     protected $stores = [];
 
     /**
+     * @var int
+     */
+    protected $timeout = 0;
+
+    /**
      * @param string $name
      */
     public function __construct(string $name)
@@ -294,5 +299,33 @@ class Command implements CommandInterface
     public function breakOnFailure(): bool
     {
         return $this->breakOnFailure;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTimeout(): bool
+    {
+        return ($this->timeout !== 0);
+    }
+
+    /**
+     * @param int $timeout
+     *
+     * @return \Spryker\Install\Stage\Section\Command\CommandInterface
+     */
+    public function setTimeout(int $timeout): CommandInterface
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeout(): int
+    {
+        return $this->timeout;
     }
 }

@@ -143,4 +143,21 @@ interface CommandInterface
      * @return bool
      */
     public function breakOnFailure(): bool;
+
+    /**
+     * @return bool
+     */
+    public function hasTimeout(): bool;
+
+    /**
+     * @param int $timeout
+     *
+     * @return $this
+     */
+    public function setTimeout(int $timeout): self;
+
+    /**
+     * @return int
+     */
+    public function getTimeout(): int;
 }
