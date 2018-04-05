@@ -48,7 +48,7 @@ class LoggerFactory
      */
     protected function createStreamHandler(): HandlerInterface
     {
-        $streamHandler = new StreamHandler(SPRYKER_ROOT . '/data/install/logs/' . date('Y-m-d-H:i:s') . '.log');
+        $streamHandler = new StreamHandler(SPRYKER_ROOT . '/data/install/logs/' . date('Y-m-d_H-i-s') . '.log');
 
         return $streamHandler;
     }
