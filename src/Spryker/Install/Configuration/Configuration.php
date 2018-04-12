@@ -191,7 +191,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getCommandTimeout(): ?int
     {

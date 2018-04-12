@@ -93,7 +93,7 @@ interface ConfigurationInterface
     public function setCommandTimeout(int $commandTimeout): self;
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getCommandTimeout(): ?int;
 
