@@ -86,6 +86,18 @@ interface ConfigurationInterface
     public function getStores(): array;
 
     /**
+     * @param int $commandTimeout
+     *
+     * @return $this
+     */
+    public function setCommandTimeout(int $commandTimeout): self;
+
+    /**
+     * @return int|null
+     */
+    public function getCommandTimeout(): ?int;
+
+    /**
      * @param array $executableStores
      *
      * @return $this

@@ -28,6 +28,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     const CONFIG_EXCLUDED = 'excluded';
     const CONFIG_ENV = 'env';
     const CONFIG_STORES = 'stores';
+    const CONFIG_COMMAND_TIMEOUT = 'command-timeout';
     const CONFIG_GROUPS = 'groups';
     const CONFIG_CONDITIONS = 'conditions';
     const CONFIG_PRE_COMMAND = 'pre';
@@ -112,6 +113,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
 
         $this->setEnv($configuration);
         $this->setStores($configuration);
+        $this->setCommandTimeout($configuration);
         $this->setExecutableStores();
         $this->addStageToConfiguration($commandLineOptionContainer->getRecipe(), $configuration['sections']);
 
@@ -139,6 +141,18 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     {
         if (isset($configuration[static::CONFIG_STORES])) {
             $this->configuration->setStores($configuration[static::CONFIG_STORES]);
+        }
+    }
+
+    /**
+     * @param array $configuration
+     *
+     * @return void
+     */
+    protected function setCommandTimeout(array $configuration)
+    {
+        if (isset($configuration[static::CONFIG_COMMAND_TIMEOUT])) {
+            $this->configuration->setCommandTimeout($configuration[static::CONFIG_COMMAND_TIMEOUT]);
         }
     }
 

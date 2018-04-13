@@ -34,6 +34,11 @@ class Configuration implements ConfigurationInterface
     protected $stores = [];
 
     /**
+     * @var int
+     */
+    protected $commandTimeout;
+
+    /**
      * @var string[]
      */
     protected $executableStores = [];
@@ -171,6 +176,26 @@ class Configuration implements ConfigurationInterface
     public function getStores(): array
     {
         return $this->stores;
+    }
+
+    /**
+     * @param int $commandTimeout
+     *
+     * @return \Spryker\Install\Configuration\ConfigurationInterface
+     */
+    public function setCommandTimeout(int $commandTimeout): ConfigurationInterface
+    {
+        $this->commandTimeout = $commandTimeout;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCommandTimeout(): ?int
+    {
+        return $this->commandTimeout;
     }
 
     /**

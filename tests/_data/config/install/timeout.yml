@@ -1,3 +1,4 @@
+command-timeout: 30
 sections:
   section-a:
     section-a-command-a:
