@@ -207,7 +207,7 @@ class CommandRunner implements CommandRunnerInterface
         ExecutableInterface $executable,
         CommandInterface $command,
         ConfigurationInterface $configuration,
-        string $store = null
+        ?string $store = null
     ) {
         $configuration->getOutput()->startCommand($command, $store);
 

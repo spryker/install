@@ -17,7 +17,7 @@ class CommandLineArgumentContainer
     /**
      * @param string|null $store
      */
-    public function __construct(string $store = null)
+    public function __construct(?string $store = null)
     {
         $this->store = $store;
     }
