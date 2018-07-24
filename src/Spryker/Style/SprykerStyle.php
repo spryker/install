@@ -51,7 +51,7 @@ class SprykerStyle implements StyleInterface
     protected $timer;
 
     /**
-     * @var \Spryker\Install\Logger\InstallLoggerInterface
+     * @var \Spryker\Install\Logger\InstallLoggerInterface|null
      */
     protected $logger;
 
@@ -64,9 +64,9 @@ class SprykerStyle implements StyleInterface
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Spryker\Install\Timer\TimerInterface $timer
-     * @param \Spryker\Install\Logger\InstallLoggerInterface $logger
+     * @param \Spryker\Install\Logger\InstallLoggerInterface|null $logger
      */
-    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, InstallLoggerInterface $logger)
+    public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, ?InstallLoggerInterface $logger)
     {
         $this->bufferedOutput = new BufferedOutput($output->getVerbosity(), false, clone $output->getFormatter());
         $width = (new Terminal())->getWidth() ?: static::MAX_LINE_LENGTH;
@@ -317,7 +317,7 @@ class SprykerStyle implements StyleInterface
      */
     public function write($messages, $options = 0)
     {
-        $this->logger->log($messages);
+        $this->log($messages);
         $this->output->write($messages, false, $options);
     }
 
@@ -329,7 +329,19 @@ class SprykerStyle implements StyleInterface
      */
     protected function writeln($messages, $options = 0)
     {
-        $this->logger->log($messages);
+        $this->log($messages);
         $this->output->writeln($messages, $options);
+    }
+
+    /**
+     * @param string|array $message
+     *
+     * @return void
+     */
+    protected function log($message): void
+    {
+        if ($this->logger !== null) {
+            $this->logger->log($message);
+        }
     }
 }
