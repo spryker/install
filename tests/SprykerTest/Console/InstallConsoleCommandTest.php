@@ -131,4 +131,26 @@ class InstallConsoleCommandTest extends Unit
         $this->assertRegexp('/Dry-run: section-a-command-a/', $output);
         $this->assertNotRegexp('/Command section-a-command-a/', $output);
     }
+
+    /**
+     * @return void
+     */
+    public function testWithLoggerEnabled()
+    {
+        $command = new InstallConsoleCommand();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            '--' . InstallConsoleCommand::OPTION_RECIPE => 'development',
+            '--' . InstallConsoleCommand::OPTION_DRY_RUN => true,
+            '--' . InstallConsoleCommand::OPTION_LOG => true,
+        ];
+
+        $tester->execute($arguments);
+
+        $output = $tester->getDisplay();
+        $this->assertRegexp('/Dry-run: section-a-command-a/', $output);
+        $this->assertNotRegexp('/Command section-a-command-a/', $output);
+    }
 }
