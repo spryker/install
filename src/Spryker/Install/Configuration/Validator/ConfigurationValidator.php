@@ -48,7 +48,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
     protected function validateCommands(array $configuration)
     {
         foreach ($configuration[static::SECTIONS] as $sectionName => $commands) {
-            if (count($commands) === 0) {
+            if ($commands === null || count($commands) === 0) {
                 throw new ConfigurationException(sprintf('No commands defined in section "%s".', $sectionName));
             }
         }
