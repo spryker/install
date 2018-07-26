@@ -48,6 +48,9 @@ class InstallConsoleCommand extends Command
     const OPTION_BREAKPOINT = 'breakpoint';
     const OPTION_BREAKPOINT_SHORT = 'b';
 
+    const OPTION_LOG = 'log';
+    const OPTION_LOG_SHORT = 'l';
+
     const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
     const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'a';
 
@@ -93,7 +96,8 @@ class InstallConsoleCommand extends Command
             ->addOption(static::OPTION_INCLUDE_EXCLUDED, static::OPTION_INCLUDE_EXCLUDED_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Include command(s)/section(s) which are marked as excluded in the configuration.')
             ->addOption(static::OPTION_INTERACTIVE, static::OPTION_INTERACTIVE_SHORT, InputOption::VALUE_NONE, 'If set, console will ask for each section interactively if the section should be executed.')
             ->addOption(static::OPTION_BREAKPOINT, static::OPTION_BREAKPOINT_SHORT, InputOption::VALUE_NONE, 'If set, the console application is in debug mode. Execution stops after each command and waits to continue until confirmed.')
-            ->addOption(static::OPTION_ASK_BEFORE_CONTINUE, static::OPTION_ASK_BEFORE_CONTINUE_SHORT, InputOption::VALUE_NONE, 'By default the script will continue when a command failed. If set, the console will ask before it continues.');
+            ->addOption(static::OPTION_ASK_BEFORE_CONTINUE, static::OPTION_ASK_BEFORE_CONTINUE_SHORT, InputOption::VALUE_NONE, 'By default the script will continue when a command failed. If set, the console will ask before it continues.')
+            ->addOption(static::OPTION_LOG, static::OPTION_LOG_SHORT, InputOption::VALUE_NONE, 'When this option is used all steps from the install process will be logged.');
     }
 
     /**
@@ -122,11 +126,13 @@ class InstallConsoleCommand extends Command
      */
     protected function createOutput(InputInterface $input, OutputInterface $output): StyleInterface
     {
+        $shouldLog = $input->getOption(static::OPTION_LOG);
+
         return new SprykerStyle(
             $input,
             $output,
             $this->getFactory()->createTimer(),
-            $this->getFactory()->createOutputLogger()
+            ($shouldLog) ? $this->getFactory()->createOutputLogger() : null
         );
     }
 

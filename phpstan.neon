@@ -1,4 +1,2 @@
 parameters:
     bootstrap: %rootDir%/../../../phpstan-bootstrap.php
-    ignoreErrors:
-        - '#Function getenv invoked with 0 parameters, 1-2 required#'
