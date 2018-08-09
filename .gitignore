@@ -21,6 +21,7 @@ GTAGS
 vendor/
 composer.phar
 spryker.phar
+composer.lock
 
 tests/_output
 .spryker
