@@ -6,5 +6,7 @@
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.1-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/github/license/spryker/install.svg)](https://packagist.org/packages/spryker/install)
 
+Spryker install script for setting up a project using recipes per environment.
+
 ## Documentation
 https://academy.spryker.com/developing_with_spryker/module_guide/utilities/install_tool.html
