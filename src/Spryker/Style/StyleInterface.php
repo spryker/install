@@ -53,7 +53,7 @@ interface StyleInterface
 
     /**
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
-     * @param null|string $store
+     * @param string|null $store
      *
      * @return void
      */
@@ -62,7 +62,7 @@ interface StyleInterface
     /**
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param int $exitCode
-     * @param null|string $store
+     * @param string|null $store
      *
      * @return void
      */
@@ -117,7 +117,7 @@ interface StyleInterface
      * @param array $choices
      * @param string|int|null $default
      *
-     * @return bool|mixed|null|string
+     * @return bool|mixed|string|null
      */
     public function choice($question, array $choices, $default = null);
 

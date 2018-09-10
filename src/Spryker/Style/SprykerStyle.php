@@ -161,7 +161,7 @@ class SprykerStyle implements StyleInterface
 
     /**
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
-     * @param null|string $store
+     * @param string|null $store
      *
      * @return void
      */
@@ -186,7 +186,7 @@ class SprykerStyle implements StyleInterface
 
     /**
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
-     * @param null|string $store
+     * @param string|null $store
      *
      * @return string
      */
@@ -202,7 +202,7 @@ class SprykerStyle implements StyleInterface
     /**
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param int $exitCode
-     * @param null|string $store
+     * @param string|null $store
      *
      * @return void
      */
@@ -224,7 +224,7 @@ class SprykerStyle implements StyleInterface
 
     /**
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
-     * @param null|string $store
+     * @param string|null $store
      *
      * @return void
      */

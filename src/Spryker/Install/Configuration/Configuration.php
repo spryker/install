@@ -245,7 +245,7 @@ class Configuration implements ConfigurationInterface
      */
     public function findCommand(string $name): CommandInterface
     {
-        list($section, $command) = explode('/', $name);
+        [$section, $command] = explode('/', $name);
 
         return $this->stage->getSection($section)->getCommand($command);
     }

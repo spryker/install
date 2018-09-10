@@ -199,7 +199,7 @@ class CommandRunner implements CommandRunnerInterface
      * @param \Spryker\Install\Executable\ExecutableInterface $executable
      * @param \Spryker\Install\Stage\Section\Command\CommandInterface $command
      * @param \Spryker\Install\Configuration\ConfigurationInterface $configuration
-     * @param null|string $store
+     * @param string|null $store
      *
      * @return void
      */
