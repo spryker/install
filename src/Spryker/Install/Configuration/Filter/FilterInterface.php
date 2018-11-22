@@ -9,7 +9,7 @@ namespace Spryker\Install\Configuration\Filter;
 
 interface FilterInterface
 {
-    const EXCLUDED = 'excluded';
+    public const EXCLUDED = 'excluded';
 
     /**
      * @param array $items

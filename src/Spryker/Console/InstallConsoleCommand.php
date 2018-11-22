@@ -21,38 +21,38 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class InstallConsoleCommand extends Command
 {
-    const ARGUMENT_ENVIRONMENT = 'environment';
-    const ARGUMENT_STORE = 'store';
+    public const ARGUMENT_ENVIRONMENT = 'environment';
+    public const ARGUMENT_STORE = 'store';
 
-    const OPTION_RECIPE = 'recipe';
-    const OPTION_RECIPE_SHORT = 'r';
+    public const OPTION_RECIPE = 'recipe';
+    public const OPTION_RECIPE_SHORT = 'r';
 
-    const OPTION_DRY_RUN = 'dry-run';
-    const OPTION_DRY_RUN_SHORT = 'd';
+    public const OPTION_DRY_RUN = 'dry-run';
+    public const OPTION_DRY_RUN_SHORT = 'd';
 
-    const OPTION_SECTIONS = 'sections';
-    const OPTION_SECTIONS_SHORT = 's';
+    public const OPTION_SECTIONS = 'sections';
+    public const OPTION_SECTIONS_SHORT = 's';
 
-    const OPTION_GROUPS = 'groups';
-    const OPTION_GROUPS_SHORT = 'g';
+    public const OPTION_GROUPS = 'groups';
+    public const OPTION_GROUPS_SHORT = 'g';
 
-    const OPTION_EXCLUDE = 'exclude';
-    const OPTION_EXCLUDE_SHORT = 'x';
+    public const OPTION_EXCLUDE = 'exclude';
+    public const OPTION_EXCLUDE_SHORT = 'x';
 
-    const OPTION_INCLUDE_EXCLUDED = 'include-excluded';
-    const OPTION_INCLUDE_EXCLUDED_SHORT = 'e';
+    public const OPTION_INCLUDE_EXCLUDED = 'include-excluded';
+    public const OPTION_INCLUDE_EXCLUDED_SHORT = 'e';
 
-    const OPTION_INTERACTIVE = 'interactive';
-    const OPTION_INTERACTIVE_SHORT = 'i';
+    public const OPTION_INTERACTIVE = 'interactive';
+    public const OPTION_INTERACTIVE_SHORT = 'i';
 
-    const OPTION_BREAKPOINT = 'breakpoint';
-    const OPTION_BREAKPOINT_SHORT = 'b';
+    public const OPTION_BREAKPOINT = 'breakpoint';
+    public const OPTION_BREAKPOINT_SHORT = 'b';
 
-    const OPTION_LOG = 'log';
-    const OPTION_LOG_SHORT = 'l';
+    public const OPTION_LOG = 'log';
+    public const OPTION_LOG_SHORT = 'l';
 
-    const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
-    const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'a';
+    public const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
+    public const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'a';
 
     /**
      * @var \Symfony\Component\Console\Input\InputInterface

@@ -23,7 +23,7 @@ use Spryker\Install\Stage\Section\Section;
  */
 class SectionTest extends Unit
 {
-    const SECTION_NAME = 'section';
+    public const SECTION_NAME = 'section';
 
     /**
      * @return void

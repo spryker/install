@@ -11,8 +11,8 @@ use Spryker\Style\StyleInterface;
 
 interface ExecutableInterface
 {
-    const CODE_SUCCESS = 0;
-    const CODE_ERROR = 1;
+    public const CODE_SUCCESS = 0;
+    public const CODE_ERROR = 1;
 
     /**
      * @param \Spryker\Style\StyleInterface $output

@@ -16,7 +16,7 @@ use Symfony\Component\Process\Process;
 
 class CommandLineExecutable implements ExecutableInterface
 {
-    const DEFAULT_TIMEOUT_IN_SECONDS = 600;
+    public const DEFAULT_TIMEOUT_IN_SECONDS = 600;
 
     /**
      * @var \Spryker\Install\Stage\Section\Command\CommandInterface

@@ -22,7 +22,7 @@ use Spryker\Install\Stage\Section\Command\Command;
  */
 class CommandTest extends Unit
 {
-    const COMMAND_NAME = 'command';
+    public const COMMAND_NAME = 'command';
 
     /**
      * @return void
