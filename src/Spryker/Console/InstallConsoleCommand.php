@@ -234,7 +234,7 @@ class InstallConsoleCommand extends Command
      */
     protected function getEnvironment()
     {
-        $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
+        $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production');
 
         return $environment;
     }
