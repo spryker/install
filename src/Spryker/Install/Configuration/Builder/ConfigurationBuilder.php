@@ -25,15 +25,15 @@ use Spryker\Style\StyleInterface;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
-    const CONFIG_EXCLUDED = 'excluded';
-    const CONFIG_ENV = 'env';
-    const CONFIG_STORES = 'stores';
-    const CONFIG_COMMAND_TIMEOUT = 'command-timeout';
-    const CONFIG_GROUPS = 'groups';
-    const CONFIG_CONDITIONS = 'conditions';
-    const CONFIG_PRE_COMMAND = 'pre';
-    const CONFIG_POST_COMMAND = 'post';
-    const ALL_STORES = 'all';
+    public const CONFIG_EXCLUDED = 'excluded';
+    public const CONFIG_ENV = 'env';
+    public const CONFIG_STORES = 'stores';
+    public const CONFIG_COMMAND_TIMEOUT = 'command-timeout';
+    public const CONFIG_GROUPS = 'groups';
+    public const CONFIG_CONDITIONS = 'conditions';
+    public const CONFIG_PRE_COMMAND = 'pre';
+    public const CONFIG_POST_COMMAND = 'post';
+    public const ALL_STORES = 'all';
 
     /**
      * @var \Spryker\Install\Configuration\Loader\ConfigurationLoaderInterface
