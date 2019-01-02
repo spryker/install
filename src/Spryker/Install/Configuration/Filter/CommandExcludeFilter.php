@@ -9,7 +9,7 @@ namespace Spryker\Install\Configuration\Filter;
 
 class CommandExcludeFilter implements FilterInterface
 {
-    const GROUPS = 'groups';
+    public const GROUPS = 'groups';
 
     /**
      * @var array

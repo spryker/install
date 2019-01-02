@@ -22,7 +22,7 @@ use Spryker\Install\Stage\Stage;
  */
 class StageTest extends Unit
 {
-    const STAGE_NAME = 'stage';
+    public const STAGE_NAME = 'stage';
 
     /**
      * @return void

@@ -11,8 +11,8 @@ use Spryker\Install\Stage\Section\Command\Condition\Exception\ConditionNotFoundE
 
 class ConditionFactory implements ConditionFactoryInterface
 {
-    const CONDITION_NAME_IF_EXIT_CODE = 'ifExitCode';
-    const CONDITION_NAME_NOT_EXIT_CODE = 'notExitCode';
+    public const CONDITION_NAME_IF_EXIT_CODE = 'ifExitCode';
+    public const CONDITION_NAME_NOT_EXIT_CODE = 'notExitCode';
 
     /**
      * @var array

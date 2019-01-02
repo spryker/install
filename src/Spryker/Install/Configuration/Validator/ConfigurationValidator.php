@@ -11,7 +11,7 @@ use Spryker\Install\Configuration\Exception\ConfigurationException;
 
 class ConfigurationValidator implements ConfigurationValidatorInterface
 {
-    const SECTIONS = 'sections';
+    public const SECTIONS = 'sections';
 
     /**
      * @param array $configuration

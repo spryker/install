@@ -12,9 +12,9 @@ use Spryker\Install\Stage\Section\SectionInterface;
 
 class SectionBuilder implements SectionBuilderInterface
 {
-    const CONFIG_EXCLUDED = 'excluded';
-    const CONFIG_PRE_COMMAND = 'pre';
-    const CONFIG_POST_COMMAND = 'post';
+    public const CONFIG_EXCLUDED = 'excluded';
+    public const CONFIG_PRE_COMMAND = 'pre';
+    public const CONFIG_POST_COMMAND = 'post';
 
     /**
      * @param string $name

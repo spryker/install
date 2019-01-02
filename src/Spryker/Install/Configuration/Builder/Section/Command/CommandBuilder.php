@@ -13,16 +13,16 @@ use Spryker\Install\Stage\Section\Command\Condition\ConditionFactoryInterface;
 
 class CommandBuilder implements CommandBuilderInterface
 {
-    const CONFIG_ENV = 'env';
-    const CONFIG_COMMAND = 'command';
-    const CONFIG_STORES = 'stores';
-    const CONFIG_EXCLUDED = 'excluded';
-    const CONFIG_GROUPS = 'groups';
-    const CONFIG_PRE_COMMAND = 'pre';
-    const CONFIG_POST_COMMAND = 'post';
-    const CONFIG_CONDITIONS = 'conditions';
-    const CONFIG_BREAK_ON_FAILURE = 'breakOnFailure';
-    const CONFIG_TIMEOUT = 'timeout';
+    public const CONFIG_ENV = 'env';
+    public const CONFIG_COMMAND = 'command';
+    public const CONFIG_STORES = 'stores';
+    public const CONFIG_EXCLUDED = 'excluded';
+    public const CONFIG_GROUPS = 'groups';
+    public const CONFIG_PRE_COMMAND = 'pre';
+    public const CONFIG_POST_COMMAND = 'post';
+    public const CONFIG_CONDITIONS = 'conditions';
+    public const CONFIG_BREAK_ON_FAILURE = 'breakOnFailure';
+    public const CONFIG_TIMEOUT = 'timeout';
 
     /**
      * @var \Spryker\Install\Stage\Section\Command\CommandInterface
