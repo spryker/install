@@ -141,9 +141,10 @@ class InstallConsoleCommand extends Command
      */
     protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
-        return new CommandLineArgumentContainer(
-            $this->input->getArgument(static::ARGUMENT_STORE)
-        );
+        $store = $this->input->getArgument(static::ARGUMENT_STORE);
+        $store = is_array($store) ? array_shift($store) : $store;
+
+        return new CommandLineArgumentContainer($store);
     }
 
     /**
@@ -151,16 +152,22 @@ class InstallConsoleCommand extends Command
      */
     protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
+        $recipeOptionValue = $this->input->getOption(static::OPTION_RECIPE);
+
+        $recipeOptionValue = is_array($recipeOptionValue)
+            ? (string)array_shift($recipeOptionValue)
+            : (string)$recipeOptionValue;
+
         return new CommandLineOptionContainer(
-            $this->input->getOption(static::OPTION_RECIPE),
+            $recipeOptionValue,
             $this->getSectionsToBeExecuted(),
             $this->getGroupsToBeExecuted(),
             $this->getExcludedStagesAndExcludedGroups(),
             $this->getIncludeExcluded(),
-            $this->input->getOption(static::OPTION_INTERACTIVE),
-            $this->input->getOption(static::OPTION_DRY_RUN),
-            $this->input->getOption(static::OPTION_BREAKPOINT),
-            $this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
+            (bool)$this->input->getOption(static::OPTION_INTERACTIVE),
+            (bool)$this->input->getOption(static::OPTION_DRY_RUN),
+            (bool)$this->input->getOption(static::OPTION_BREAKPOINT),
+            (bool)$this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
         );
     }
 
@@ -204,7 +211,7 @@ class InstallConsoleCommand extends Command
      */
     protected function getOptionAndComment($optionKey, $commentPattern): array
     {
-        $option = $this->input->getOption($optionKey);
+        $option = (array)$this->input->getOption($optionKey);
 
         if (count($option) > 0) {
             $this->output->note(sprintf($commentPattern, implode(', ', $option)));
@@ -236,6 +243,20 @@ class InstallConsoleCommand extends Command
     {
         $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
 
-        return $environment;
+        return (string)$environment;
+    }
+
+    /**
+     * @param string $optionName
+     *
+     * @return string
+     */
+    protected function getInputOptionAsString(string $optionName): string
+    {
+        $optionValue = $this->input->getOption($optionName);
+
+        return is_array($optionValue)
+            ? (string)array_shift($optionValue)
+            : (string)$optionValue;
     }
 }
