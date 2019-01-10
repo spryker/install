@@ -245,18 +245,4 @@ class InstallConsoleCommand extends Command
 
         return (string)$environment;
     }
-
-    /**
-     * @param string $optionName
-     *
-     * @return string
-     */
-    protected function getInputOptionAsString(string $optionName): string
-    {
-        $optionValue = $this->input->getOption($optionName);
-
-        return is_array($optionValue)
-            ? (string)array_shift($optionValue)
-            : (string)$optionValue;
-    }
 }
