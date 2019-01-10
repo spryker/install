@@ -138,22 +138,48 @@ class InstallConsoleCommand extends Command
     }
 
     /**
+     * @throws \Spryker\Install\Exception\InstallException
+     *
      * @return \Spryker\Install\CommandLine\CommandLineArgumentContainer
      */
     protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
-        return new CommandLineArgumentContainer(
-            $this->getOptionAsString(self::ARGUMENT_STORE)
-        );
+        $store = $this->input->getArgument(self::ARGUMENT_STORE);
+
+        if ($store !== null && !is_string($store)) {
+            throw new InstallException(
+                sprintf(
+                    'Value of `%s` argument should return `STRING|NULL` type. Return type is `%s`.',
+                    self::ARGUMENT_STORE,
+                    strtoupper(gettype($store))
+                )
+            );
+        }
+
+        return new CommandLineArgumentContainer($store);
     }
 
     /**
+     * @throws \Spryker\Install\Exception\InstallException
+     *
      * @return \Spryker\Install\CommandLine\CommandLineOptionContainer
      */
     protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
+        $recipeOption = $this->input->getOption(self::OPTION_RECIPE);
+
+        if (!is_string($recipeOption)) {
+            throw new InstallException(
+                sprintf(
+                    'Value of `%s` option should return `STRING` type. Return `%s`.',
+                    self::OPTION_RECIPE,
+                    strtoupper(gettype($recipeOption))
+                )
+            );
+        }
+
         return new CommandLineOptionContainer(
-            $this->getOptionAsString(self::OPTION_RECIPE),
+            $recipeOption,
             $this->getSectionsToBeExecuted(),
             $this->getGroupsToBeExecuted(),
             $this->getExcludedStagesAndExcludedGroups(),
@@ -238,29 +264,5 @@ class InstallConsoleCommand extends Command
         $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
 
         return (string)$environment;
-    }
-
-    /**
-     * @param string $optionName
-     *
-     * @throws \Spryker\Install\Exception\InstallException
-     *
-     * @return string
-     */
-    protected function getOptionAsString(string $optionName): string
-    {
-        $recipeOptionValue = $this->input->getOption($optionName);
-
-        if (!is_string($recipeOptionValue)) {
-            throw new InstallException(
-                sprintf(
-                    'Value of `%s` option should return `STRING` type. Return `%s`.',
-                    $optionName,
-                    strtoupper(gettype($recipeOptionValue))
-                )
-            );
-        }
-
-        return $recipeOptionValue;
     }
 }
