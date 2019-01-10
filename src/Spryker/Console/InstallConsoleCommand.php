@@ -142,9 +142,9 @@ class InstallConsoleCommand extends Command
      */
     protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
-        $store = $this->getOptionAsString(self::ARGUMENT_STORE);
-
-        return new CommandLineArgumentContainer($store);
+        return new CommandLineArgumentContainer(
+            $this->getOptionAsString(self::ARGUMENT_STORE)
+        );
     }
 
     /**
