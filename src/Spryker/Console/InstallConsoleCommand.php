@@ -149,9 +149,9 @@ class InstallConsoleCommand extends Command
         if ($store !== null && !is_string($store)) {
             throw new InstallException(
                 sprintf(
-                    'Value of `%s` argument should return `STRING|NULL` type. Return type is `%s`.',
+                    'Value of `%s` argument should return `string|null` type. Return type is `%s`.',
                     self::ARGUMENT_STORE,
-                    strtoupper(gettype($store))
+                    gettype($store)
                 )
             );
         }
@@ -171,9 +171,9 @@ class InstallConsoleCommand extends Command
         if (!is_string($recipeOption)) {
             throw new InstallException(
                 sprintf(
-                    'Value of `%s` option should return `STRING` type. Return `%s`.',
+                    'Value of `%s` option should return `string` type. Return `%s`.',
                     self::OPTION_RECIPE,
-                    strtoupper(gettype($recipeOption))
+                    gettype($recipeOption)
                 )
             );
         }
