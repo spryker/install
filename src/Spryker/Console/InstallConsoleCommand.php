@@ -9,6 +9,7 @@ namespace Spryker\Console;
 
 use Spryker\Install\CommandLine\CommandLineArgumentContainer;
 use Spryker\Install\CommandLine\CommandLineOptionContainer;
+use Spryker\Install\Exception\InstallException;
 use Spryker\Install\InstallFacade;
 use Spryker\Install\InstallFactory;
 use Spryker\Style\SprykerStyle;
@@ -152,14 +153,8 @@ class InstallConsoleCommand extends Command
      */
     protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
-        $recipeOptionValue = $this->input->getOption(static::OPTION_RECIPE);
-
-        $recipeOptionValue = is_array($recipeOptionValue)
-            ? (string)array_shift($recipeOptionValue)
-            : (string)$recipeOptionValue;
-
         return new CommandLineOptionContainer(
-            $recipeOptionValue,
+            $this->getRecipeOption(),
             $this->getSectionsToBeExecuted(),
             $this->getGroupsToBeExecuted(),
             $this->getExcludedStagesAndExcludedGroups(),
@@ -244,5 +239,27 @@ class InstallConsoleCommand extends Command
         $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
 
         return (string)$environment;
+    }
+
+    /**
+     * @throws \Spryker\Install\Exception\InstallException
+     *
+     * @return string
+     */
+    protected function getRecipeOption(): string
+    {
+        $recipeOptionValue = $this->input->getOption(static::OPTION_RECIPE);
+
+        if (!is_string($recipeOptionValue)) {
+            throw new InstallException(
+                sprintf(
+                    'Value of `%s` option should return `STRING` type. Return `%s`.',
+                    static::OPTION_RECIPE,
+                    strtoupper(gettype($recipeOptionValue))
+                )
+            );
+        }
+
+        return $recipeOptionValue;
     }
 }
