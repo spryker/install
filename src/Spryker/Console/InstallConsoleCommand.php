@@ -142,8 +142,7 @@ class InstallConsoleCommand extends Command
      */
     protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
-        $store = $this->input->getArgument(static::ARGUMENT_STORE);
-        $store = is_array($store) ? array_shift($store) : $store;
+        $store = $this->getOptionAsString(self::ARGUMENT_STORE);
 
         return new CommandLineArgumentContainer($store);
     }
@@ -154,7 +153,7 @@ class InstallConsoleCommand extends Command
     protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
         return new CommandLineOptionContainer(
-            $this->getRecipeOption(),
+            $this->getOptionAsString(self::OPTION_RECIPE),
             $this->getSectionsToBeExecuted(),
             $this->getGroupsToBeExecuted(),
             $this->getExcludedStagesAndExcludedGroups(),
@@ -242,19 +241,21 @@ class InstallConsoleCommand extends Command
     }
 
     /**
+     * @param string $optionName
+     *
      * @throws \Spryker\Install\Exception\InstallException
      *
      * @return string
      */
-    protected function getRecipeOption(): string
+    protected function getOptionAsString(string $optionName): string
     {
-        $recipeOptionValue = $this->input->getOption(static::OPTION_RECIPE);
+        $recipeOptionValue = $this->input->getOption($optionName);
 
         if (!is_string($recipeOptionValue)) {
             throw new InstallException(
                 sprintf(
                     'Value of `%s` option should return `STRING` type. Return `%s`.',
-                    static::OPTION_RECIPE,
+                    $optionName,
                     strtoupper(gettype($recipeOptionValue))
                 )
             );
