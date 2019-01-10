@@ -21,7 +21,7 @@ interface StageInterface
      *
      * @return $this
      */
-    public function addSection(SectionInterface $section): self;
+    public function addSection(SectionInterface $section);
 
     /**
      * @return \Spryker\Install\Stage\Section\SectionInterface[]

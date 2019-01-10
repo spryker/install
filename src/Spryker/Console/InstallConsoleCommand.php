@@ -9,6 +9,7 @@ namespace Spryker\Console;
 
 use Spryker\Install\CommandLine\CommandLineArgumentContainer;
 use Spryker\Install\CommandLine\CommandLineOptionContainer;
+use Spryker\Install\Exception\InstallException;
 use Spryker\Install\InstallFacade;
 use Spryker\Install\InstallFactory;
 use Spryker\Style\SprykerStyle;
@@ -137,30 +138,56 @@ class InstallConsoleCommand extends Command
     }
 
     /**
+     * @throws \Spryker\Install\Exception\InstallException
+     *
      * @return \Spryker\Install\CommandLine\CommandLineArgumentContainer
      */
     protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
-        return new CommandLineArgumentContainer(
-            $this->input->getArgument(static::ARGUMENT_STORE)
-        );
+        $store = $this->input->getArgument(self::ARGUMENT_STORE);
+
+        if ($store !== null && !is_string($store)) {
+            throw new InstallException(
+                sprintf(
+                    'Value of `%s` argument should return `string|null` type. Return type is `%s`.',
+                    self::ARGUMENT_STORE,
+                    gettype($store)
+                )
+            );
+        }
+
+        return new CommandLineArgumentContainer($store);
     }
 
     /**
+     * @throws \Spryker\Install\Exception\InstallException
+     *
      * @return \Spryker\Install\CommandLine\CommandLineOptionContainer
      */
     protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
+        $recipeOption = $this->input->getOption(self::OPTION_RECIPE);
+
+        if (!is_string($recipeOption)) {
+            throw new InstallException(
+                sprintf(
+                    'Value of `%s` option should return `string` type. Return `%s`.',
+                    self::OPTION_RECIPE,
+                    gettype($recipeOption)
+                )
+            );
+        }
+
         return new CommandLineOptionContainer(
-            $this->input->getOption(static::OPTION_RECIPE),
+            $recipeOption,
             $this->getSectionsToBeExecuted(),
             $this->getGroupsToBeExecuted(),
             $this->getExcludedStagesAndExcludedGroups(),
             $this->getIncludeExcluded(),
-            $this->input->getOption(static::OPTION_INTERACTIVE),
-            $this->input->getOption(static::OPTION_DRY_RUN),
-            $this->input->getOption(static::OPTION_BREAKPOINT),
-            $this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
+            (bool)$this->input->getOption(static::OPTION_INTERACTIVE),
+            (bool)$this->input->getOption(static::OPTION_DRY_RUN),
+            (bool)$this->input->getOption(static::OPTION_BREAKPOINT),
+            (bool)$this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
         );
     }
 
@@ -204,7 +231,7 @@ class InstallConsoleCommand extends Command
      */
     protected function getOptionAndComment($optionKey, $commentPattern): array
     {
-        $option = $this->input->getOption($optionKey);
+        $option = (array)$this->input->getOption($optionKey);
 
         if (count($option) > 0) {
             $this->output->note(sprintf($commentPattern, implode(', ', $option)));
@@ -236,6 +263,6 @@ class InstallConsoleCommand extends Command
     {
         $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
 
-        return $environment;
+        return (string)$environment;
     }
 }

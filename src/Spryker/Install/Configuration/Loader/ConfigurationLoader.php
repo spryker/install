@@ -35,7 +35,7 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
     {
         $pathToRecipe = $this->getPathToRecipe($recipe);
 
-        $configuration = (array)Yaml::parse(file_get_contents($pathToRecipe));
+        $configuration = (array)Yaml::parse((string)file_get_contents($pathToRecipe));
         $this->configurationValidator->validate($configuration);
 
         return $configuration;
