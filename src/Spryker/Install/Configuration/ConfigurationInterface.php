@@ -18,7 +18,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setOutput(StyleInterface $output): self;
+    public function setOutput(StyleInterface $output);
 
     /**
      * @return \Spryker\Style\StyleInterface
@@ -30,7 +30,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setStage(StageInterface $stage): self;
+    public function setStage(StageInterface $stage);
 
     /**
      * @return \Spryker\Install\Stage\StageInterface
@@ -42,7 +42,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setIsDebugMode(bool $isDebugMode): self;
+    public function setIsDebugMode(bool $isDebugMode);
 
     /**
      * @return bool
@@ -54,7 +54,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setIsDryRun(bool $isDryRun): self;
+    public function setIsDryRun(bool $isDryRun);
 
     /**
      * @return bool
@@ -66,7 +66,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setEnv(array $env): self;
+    public function setEnv(array $env);
 
     /**
      * @return array
@@ -78,7 +78,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setStores(array $stores): self;
+    public function setStores(array $stores);
 
     /**
      * @return array
@@ -90,7 +90,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setCommandTimeout(int $commandTimeout): self;
+    public function setCommandTimeout(int $commandTimeout);
 
     /**
      * @return int|null
@@ -102,7 +102,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setExecutableStores(array $executableStores): self;
+    public function setExecutableStores(array $executableStores);
 
     /**
      * @return array
@@ -119,7 +119,7 @@ interface ConfigurationInterface
      *
      * @return $this
      */
-    public function setAskBeforeContinueAfterException(bool $shouldAskBeforeContinueAfterException): self;
+    public function setAskBeforeContinueAfterException(bool $shouldAskBeforeContinueAfterException);
 
     /**
      * @param string $name
