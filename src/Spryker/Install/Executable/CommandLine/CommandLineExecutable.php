@@ -14,7 +14,6 @@ use Spryker\Install\Stage\Section\Command\CommandInterface;
 use Spryker\Style\StyleInterface;
 use Symfony\Component\Process\Process;
 
-
 class CommandLineExecutable implements ExecutableInterface
 {
     public const DEFAULT_TIMEOUT_IN_SECONDS = 600;
@@ -66,8 +65,12 @@ class CommandLineExecutable implements ExecutableInterface
      */
     protected function buildProcess()
     {
+        if (method_exists(Process::class, 'fromShellCommandline')) {
+            return Process::fromShellCommandline($this->command->getExecutable(), SPRYKER_ROOT, getenv(), null, $this->getProcessTimeout());
+        }
+
         return new Process(
-            (array)$this->command->getExecutable(),
+            $this->command->getExecutable(),
             SPRYKER_ROOT,
             getenv(),
             null,
