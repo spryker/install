@@ -152,15 +152,15 @@ class InstallConsoleCommand extends Command
     protected function getCommandLineOptionContainer(): CommandLineOptionContainer
     {
         return new CommandLineOptionContainer(
-            $this->input->getOption(static::OPTION_RECIPE),
+            (string) $this->input->getOption(static::OPTION_RECIPE),
             $this->getSectionsToBeExecuted(),
             $this->getGroupsToBeExecuted(),
             $this->getExcludedStagesAndExcludedGroups(),
             $this->getIncludeExcluded(),
-            $this->input->getOption(static::OPTION_INTERACTIVE),
-            $this->input->getOption(static::OPTION_DRY_RUN),
-            $this->input->getOption(static::OPTION_BREAKPOINT),
-            $this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
+            (bool) $this->input->getOption(static::OPTION_INTERACTIVE),
+            (bool) $this->input->getOption(static::OPTION_DRY_RUN),
+            (bool) $this->input->getOption(static::OPTION_BREAKPOINT),
+            (bool) $this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
         );
     }
 
@@ -204,7 +204,7 @@ class InstallConsoleCommand extends Command
      */
     protected function getOptionAndComment($optionKey, $commentPattern): array
     {
-        $option = $this->input->getOption($optionKey);
+        $option = (array) $this->input->getOption($optionKey);
 
         if (count($option) > 0) {
             $this->output->note(sprintf($commentPattern, implode(', ', $option)));
