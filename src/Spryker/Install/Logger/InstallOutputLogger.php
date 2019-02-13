@@ -44,13 +44,16 @@ class InstallOutputLogger implements InstallLoggerInterface
      */
     private function formatMessage($message)
     {
-        $message = implode('', (array)$message);
-        $message = str_replace(PHP_EOL, '', $message);
-        $message = strip_tags($message);
-        $message = preg_replace('/\\x1b[[][^A-Za-z]*[A-Za-z]/', '', $message);
-        $message = preg_replace('/[-=]{2,}/', '', $message);
-        $message = trim($message, " \t\n\r\0\x0B-=");
+        $formattedMessage = implode('', (array)$message);
+        $formattedMessage = str_replace(PHP_EOL, '', $formattedMessage);
+        $formattedMessage = strip_tags($formattedMessage);
+        $formattedMessage = preg_replace([
+            '/\\x1b[[][^A-Za-z]*[A-Za-z]/',
+            '/[-=]{2,}/',
+        ], '', $formattedMessage);
 
-        return $message;
+        return $formattedMessage !== null
+            ? trim($formattedMessage, " \t\n\r\0\x0B-=")
+            : (string)$formattedMessage;
     }
 }

@@ -14,7 +14,7 @@ interface TimerInterface
      *
      * @return $this
      */
-    public function start($object): self;
+    public function start($object);
 
     /**
      * @param object $object

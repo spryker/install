@@ -21,7 +21,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setExecutable(string $executable): self;
+    public function setExecutable(string $executable);
 
     /**
      * @return string
@@ -33,7 +33,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setEnv(array $env): self;
+    public function setEnv(array $env);
 
     /**
      * @return array
@@ -45,14 +45,14 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setGroups(array $groups): self;
+    public function setGroups(array $groups);
 
     /**
      * @param bool $isStoreAware
      *
      * @return $this
      */
-    public function setIsStoreAware(bool $isStoreAware): self;
+    public function setIsStoreAware(bool $isStoreAware);
 
     /**
      * @return bool
@@ -64,7 +64,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setStores(array $stores): self;
+    public function setStores(array $stores);
 
     /**
      * @return string[]
@@ -81,7 +81,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function addCondition(ConditionInterface $condition): self;
+    public function addCondition(ConditionInterface $condition);
 
     /**
      * @return \Spryker\Install\Stage\Section\Command\Condition\ConditionInterface[]
@@ -93,7 +93,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setPreCommand(string $preCommand): self;
+    public function setPreCommand(string $preCommand);
 
     /**
      * @return bool
@@ -110,7 +110,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setPostCommand(string $postCommand): self;
+    public function setPostCommand(string $postCommand);
 
     /**
      * @return bool
@@ -125,7 +125,7 @@ interface CommandInterface
     /**
      * @return $this
      */
-    public function markAsExcluded(): self;
+    public function markAsExcluded();
 
     /**
      * @return bool
@@ -137,7 +137,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setBreakOnFailure(bool $breakOnFailure): self;
+    public function setBreakOnFailure(bool $breakOnFailure);
 
     /**
      * @return bool
@@ -154,7 +154,7 @@ interface CommandInterface
      *
      * @return $this
      */
-    public function setTimeout(int $timeout): self;
+    public function setTimeout(int $timeout);
 
     /**
      * @return int

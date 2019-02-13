@@ -19,7 +19,7 @@ interface SectionInterface
     /**
      * @return $this
      */
-    public function markAsExcluded(): self;
+    public function markAsExcluded();
 
     /**
      * @return bool
@@ -31,7 +31,7 @@ interface SectionInterface
      *
      * @return $this
      */
-    public function addCommand(CommandInterface $command): self;
+    public function addCommand(CommandInterface $command);
 
     /**
      * @return \Spryker\Install\Stage\Section\Command\CommandInterface[]
@@ -50,7 +50,7 @@ interface SectionInterface
      *
      * @return $this
      */
-    public function setPreCommand(string $preCommand): self;
+    public function setPreCommand(string $preCommand);
 
     /**
      * @return bool
@@ -67,7 +67,7 @@ interface SectionInterface
      *
      * @return $this
      */
-    public function setPostCommand(string $postCommand): self;
+    public function setPostCommand(string $postCommand);
 
     /**
      * @return bool
