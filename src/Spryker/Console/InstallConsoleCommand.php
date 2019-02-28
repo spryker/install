@@ -261,7 +261,15 @@ class InstallConsoleCommand extends Command
      */
     protected function getEnvironment()
     {
-        $environment = (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production');
+        $environment = getenv('APPLICATION_ENV', true) ?: getenv('APPLICATION_ENV');
+
+        if (!$environment && file_exists(APPLICATION_ROOT_DIR . '/config/Shared/console_env_local.php')) {
+            $environment = require APPLICATION_ROOT_DIR . '/config/Shared/console_env_local.php';
+        }
+
+        if (!$environment) {
+            $environment = 'production';
+        }
 
         return (string)$environment;
     }
