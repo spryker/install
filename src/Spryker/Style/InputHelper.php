@@ -28,11 +28,11 @@ trait InputHelper
      * @param string $question
      * @param bool $default
      *
-     * @return string
+     * @return bool
      */
     public function confirm($question, $default)
     {
-        return $this->askQuestion(new ConfirmationQuestion($question, $default));
+        return (bool)$this->askQuestion(new ConfirmationQuestion($question, $default));
     }
 
     /**
