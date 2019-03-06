@@ -12,8 +12,8 @@
   "require-dev": {
     "codeception/codeception": "*",
     "symfony/var-dumper": "^3.0.0",
-    "phpstan/phpstan": "^0.10.0",
-    "spryker/code-sniffer": "dev-master as 1.0.0",
+    "phpstan/phpstan": "^0.11.2",
+    "spryker/code-sniffer": "*",
     "php-coveralls/php-coveralls": "^1.0"
   },
   "autoload": {
