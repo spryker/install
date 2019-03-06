@@ -10,5 +10,11 @@ Spryker install tool for setting up a project using recipes per environment.
 
 This is for local development, staging and production deployment. For security reasons the environment default should always be configured to `production`. Your local `APPLICATION_ENV` env setup should then overwrite as per your non-production environment.
 
+## Installation
+
+```
+composer require spryker/install
+```
+
 ## Documentation
 https://academy.spryker.com/developing_with_spryker/module_guide/utilities/install_tool.html
