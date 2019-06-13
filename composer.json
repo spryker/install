@@ -14,7 +14,8 @@
     "symfony/var-dumper": "*",
     "phpstan/phpstan": "^0.11.2",
     "spryker/code-sniffer": "*",
-    "php-coveralls/php-coveralls": "^1.0"
+    "php-coveralls/php-coveralls": "^1.0",
+    "phpunit/phpunit": "<8"
   },
   "autoload": {
     "psr-4": {
