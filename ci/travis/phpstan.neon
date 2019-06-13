@@ -1,0 +1,5 @@
+parameters:
+    bootstrap: %rootDir%/../../../phpstan-bootstrap.php
+
+    excludes_analyse:
+        - %rootDir%/../../../src/Spryker/Install/Executable/CommandLine/CommandLineExecutable.php
