@@ -22,7 +22,6 @@ matrix:
 
 before_script:
     - composer install --prefer-dist --no-interaction
-    - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]] ; then cp ./ci/travis/phpstan.neon ./phpstan.neon ; fi
 
 script:
   - if [[ $DEFAULT == 1 ]] ; then vendor/bin/codecept run --coverage-xml ; fi
