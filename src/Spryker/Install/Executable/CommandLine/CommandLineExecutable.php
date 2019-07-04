@@ -65,6 +65,10 @@ class CommandLineExecutable implements ExecutableInterface
      */
     protected function buildProcess()
     {
+        if (method_exists(Process::class, 'fromShellCommandline')) {
+            return Process::fromShellCommandline($this->command->getExecutable(), SPRYKER_ROOT, getenv(), null, $this->getProcessTimeout());
+        }
+
         return new Process(
             $this->command->getExecutable(),
             SPRYKER_ROOT,

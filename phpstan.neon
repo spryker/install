@@ -1,2 +1,11 @@
 parameters:
     bootstrap: %rootDir%/../../../phpstan-bootstrap.php
+
+    ignoreErrors:
+        -
+          message: '#Call to function method_exists\(\) with#'
+          path: %currentWorkingDirectory%/src/Spryker/Install/Executable/CommandLine/CommandLineExecutable.php
+
+        -
+          message: '#Parameter \#1 \$command of class Symfony\\Component\\Process\\Process constructor expects array, string given.#'
+          path: %currentWorkingDirectory%/src/Spryker/Install/Executable/CommandLine/CommandLineExecutable.php
