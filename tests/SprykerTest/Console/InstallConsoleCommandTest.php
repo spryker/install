@@ -14,6 +14,7 @@ use Spryker\Install\Configuration\Loader\Exception\ConfigurationFileNotFoundExce
 
 /**
  * Auto-generated group annotations
+ *
  * @group SprykerTest
  * @group Console
  * @group InstallConsoleCommandTest

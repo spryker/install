@@ -14,6 +14,7 @@ use Spryker\Install\Stage\Stage;
 
 /**
  * Auto-generated group annotations
+ *
  * @group SprykerTest
  * @group Install
  * @group Stage

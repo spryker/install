@@ -14,6 +14,7 @@ use Spryker\Install\Stage\Section\Exception\SectionNotFoundException;
 
 /**
  * Auto-generated group annotations
+ *
  * @group SprykerTest
  * @group Console
  * @group InstallConsoleCommandPrePostCommandTest

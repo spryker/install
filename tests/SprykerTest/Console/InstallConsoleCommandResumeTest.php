@@ -13,6 +13,7 @@ use Spryker\Install\Exception\InstallException;
 
 /**
  * Auto-generated group annotations
+ *
  * @group SprykerTest
  * @group Console
  * @group InstallConsoleCommandResumeTest

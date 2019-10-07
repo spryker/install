@@ -13,6 +13,7 @@ use Spryker\Install\Stage\Section\Command\Condition\Exception\ConditionNotFoundE
 
 /**
  * Auto-generated group annotations
+ *
  * @group SprykerTest
  * @group Console
  * @group InstallConsoleCommandConditionTest

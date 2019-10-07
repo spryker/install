@@ -14,6 +14,7 @@ use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
 /**
  * Auto-generated group annotations
+ *
  * @group SprykerTest
  * @group Console
  * @group InstallConsoleCommandCommandTest

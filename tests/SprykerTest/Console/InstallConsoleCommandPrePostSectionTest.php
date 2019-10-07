@@ -12,6 +12,7 @@ use Spryker\Console\InstallConsoleCommand;
 
 /**
  * Auto-generated group annotations
+ *
  * @group SprykerTest
  * @group Console
  * @group InstallConsoleCommandPrePostSectionTest
