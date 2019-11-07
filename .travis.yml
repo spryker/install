@@ -18,6 +18,9 @@ matrix:
     - php: 7.2
       env: CHECKS=1 DEFAULT=0
 
+    - php: 7.4snapshot
+      env: CHECKS=1 DEFAULT=0
+
   fast_finish: true
 
 before_script:
