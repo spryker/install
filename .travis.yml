@@ -5,6 +5,7 @@ sudo: false
 php:
     - 7.1
     - 7.2
+    - 7.4snapshot
 
 env:
   global:
@@ -18,13 +19,17 @@ matrix:
     - php: 7.2
       env: CHECKS=1 DEFAULT=0
 
+    - php: 7.4snapshot
+      env: CHECKS=1 DEFAULT=0
+
   fast_finish: true
 
 before_script:
     - composer install --prefer-dist --no-interaction
 
 script:
-  - if [[ $DEFAULT == 1 ]] ; then vendor/bin/codecept run --coverage-xml ; fi
+  - if [[ ${TRAVIS_PHP_VERSION} == "7.4snapshot" ]] ; then vendor/bin/codecept run  ; fi
+  - if [[ ${TRAVIS_PHP_VERSION} != "7.4snapshot" ]] ; then vendor/bin/codecept run --coverage-xml ; fi
   - if [[ $CHECKS == 1 ]] ; then vendor/bin/phpstan analyse -l 7 -c phpstan.neon src/ ; fi
   - if [[ $CHECKS == 1 ]] ; then composer cs-check ; fi
 
