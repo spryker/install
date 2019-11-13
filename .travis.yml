@@ -3,7 +3,6 @@ language: php
 sudo: false
 
 php:
-    - 7.1
     - 7.2
     - 7.4snapshot
 
@@ -13,10 +12,10 @@ env:
 
 matrix:
   include:
-    - php: 7.1
+    - php: 7.2
       env: PREFER_LOWEST=1
 
-    - php: 7.2
+    - php: 7.3
       env: CHECKS=1 DEFAULT=0
 
     - php: 7.4snapshot
