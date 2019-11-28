@@ -46,7 +46,9 @@ class CommandLineExecutable implements ExecutableInterface
     public function execute(StyleInterface $output): int
     {
         $process = $this->buildProcess();
-        $process->inheritEnvironmentVariables(true);
+        if (method_exists($process, 'inheritEnvironmentVariables')) {
+            $process->inheritEnvironmentVariables(true);
+        }
         $process->start();
 
         foreach ($process as $buffer) {
