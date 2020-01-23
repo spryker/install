@@ -20,10 +20,10 @@ use Symfony\Component\Console\Terminal;
 
 class SprykerStyle implements StyleInterface
 {
-    public const MAX_LINE_LENGTH = 120;
-
     use InputHelper;
     use CursorHelper;
+
+    public const MAX_LINE_LENGTH = 120;
 
     /**
      * @var \Symfony\Component\Console\Output\BufferedOutput

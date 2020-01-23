@@ -76,11 +76,6 @@ class InstallConsoleCommand extends Command
     protected $configuration;
 
     /**
-     * @var array
-     */
-    protected $commandExitCodes = [];
-
-    /**
      * @return void
      */
     protected function configure()
@@ -194,7 +189,7 @@ class InstallConsoleCommand extends Command
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getSectionsToBeExecuted(): array
     {
@@ -202,7 +197,7 @@ class InstallConsoleCommand extends Command
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getGroupsToBeExecuted(): array
     {
@@ -210,7 +205,7 @@ class InstallConsoleCommand extends Command
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getExcludedStagesAndExcludedGroups()
     {
@@ -218,7 +213,7 @@ class InstallConsoleCommand extends Command
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getIncludeExcluded(): array
     {

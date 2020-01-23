@@ -19,12 +19,13 @@ matrix:
   fast_finish: true
 
 before_script:
-    - composer install --prefer-dist --no-interaction
+    - if [[ $PREFER_LOWEST != 1 ]]; then COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction ; fi
+    - if [[ $PREFER_LOWEST == 1 ]]; then COMPOSER_MEMORY_LIMIT=-1 composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable ; fi
 
 script:
   - if [[ ${TRAVIS_PHP_VERSION} == "7.4" ]] ; then vendor/bin/codecept run  ; fi
   - if [[ ${TRAVIS_PHP_VERSION} != "7.4" ]] ; then vendor/bin/codecept run --coverage-xml ; fi
-  - if [[ $CHECKS == 1 ]] ; then vendor/bin/phpstan analyse -l 7 -c phpstan.neon src/ ; fi
+  - if [[ $CHECKS == 1 ]] ; then vendor/bin/phpstan analyse -l 5 -c phpstan.neon src/ ; fi
   - if [[ $CHECKS == 1 ]] ; then composer cs-check ; fi
 
 notifications:
