@@ -20,8 +20,11 @@ class InstallFacade
      *
      * @return void
      */
-    public function runInstall(CommandLineArgumentContainer $commandLineArgumentContainer, CommandLineOptionContainer $commandLineOptionContainer, StyleInterface $style)
-    {
+    public function runInstall(
+        CommandLineArgumentContainer $commandLineArgumentContainer,
+        CommandLineOptionContainer $commandLineOptionContainer,
+        StyleInterface $style
+    ) {
         $this->getFactory()->createInstallRunner()->run($commandLineArgumentContainer, $commandLineOptionContainer, $style);
     }
 
