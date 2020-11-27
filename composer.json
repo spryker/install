@@ -1,6 +1,6 @@
 {
   "name": "spryker/install",
-  "description": "Spryker install tool",
+  "description": "Spryker Install tool",
   "license": "MIT",
   "require": {
     "php": ">=7.3",
@@ -40,5 +40,10 @@
     "cs-check": "phpcs --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -p src/ tests/",
     "cs-fix": "phpcbf --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml -p src/ tests/",
     "stan": "vendor/bin/phpstan analyse -l 5 -c phpstan.neon src/"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
   }
 }
