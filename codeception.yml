@@ -1,5 +1,6 @@
 namespace: SprykerTest
-actor: Tester
+include:
+    - tests/SprykerTest/Zed/Install
 
 paths:
     tests: tests
@@ -7,23 +8,9 @@ paths:
     data: tests/_data
     support: tests/_support
     envs: tests/_envs
-
-bootstrap: _bootstrap.php
-
 settings:
+    bootstrap: _bootstrap.php
+    suite_class: \PHPUnit\Framework\TestSuite
     colors: true
     memory_limit: 1024M
     log: true
-
-coverage:
-    enabled: true
-    remote: true
-    whitelist: { include: ['src/Spryker/*.php'] }
-
-suites:
-    Console:
-        path: SprykerTest/Console
-        class_name: ConsoleTester
-    Install:
-        path: SprykerTest/Install
-        class_name: InstallTester
