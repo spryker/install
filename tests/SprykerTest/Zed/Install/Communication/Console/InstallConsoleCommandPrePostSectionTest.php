@@ -31,7 +31,7 @@ class InstallConsoleCommandPrePostSectionTest extends Unit
     /**
      * @return void
      */
-    public function testPreCommandIsExecutedBeforeSectionCommands()
+    public function testPreCommandIsExecutedBeforeSectionCommands(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -50,7 +50,7 @@ class InstallConsoleCommandPrePostSectionTest extends Unit
     /**
      * @return void
      */
-    public function testPostCommandIsExecutedAfterSectionCommands()
+    public function testPostCommandIsExecutedAfterSectionCommands(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

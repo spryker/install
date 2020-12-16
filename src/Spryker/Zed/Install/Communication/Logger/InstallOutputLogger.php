@@ -29,7 +29,7 @@ class InstallOutputLogger implements InstallLoggerInterface
      *
      * @return void
      */
-    public function log($message)
+    public function log($message): void
     {
         $formattedMessage = $this->formatMessage($message);
         if (!empty($formattedMessage)) {
@@ -42,7 +42,7 @@ class InstallOutputLogger implements InstallLoggerInterface
      *
      * @return string
      */
-    private function formatMessage($message)
+    protected function formatMessage($message): string
     {
         $formattedMessage = implode('', (array)$message);
         $formattedMessage = str_replace(PHP_EOL, '', $formattedMessage);

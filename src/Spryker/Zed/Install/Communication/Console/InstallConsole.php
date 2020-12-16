@@ -74,7 +74,7 @@ class InstallConsole extends Console
     /**
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $environment = $this->getFactory()->getConfig()->getEnvironment();
         $this->setName('install')
@@ -132,7 +132,7 @@ class InstallConsole extends Console
     /**
      * @throws \Spryker\Zed\Install\Communication\Exception\InstallException
      *
-     * @return \Spryker\Zed\Install\Business\CommandLine\CommandLineArgumentContainer
+     * @return \Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer
      */
     protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
     {
@@ -202,7 +202,7 @@ class InstallConsole extends Console
     /**
      * @return string[]
      */
-    protected function getExcludedStagesAndExcludedGroups()
+    protected function getExcludedStagesAndExcludedGroups(): array
     {
         return $this->getOptionAndComment(static::OPTION_EXCLUDE, 'Install will exclude this group(s) or section(s) "%s"');
     }

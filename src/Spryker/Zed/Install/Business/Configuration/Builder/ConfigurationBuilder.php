@@ -125,7 +125,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return void
      */
-    protected function setEnv(array $configuration)
+    protected function setEnv(array $configuration): void
     {
         if (isset($configuration[static::CONFIG_ENV])) {
             $this->configuration->setEnv($configuration[static::CONFIG_ENV]);
@@ -137,7 +137,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return void
      */
-    protected function setStores(array $configuration)
+    protected function setStores(array $configuration): void
     {
         if (isset($configuration[static::CONFIG_STORES])) {
             $this->configuration->setStores($configuration[static::CONFIG_STORES]);
@@ -149,7 +149,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return void
      */
-    protected function setCommandTimeout(array $configuration)
+    protected function setCommandTimeout(array $configuration): void
     {
         if (isset($configuration[static::CONFIG_COMMAND_TIMEOUT])) {
             $this->configuration->setCommandTimeout($configuration[static::CONFIG_COMMAND_TIMEOUT]);
@@ -159,7 +159,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     /**
      * @return void
      */
-    protected function setExecutableStores()
+    protected function setExecutableStores(): void
     {
         $interactiveRequestedStores = $this->askForStoresToBeExecuted();
         if (count($interactiveRequestedStores) > 0) {
@@ -204,7 +204,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return void
      */
-    protected function addStageToConfiguration(string $stageName, array $sections)
+    protected function addStageToConfiguration(string $stageName, array $sections): void
     {
         $stage = new Stage($stageName);
 
@@ -273,7 +273,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return array
      */
-    protected function filterCommands(array $commands)
+    protected function filterCommands(array $commands): array
     {
         return $this->getCommandFilter()->filter($commands);
     }

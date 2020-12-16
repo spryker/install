@@ -33,7 +33,7 @@ class InstallConsoleCommandCommandTest extends Unit
     /**
      * @return void
      */
-    public function testExcludedCommandByNameIsNotExecuted()
+    public function testExcludedCommandByNameIsNotExecuted(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -52,7 +52,7 @@ class InstallConsoleCommandCommandTest extends Unit
     /**
      * @return void
      */
-    public function testRunsCommandWithSpecifiedTimeout()
+    public function testRunsCommandWithSpecifiedTimeout(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -71,7 +71,7 @@ class InstallConsoleCommandCommandTest extends Unit
     /**
      * @return void
      */
-    public function testThrowsExceptionWhenCommandRunsLongerThanConfiguredTimeout()
+    public function testThrowsExceptionWhenCommandRunsLongerThanConfiguredTimeout(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

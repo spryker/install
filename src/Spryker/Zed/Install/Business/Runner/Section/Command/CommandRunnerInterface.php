@@ -20,5 +20,5 @@ interface CommandRunnerInterface
      *
      * @return void
      */
-    public function run(CommandInterface $command, ConfigurationInterface $configuration);
+    public function run(CommandInterface $command, ConfigurationInterface $configuration): void;
 }

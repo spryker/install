@@ -14,7 +14,7 @@ class EnvironmentHelper implements EnvironmentHelperInterface
      *
      * @return void
      */
-    public function putEnvs(array $env)
+    public function putEnvs(array $env): void
     {
         foreach ($env as $key => $value) {
             $this->putEnv($key, $value);
@@ -27,7 +27,7 @@ class EnvironmentHelper implements EnvironmentHelperInterface
      *
      * @return void
      */
-    public function putEnv(string $key, $value)
+    public function putEnv(string $key, $value): void
     {
         putenv(sprintf('%s=%s', $key, $value));
     }
@@ -37,7 +37,7 @@ class EnvironmentHelper implements EnvironmentHelperInterface
      *
      * @return void
      */
-    public function unsetEnvs(array $env)
+    public function unsetEnvs(array $env): void
     {
         foreach (array_keys($env) as $key) {
             $this->unsetEnv($key);
@@ -49,7 +49,7 @@ class EnvironmentHelper implements EnvironmentHelperInterface
      *
      * @return void
      */
-    public function unsetEnv(string $key)
+    public function unsetEnv(string $key): void
     {
         putenv($key);
     }

@@ -84,7 +84,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function newLine($count = 1)
+    public function newLine($count = 1): void
     {
         $this->write(str_repeat(PHP_EOL, $count));
     }
@@ -94,7 +94,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function startInstall(StageInterface $stage)
+    public function startInstall(StageInterface $stage): void
     {
         $this->timer->start($stage);
         $message = sprintf('Install <fg=green>%s</> environment', $stage->getName());
@@ -115,7 +115,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function endInstall(StageInterface $stage)
+    public function endInstall(StageInterface $stage): void
     {
         $message = sprintf('Install <fg=green>%s</> finished in <fg=green>%ss</>', $stage->getName(), $this->timer->end($stage));
         $this->writeln($message);
@@ -126,7 +126,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function startSection(SectionInterface $section)
+    public function startSection(SectionInterface $section): void
     {
         $this->timer->start($section);
         $message = sprintf('<bg=green;options=bold> Section %s</>', $section->getName());
@@ -147,7 +147,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function endSection(SectionInterface $section)
+    public function endSection(SectionInterface $section): void
     {
         $this->newLine();
 
@@ -165,7 +165,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function startCommand(CommandInterface $command, $store = null)
+    public function startCommand(CommandInterface $command, $store = null): void
     {
         $this->timer->start($command);
         $message = $this->getStartCommandMessage($command, $store);
@@ -190,7 +190,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return string
      */
-    protected function getStartCommandMessage(CommandInterface $command, $store = null)
+    protected function getStartCommandMessage(CommandInterface $command, $store = null): string
     {
         $commandInfo = sprintf('Command <fg=green>%s</>', $command->getName());
         $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
@@ -206,7 +206,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function endCommand(CommandInterface $command, $exitCode, $store = null)
+    public function endCommand(CommandInterface $command, $exitCode, $store = null): void
     {
         if ($this->output->isVeryVerbose()) {
             $this->newLine();
@@ -228,7 +228,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    protected function endCommandOutputIfNormalOutput(CommandInterface $command, $store = null)
+    protected function endCommandOutputIfNormalOutput(CommandInterface $command, $store = null): void
     {
         if ($this->output->getVerbosity() === static::VERBOSITY_NORMAL) {
             $message = $this->getStartCommandMessage($command, $store);
@@ -248,7 +248,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return string
      */
-    protected function getVerboseCommandEndMessage(CommandInterface $command, $exitCode)
+    protected function getVerboseCommandEndMessage(CommandInterface $command, $exitCode): string
     {
         return sprintf(
             '<fg=green>//</> Command <fg=green>%s</> finished in <fg=green>%ss</>, exit code <fg=%s>%s</>',
@@ -264,7 +264,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function dryRunCommand(CommandInterface $command)
+    public function dryRunCommand(CommandInterface $command): void
     {
         $this->newLine();
         $this->write(' // Dry-run: ' . $command->getName());
@@ -276,7 +276,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function innerCommand($output)
+    public function innerCommand($output): void
     {
         if ($this->output->isVeryVerbose()) {
             $this->write($output);
@@ -290,7 +290,7 @@ class SprykerStyle implements StyleInterface
     /**
      * @return void
      */
-    public function flushBuffer()
+    public function flushBuffer(): void
     {
         foreach ($this->outputBuffer as $output) {
             $this->write($output);
@@ -302,7 +302,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function note($output)
+    public function note($output): void
     {
         if ($this->output->isVeryVerbose()) {
             $this->write(' // ' . $output);
@@ -315,7 +315,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function write($messages, $options = 0)
+    public function write($messages, $options = 0): void
     {
         $this->log($messages);
         $this->output->write($messages, false, $options);
@@ -327,7 +327,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    protected function writeln($messages, $options = 0)
+    protected function writeln($messages, $options = 0): void
     {
         $this->log($messages);
         $this->output->writeln($messages, $options);

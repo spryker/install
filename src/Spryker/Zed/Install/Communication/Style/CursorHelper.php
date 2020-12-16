@@ -14,7 +14,7 @@ trait CursorHelper
      *
      * @return void
      */
-    protected function moveLineUp($count = 1)
+    protected function moveLineUp($count = 1): void
     {
         $output = sprintf("\x1B[%sA", $count);
         $this->write($output);
@@ -23,7 +23,7 @@ trait CursorHelper
     /**
      * @return void
      */
-    protected function moveCursorToBeginOfLine()
+    protected function moveCursorToBeginOfLine(): void
     {
         $this->write("\x0D");
     }
@@ -31,7 +31,7 @@ trait CursorHelper
     /**
      * @return void
      */
-    protected function eraseLine()
+    protected function eraseLine(): void
     {
         $this->write("\x1B[2K");
     }

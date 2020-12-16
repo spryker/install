@@ -32,7 +32,7 @@ class InstallConsoleCommandExceptionTest extends Unit
     /**
      * @return void
      */
-    public function testContinuesAfterFailedCommandWhenConfirmed()
+    public function testContinuesAfterFailedCommandWhenConfirmed(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -54,7 +54,7 @@ class InstallConsoleCommandExceptionTest extends Unit
     /**
      * @return void
      */
-    public function testAbortsAfterFailedCommandWhenNotConfirmed()
+    public function testAbortsAfterFailedCommandWhenNotConfirmed(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -79,7 +79,7 @@ class InstallConsoleCommandExceptionTest extends Unit
     /**
      * @return void
      */
-    public function testSilentlyContinueAfterFailedCommand()
+    public function testSilentlyContinueAfterFailedCommand(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

@@ -1,7 +1,7 @@
 parameters:
+    checkMissingIterableValueType: false
     bootstrap: %rootDir%/../../../phpstan-bootstrap.php
 
     ignoreErrors:
-        -
-          message: '#Parameter \#1 \$command of class Symfony\\Component\\Process\\Process constructor expects array, string given.#'
-          path: %currentWorkingDirectory%/src/Spryker/Install/Executable/CommandLine/CommandLineExecutable.php
+        - '#Parameter \#1 \$command of class Symfony\\Component\\Process\\Process constructor expects array, string given.#'
+        - '#Constant SPRYKER_ROOT not found.#'

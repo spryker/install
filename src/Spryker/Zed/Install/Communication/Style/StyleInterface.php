@@ -28,28 +28,28 @@ interface StyleInterface
      *
      * @return void
      */
-    public function startInstall(StageInterface $stage);
+    public function startInstall(StageInterface $stage): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\StageInterface $stage
      *
      * @return void
      */
-    public function endInstall(StageInterface $stage);
+    public function endInstall(StageInterface $stage): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\SectionInterface $section
      *
      * @return void
      */
-    public function startSection(SectionInterface $section);
+    public function startSection(SectionInterface $section): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\SectionInterface $section
      *
      * @return void
      */
-    public function endSection(SectionInterface $section);
+    public function endSection(SectionInterface $section): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
@@ -57,7 +57,7 @@ interface StyleInterface
      *
      * @return void
      */
-    public function startCommand(CommandInterface $command, $store = null);
+    public function startCommand(CommandInterface $command, $store = null): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
@@ -66,35 +66,35 @@ interface StyleInterface
      *
      * @return void
      */
-    public function endCommand(CommandInterface $command, $exitCode, $store = null);
+    public function endCommand(CommandInterface $command, $exitCode, $store = null): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
      *
      * @return void
      */
-    public function dryRunCommand(CommandInterface $command);
+    public function dryRunCommand(CommandInterface $command): void;
 
     /**
      * @param string $output
      *
      * @return void
      */
-    public function innerCommand($output);
+    public function innerCommand($output): void;
 
     /**
      * @param string $output
      *
      * @return void
      */
-    public function note($output);
+    public function note($output): void;
 
     /**
      * @param int $count
      *
      * @return void
      */
-    public function newLine($count = 1);
+    public function newLine($count = 1): void;
 
     /**
      * @param string|array $messages
@@ -102,7 +102,7 @@ interface StyleInterface
      *
      * @return void
      */
-    public function write($messages, $options = 0);
+    public function write($messages, $options = 0): void;
 
     /**
      * @param string $question
@@ -110,7 +110,7 @@ interface StyleInterface
      *
      * @return bool
      */
-    public function confirm($question, $default);
+    public function confirm($question, $default): bool;
 
     /**
      * @param string $question
@@ -124,5 +124,5 @@ interface StyleInterface
     /**
      * @return void
      */
-    public function flushBuffer();
+    public function flushBuffer(): void;
 }

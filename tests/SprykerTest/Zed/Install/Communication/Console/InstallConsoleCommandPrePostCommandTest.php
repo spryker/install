@@ -33,7 +33,7 @@ class InstallConsoleCommandPrePostCommandTest extends Unit
     /**
      * @return void
      */
-    public function testThrowsExceptionIfSectionByNameNotFound()
+    public function testThrowsExceptionIfSectionByNameNotFound(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -52,7 +52,7 @@ class InstallConsoleCommandPrePostCommandTest extends Unit
     /**
      * @return void
      */
-    public function testThrowsExceptionIfCommandByNameNotFound()
+    public function testThrowsExceptionIfCommandByNameNotFound(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -71,7 +71,7 @@ class InstallConsoleCommandPrePostCommandTest extends Unit
     /**
      * @return void
      */
-    public function testPreCommandIsExecutedBeforeCommand()
+    public function testPreCommandIsExecutedBeforeCommand(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -90,7 +90,7 @@ class InstallConsoleCommandPrePostCommandTest extends Unit
     /**
      * @return void
      */
-    public function testPostCommandIsExecutedBeforeCommand()
+    public function testPostCommandIsExecutedBeforeCommand(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

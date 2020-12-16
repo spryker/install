@@ -16,7 +16,7 @@ class InstallConfig extends AbstractBundleConfig
      *
      * @return string
      */
-    public function getEnvironment()
+    public function getEnvironment(): string
     {
         $environment = getenv('APPLICATION_ENV', true) ?: getenv('APPLICATION_ENV');
 

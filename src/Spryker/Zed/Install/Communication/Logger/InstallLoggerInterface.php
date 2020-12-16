@@ -14,5 +14,5 @@ interface InstallLoggerInterface
      *
      * @return void
      */
-    public function log($message);
+    public function log($message): void;
 }

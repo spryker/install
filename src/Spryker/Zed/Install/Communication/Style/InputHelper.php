@@ -30,7 +30,7 @@ trait InputHelper
      *
      * @return bool
      */
-    public function confirm($question, $default)
+    public function confirm($question, $default): bool
     {
         return (bool)$this->askQuestion(new ConfirmationQuestion($question, $default));
     }
@@ -58,7 +58,7 @@ trait InputHelper
     /**
      * @param \Symfony\Component\Console\Question\Question $question
      *
-     * @return string
+     * @return mixed
      */
     protected function askQuestion(Question $question)
     {

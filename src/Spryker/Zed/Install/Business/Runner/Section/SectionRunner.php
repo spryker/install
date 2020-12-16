@@ -32,7 +32,7 @@ class SectionRunner implements SectionRunnerInterface
      *
      * @return void
      */
-    public function run(SectionInterface $section, ConfigurationInterface $configuration)
+    public function run(SectionInterface $section, ConfigurationInterface $configuration): void
     {
         $configuration->getOutput()->startSection($section);
 

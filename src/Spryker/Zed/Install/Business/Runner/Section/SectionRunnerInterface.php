@@ -18,5 +18,5 @@ interface SectionRunnerInterface
      *
      * @return void
      */
-    public function run(SectionInterface $section, ConfigurationInterface $configuration);
+    public function run(SectionInterface $section, ConfigurationInterface $configuration): void;
 }

@@ -31,7 +31,7 @@ class InstallConsoleCommandGroupTest extends Unit
     /**
      * @return void
      */
-    public function testRunOnlySpecifiedGroup()
+    public function testRunOnlySpecifiedGroup(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -52,7 +52,7 @@ class InstallConsoleCommandGroupTest extends Unit
     /**
      * @return void
      */
-    public function testDoNotRunExcludedGroup()
+    public function testDoNotRunExcludedGroup(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -72,7 +72,7 @@ class InstallConsoleCommandGroupTest extends Unit
     /**
      * @return void
      */
-    public function testDoNotRunDefaultExcludedGroup()
+    public function testDoNotRunDefaultExcludedGroup(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -91,7 +91,7 @@ class InstallConsoleCommandGroupTest extends Unit
     /**
      * @return void
      */
-    public function testIncludeDefaultExcludedGroupByCommandName()
+    public function testIncludeDefaultExcludedGroupByCommandName(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -111,7 +111,7 @@ class InstallConsoleCommandGroupTest extends Unit
     /**
      * @return void
      */
-    public function testIncludeDefaultExcludedGroupByGroupName()
+    public function testIncludeDefaultExcludedGroupByGroupName(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

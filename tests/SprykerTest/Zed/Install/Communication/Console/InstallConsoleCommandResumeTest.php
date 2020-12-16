@@ -32,7 +32,7 @@ class InstallConsoleCommandResumeTest extends Unit
     /**
      * @return void
      */
-    public function testInteractiveResume()
+    public function testInteractiveResume(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -53,7 +53,7 @@ class InstallConsoleCommandResumeTest extends Unit
     /**
      * @return void
      */
-    public function testInteractiveStopResume()
+    public function testInteractiveStopResume(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

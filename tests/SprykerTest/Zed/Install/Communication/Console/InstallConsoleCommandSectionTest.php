@@ -31,7 +31,7 @@ class InstallConsoleCommandSectionTest extends Unit
     /**
      * @return void
      */
-    public function testRunOnlySpecifiedSection()
+    public function testRunOnlySpecifiedSection(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -52,7 +52,7 @@ class InstallConsoleCommandSectionTest extends Unit
     /**
      * @return void
      */
-    public function testRunOnlySpecifiedSectionWhichIsExcludedByDefault()
+    public function testRunOnlySpecifiedSectionWhichIsExcludedByDefault(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -72,7 +72,7 @@ class InstallConsoleCommandSectionTest extends Unit
     /**
      * @return void
      */
-    public function testDoNotRunExcludedSection()
+    public function testDoNotRunExcludedSection(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -93,7 +93,7 @@ class InstallConsoleCommandSectionTest extends Unit
     /**
      * @return void
      */
-    public function testDoNotRunDefaultExcludedSection()
+    public function testDoNotRunDefaultExcludedSection(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -112,7 +112,7 @@ class InstallConsoleCommandSectionTest extends Unit
     /**
      * @return void
      */
-    public function testIncludeDefaultExcludedSection()
+    public function testIncludeDefaultExcludedSection(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

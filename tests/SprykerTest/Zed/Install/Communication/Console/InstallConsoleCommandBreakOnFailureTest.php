@@ -31,7 +31,7 @@ class InstallConsoleCommandBreakOnFailureTest extends Unit
     /**
      * @return void
      */
-    public function testFailedCommandDoesNotBreakSetup()
+    public function testFailedCommandDoesNotBreakSetup(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

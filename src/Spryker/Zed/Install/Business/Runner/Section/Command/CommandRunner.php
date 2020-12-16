@@ -49,7 +49,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return void
      */
-    public function run(CommandInterface $command, ConfigurationInterface $configuration)
+    public function run(CommandInterface $command, ConfigurationInterface $configuration): void
     {
         if (!$this->shouldBeExecuted($command, $configuration)) {
             return;
@@ -75,7 +75,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return void
      */
-    protected function runPreCommand(CommandInterface $command, ConfigurationInterface $configuration)
+    protected function runPreCommand(CommandInterface $command, ConfigurationInterface $configuration): void
     {
         if ($command->hasPreCommand()) {
             $this->run($configuration->findCommand($command->getPreCommand()), $configuration);
@@ -88,7 +88,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return void
      */
-    protected function runCommand(CommandInterface $command, ConfigurationInterface $configuration)
+    protected function runCommand(CommandInterface $command, ConfigurationInterface $configuration): void
     {
         $executable = $this->executableFactory->createExecutableFromCommand($command, $configuration);
 
@@ -126,7 +126,7 @@ class CommandRunner implements CommandRunnerInterface
      *
      * @return void
      */
-    protected function runPostCommand(CommandInterface $command, ConfigurationInterface $configuration)
+    protected function runPostCommand(CommandInterface $command, ConfigurationInterface $configuration): void
     {
         if ($command->hasPostCommand()) {
             $this->run($configuration->findCommand($command->getPostCommand()), $configuration);
@@ -208,7 +208,7 @@ class CommandRunner implements CommandRunnerInterface
         CommandInterface $command,
         ConfigurationInterface $configuration,
         ?string $store = null
-    ) {
+    ): void {
         $configuration->getOutput()->startCommand($command, $store);
 
         $exitCode = $executable->execute($configuration->getOutput());

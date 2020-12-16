@@ -31,7 +31,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testWithoutStoreArgumentAllStoresAreExecuted()
+    public function testWithoutStoreArgumentAllStoresAreExecuted(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -54,7 +54,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testWhenStoreArgumentIsSetOnlyTheRequestedStoreIsExecuted()
+    public function testWhenStoreArgumentIsSetOnlyTheRequestedStoreIsExecuted(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -79,7 +79,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testOnlyCommandsWhichAreAwareOfRequestedStoreAreExecuted()
+    public function testOnlyCommandsWhichAreAwareOfRequestedStoreAreExecuted(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -102,7 +102,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testSelectOneStoreByPositionInInteractiveMode()
+    public function testSelectOneStoreByPositionInInteractiveMode(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -124,7 +124,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testSelectOneStoreByNameInInteractiveMode()
+    public function testSelectOneStoreByNameInInteractiveMode(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -146,7 +146,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testSelectMultipleStoresByPositionInInteractiveMode()
+    public function testSelectMultipleStoresByPositionInInteractiveMode(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -168,7 +168,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testSelectMultipleStoresByNameInInteractiveMode()
+    public function testSelectMultipleStoresByNameInInteractiveMode(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -190,7 +190,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testSelectAllStoresByPositionInInteractiveMode()
+    public function testSelectAllStoresByPositionInInteractiveMode(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -212,7 +212,7 @@ class InstallConsoleCommandStoresTest extends Unit
     /**
      * @return void
      */
-    public function testSelectAllStoresByNameInInteractiveMode()
+    public function testSelectAllStoresByNameInInteractiveMode(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

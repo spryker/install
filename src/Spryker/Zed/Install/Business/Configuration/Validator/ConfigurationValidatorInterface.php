@@ -16,5 +16,5 @@ interface ConfigurationValidatorInterface
      *
      * @return void
      */
-    public function validate(array $configuration);
+    public function validate(array $configuration): void;
 }

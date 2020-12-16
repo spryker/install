@@ -38,7 +38,7 @@ class SectionBuilder implements SectionBuilderInterface
      *
      * @return void
      */
-    protected function setExcluded(SectionInterface $section, array $definition)
+    protected function setExcluded(SectionInterface $section, array $definition): void
     {
         if (isset($definition[static::CONFIG_EXCLUDED]) && $definition[static::CONFIG_EXCLUDED]) {
             $section->markAsExcluded();
@@ -51,7 +51,7 @@ class SectionBuilder implements SectionBuilderInterface
      *
      * @return void
      */
-    protected function setPreCommand(SectionInterface $section, array $definition)
+    protected function setPreCommand(SectionInterface $section, array $definition): void
     {
         if (isset($definition[static::CONFIG_PRE_COMMAND])) {
             $section->setPreCommand($definition[static::CONFIG_PRE_COMMAND]);
@@ -64,7 +64,7 @@ class SectionBuilder implements SectionBuilderInterface
      *
      * @return void
      */
-    protected function setPostCommand(SectionInterface $section, array $definition)
+    protected function setPostCommand(SectionInterface $section, array $definition): void
     {
         if (isset($definition[static::CONFIG_POST_COMMAND])) {
             $section->setPostCommand($definition[static::CONFIG_POST_COMMAND]);

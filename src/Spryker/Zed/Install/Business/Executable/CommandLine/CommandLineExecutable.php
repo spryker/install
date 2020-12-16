@@ -65,7 +65,7 @@ class CommandLineExecutable implements ExecutableInterface
     /**
      * @return \Symfony\Component\Process\Process
      */
-    protected function buildProcess()
+    protected function buildProcess(): Process
     {
         if (method_exists(Process::class, 'fromShellCommandline')) {
             return Process::fromShellCommandline($this->command->getExecutable(), SPRYKER_ROOT, getenv(), null, $this->getProcessTimeout());
@@ -83,7 +83,7 @@ class CommandLineExecutable implements ExecutableInterface
     /**
      * @return int
      */
-    protected function getProcessTimeout()
+    protected function getProcessTimeout(): int
     {
         if ($this->command->hasTimeout()) {
             return $this->command->getTimeout();
@@ -99,7 +99,7 @@ class CommandLineExecutable implements ExecutableInterface
      *
      * @return void
      */
-    protected function abortInstallIfNotAllowedToContinue(StyleInterface $output)
+    protected function abortInstallIfNotAllowedToContinue(StyleInterface $output): void
     {
         if ($this->command->breakOnFailure() || !$this->askToContinue($output)) {
             $output->flushBuffer();

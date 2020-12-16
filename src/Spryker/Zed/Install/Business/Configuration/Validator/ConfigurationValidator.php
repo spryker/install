@@ -18,7 +18,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
      *
      * @return void
      */
-    public function validate(array $configuration)
+    public function validate(array $configuration): void
     {
         $this->validateSections($configuration);
         $this->validateCommands($configuration);
@@ -31,7 +31,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
      *
      * @return void
      */
-    protected function validateSections(array $configuration)
+    protected function validateSections(array $configuration): void
     {
         if (!isset($configuration[static::SECTIONS])) {
             throw new ConfigurationException('No sections defined in your configuration.');
@@ -45,7 +45,7 @@ class ConfigurationValidator implements ConfigurationValidatorInterface
      *
      * @return void
      */
-    protected function validateCommands(array $configuration)
+    protected function validateCommands(array $configuration): void
     {
         foreach ($configuration[static::SECTIONS] as $sectionName => $commands) {
             if ($commands === null || count($commands) === 0) {

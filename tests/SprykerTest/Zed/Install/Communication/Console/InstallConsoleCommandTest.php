@@ -33,7 +33,7 @@ class InstallConsoleCommandTest extends Unit
     /**
      * @return void
      */
-    public function testThrowsExceptionWhenConfigFileNotExistsSetupShowsConfigToBeExecuted()
+    public function testThrowsExceptionWhenConfigFileNotExistsSetupShowsConfigToBeExecuted(): void
     {
         $this->expectException(ConfigurationFileNotFoundException::class);
 
@@ -50,7 +50,7 @@ class InstallConsoleCommandTest extends Unit
     /**
      * @return void
      */
-    public function testThrowsExceptionWhenConfigFileDoesNotContainSections()
+    public function testThrowsExceptionWhenConfigFileDoesNotContainSections(): void
     {
         $this->expectException(ConfigurationException::class);
         $this->expectExceptionMessage('No sections defined in your configuration.');
@@ -68,7 +68,7 @@ class InstallConsoleCommandTest extends Unit
     /**
      * @return void
      */
-    public function testThrowsExceptionWhenASectionHasNoCommands()
+    public function testThrowsExceptionWhenASectionHasNoCommands(): void
     {
         $this->expectException(ConfigurationException::class);
         $this->expectExceptionMessage('No commands defined in section "section-one".');
@@ -86,7 +86,7 @@ class InstallConsoleCommandTest extends Unit
     /**
      * @return void
      */
-    public function testLoadRecipeWithTypeSuffix()
+    public function testLoadRecipeWithTypeSuffix(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -101,7 +101,7 @@ class InstallConsoleCommandTest extends Unit
     /**
      * @return void
      */
-    public function testGlobalEnvFromConfigFileIsSet()
+    public function testGlobalEnvFromConfigFileIsSet(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -118,7 +118,7 @@ class InstallConsoleCommandTest extends Unit
     /**
      * @return void
      */
-    public function testDryRun()
+    public function testDryRun(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -139,7 +139,7 @@ class InstallConsoleCommandTest extends Unit
     /**
      * @return void
      */
-    public function testWithLoggerEnabled()
+    public function testWithLoggerEnabled(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

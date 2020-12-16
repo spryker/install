@@ -31,7 +31,7 @@ class InstallConsoleCommandInteractionTest extends Unit
     /**
      * @return void
      */
-    public function testRunOnlySectionWhichConfirmedInteractively()
+    public function testRunOnlySectionWhichConfirmedInteractively(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

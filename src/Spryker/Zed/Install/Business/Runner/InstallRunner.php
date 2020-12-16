@@ -78,7 +78,7 @@ class InstallRunner implements InstallRunnerInterface
      *
      * @return void
      */
-    protected function executeStage(ConfigurationInterface $configuration)
+    protected function executeStage(ConfigurationInterface $configuration): void
     {
         $stage = $configuration->getStage();
         $configuration->getOutput()->startInstall($stage);

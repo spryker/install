@@ -32,7 +32,7 @@ class InstallConsoleCommandConditionTest extends Unit
     /**
      * @return void
      */
-    public function testExecuteCommandOnlyIfPreviousCommandExitCodeMatches()
+    public function testExecuteCommandOnlyIfPreviousCommandExitCodeMatches(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -50,7 +50,7 @@ class InstallConsoleCommandConditionTest extends Unit
     /**
      * @return void
      */
-    public function testNotExecuteCommandIfPreviousCommandExitCodeDoesNotMatch()
+    public function testNotExecuteCommandIfPreviousCommandExitCodeDoesNotMatch(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -68,7 +68,7 @@ class InstallConsoleCommandConditionTest extends Unit
     /**
      * @return void
      */
-    public function testExecuteCommandIfConditionsCommandExitCodeDoesNotMatch()
+    public function testExecuteCommandIfConditionsCommandExitCodeDoesNotMatch(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);
@@ -86,7 +86,7 @@ class InstallConsoleCommandConditionTest extends Unit
     /**
      * @return void
      */
-    public function testThrowExceptionWhenConditionCanNotBeCreated()
+    public function testThrowExceptionWhenConditionCanNotBeCreated(): void
     {
         $command = new InstallConsole();
         $tester = $this->tester->getCommandTester($command);

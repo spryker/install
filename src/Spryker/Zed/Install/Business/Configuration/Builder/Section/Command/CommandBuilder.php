@@ -73,7 +73,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setExcluded(CommandInterface $command, array $definition)
+    protected function setExcluded(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_EXCLUDED]) && $definition[static::CONFIG_EXCLUDED]) {
             $command->markAsExcluded();
@@ -86,7 +86,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setGroups(CommandInterface $command, array $definition)
+    protected function setGroups(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_GROUPS])) {
             $command->setGroups($definition[static::CONFIG_GROUPS]);
@@ -99,7 +99,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setEnv(CommandInterface $command, array $definition)
+    protected function setEnv(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_ENV])) {
             $command->setEnv($definition[static::CONFIG_ENV]);
@@ -112,7 +112,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setIsStoreAware(CommandInterface $command, array $definition)
+    protected function setIsStoreAware(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_STORES])) {
             $command->setIsStoreAware($this->getIsStoreAware($definition));
@@ -124,7 +124,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return bool
      */
-    protected function getIsStoreAware(array $definition)
+    protected function getIsStoreAware(array $definition): bool
     {
         return (is_array($definition[static::CONFIG_STORES])) ? true : $definition[static::CONFIG_STORES];
     }
@@ -135,7 +135,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setStores(CommandInterface $command, array $definition)
+    protected function setStores(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_STORES]) && is_array($definition[static::CONFIG_STORES])) {
             $command->setStores($definition[static::CONFIG_STORES]);
@@ -148,7 +148,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function addCommandConditions(CommandInterface $command, array $definition)
+    protected function addCommandConditions(CommandInterface $command, array $definition): void
     {
         if (!isset($definition[static::CONFIG_CONDITIONS])) {
             return;
@@ -166,7 +166,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setPreCommand(CommandInterface $command, array $definition)
+    protected function setPreCommand(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_PRE_COMMAND])) {
             $command->setPreCommand($definition[static::CONFIG_PRE_COMMAND]);
@@ -179,7 +179,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setPostCommand(CommandInterface $command, array $definition)
+    protected function setPostCommand(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_POST_COMMAND])) {
             $command->setPostCommand($definition[static::CONFIG_POST_COMMAND]);
@@ -192,7 +192,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setBreakOnFailure(CommandInterface $command, array $definition)
+    protected function setBreakOnFailure(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_BREAK_ON_FAILURE])) {
             $command->setBreakOnFailure($definition[static::CONFIG_BREAK_ON_FAILURE]);
@@ -205,7 +205,7 @@ class CommandBuilder implements CommandBuilderInterface
      *
      * @return void
      */
-    protected function setTimeout(CommandInterface $command, array $definition)
+    protected function setTimeout(CommandInterface $command, array $definition): void
     {
         if (isset($definition[static::CONFIG_TIMEOUT])) {
             $command->setTimeout($definition[static::CONFIG_TIMEOUT]);

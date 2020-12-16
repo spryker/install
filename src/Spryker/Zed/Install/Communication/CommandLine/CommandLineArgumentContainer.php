@@ -25,7 +25,7 @@ class CommandLineArgumentContainer
     /**
      * @return string|null
      */
-    public function getStore()
+    public function getStore(): ?string
     {
         return $this->store;
     }
