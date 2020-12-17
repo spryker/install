@@ -1,16 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'development'));
-define('APPLICATION_STORE', (getenv('APPLICATION_STORE') ?: 'DE'));
-define('APPLICATION_CODE_BUCKET', (getenv('APPLICATION_CODE_BUCKET') ?: ''));
+define('APPLICATION', 'INSTALL');
 
 foreach ([__DIR__ . '/../../../../../autoload.php', __DIR__ . '/../../../autoload.php'] as $file) {
     if (file_exists($file)) {
         define('SPRYKER_COMPOSER_INSTALL', $file);
         define('APPLICATION_ROOT_DIR', realpath(dirname($file) . '/..'));
-        define('APPLICATION_SOURCE_DIR', APPLICATION_ROOT_DIR . '/src');
-        define('APPLICATION_VENDOR_DIR', APPLICATION_ROOT_DIR . '/vendor');
         break;
     }
 }
@@ -25,8 +21,11 @@ define('SPRYKER_ROOT', getcwd());
 
 require_once SPRYKER_COMPOSER_INSTALL;
 
-use \Spryker\Zed\Install\Communication\Console\InstallConsole;
+use Spryker\Shared\Config\Application\Environment;
+use Spryker\Zed\Install\Communication\Console\InstallConsole;
 use Symfony\Component\Console\Application;
+
+Environment::initialize();
 
 $application = new Application();
 $application->addCommands([

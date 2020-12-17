@@ -4,4 +4,3 @@ parameters:
 
     ignoreErrors:
         - '#Parameter \#1 \$command of class Symfony\\Component\\Process\\Process constructor expects array, string given.#'
-        - '#Constant SPRYKER_ROOT not found.#'
