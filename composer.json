@@ -30,7 +30,8 @@
   "prefer-stable": true,
   "scripts": {
     "cs-check": "phpcs -p -s --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/",
-    "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/"
+    "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/",
+    "stan": "vendor/bin/phpstan analyse -l 5 -c phpstan.neon src/"
   },
   "extra": {
     "branch-alias": {
