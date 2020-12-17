@@ -22,6 +22,12 @@ jobs:
         ]
 
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, pdo_mysql
+
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
@@ -45,12 +51,6 @@ jobs:
         run: |
           composer --version
           composer install -o
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          extensions: mbstring, intl, pdo_mysql
 
       - name: CodeStyle checks
         run: composer cs-check
