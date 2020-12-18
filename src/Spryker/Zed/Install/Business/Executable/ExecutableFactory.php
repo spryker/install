@@ -23,19 +23,6 @@ class ExecutableFactory
         CommandInterface $command,
         ConfigurationInterface $configuration
     ): ExecutableInterface {
-        return $this->createCommandLineExecutable($command, $configuration);
-    }
-
-    /**
-     * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
-     * @param \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface $configuration
-     *
-     * @return \Spryker\Zed\Install\Business\Executable\CommandLine\CommandLineExecutable
-     */
-    protected function createCommandLineExecutable(
-        CommandInterface $command,
-        ConfigurationInterface $configuration
-    ): CommandLineExecutable {
         return new CommandLineExecutable($command, $configuration);
     }
 }
