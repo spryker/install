@@ -106,4 +106,4 @@ jobs:
         run: composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable -o
 
       - name: PHPStan checks
-        run: composer stan
+        run: composer stan-lowest
