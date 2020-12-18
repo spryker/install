@@ -8,10 +8,9 @@
 namespace Spryker\Zed\Install\Business\Executable;
 
 use Spryker\Zed\Install\Business\Configuration\ConfigurationInterface;
-use Spryker\Zed\Install\Business\Executable\CommandLine\CommandLineExecutable;
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 
-class ExecutableFactory implements ExecutableFactoryInterface
+interface ExecutableFactoryInterface
 {
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
@@ -19,10 +18,5 @@ class ExecutableFactory implements ExecutableFactoryInterface
      *
      * @return \Spryker\Zed\Install\Business\Executable\ExecutableInterface
      */
-    public function createExecutableFromCommand(
-        CommandInterface $command,
-        ConfigurationInterface $configuration
-    ): ExecutableInterface {
-        return new CommandLineExecutable($command, $configuration);
-    }
+    public function createExecutableFromCommand(CommandInterface $command, ConfigurationInterface $configuration): ExecutableInterface;
 }
