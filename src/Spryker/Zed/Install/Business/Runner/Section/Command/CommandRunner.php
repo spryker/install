@@ -9,7 +9,7 @@ namespace Spryker\Zed\Install\Business\Runner\Section\Command;
 
 use Spryker\Zed\Install\Business\Configuration\ConfigurationInterface;
 use Spryker\Zed\Install\Business\Exception\InstallException;
-use Spryker\Zed\Install\Business\Executable\ExecutableFactory;
+use Spryker\Zed\Install\Business\Executable\ExecutableFactoryInterface;
 use Spryker\Zed\Install\Business\Executable\ExecutableInterface;
 use Spryker\Zed\Install\Business\Runner\Environment\EnvironmentHelperInterface;
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
@@ -17,7 +17,7 @@ use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 class CommandRunner implements CommandRunnerInterface
 {
     /**
-     * @var \Spryker\Zed\Install\Business\Executable\ExecutableFactory
+     * @var \Spryker\Zed\Install\Business\Executable\ExecutableFactoryInterface
      */
     protected $executableFactory;
 
@@ -32,10 +32,10 @@ class CommandRunner implements CommandRunnerInterface
     protected $commandExitCodes = [];
 
     /**
-     * @param \Spryker\Zed\Install\Business\Executable\ExecutableFactory $executableFactory
+     * @param \Spryker\Zed\Install\Business\Executable\ExecutableFactoryInterface $executableFactory
      * @param \Spryker\Zed\Install\Business\Runner\Environment\EnvironmentHelperInterface $environmentHelper
      */
-    public function __construct(ExecutableFactory $executableFactory, EnvironmentHelperInterface $environmentHelper)
+    public function __construct(ExecutableFactoryInterface $executableFactory, EnvironmentHelperInterface $environmentHelper)
     {
         $this->executableFactory = $executableFactory;
         $this->environmentHelper = $environmentHelper;

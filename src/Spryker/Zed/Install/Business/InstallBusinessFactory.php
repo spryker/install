@@ -20,6 +20,7 @@ use Spryker\Zed\Install\Business\Configuration\Loader\ConfigurationLoaderInterfa
 use Spryker\Zed\Install\Business\Configuration\Validator\ConfigurationValidator;
 use Spryker\Zed\Install\Business\Configuration\Validator\ConfigurationValidatorInterface;
 use Spryker\Zed\Install\Business\Executable\ExecutableFactory;
+use Spryker\Zed\Install\Business\Executable\ExecutableFactoryInterface;
 use Spryker\Zed\Install\Business\Runner\Environment\EnvironmentHelper;
 use Spryker\Zed\Install\Business\Runner\Environment\EnvironmentHelperInterface;
 use Spryker\Zed\Install\Business\Runner\InstallRunner;
@@ -71,9 +72,9 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Spryker\Zed\Install\Business\Executable\ExecutableFactory
+     * @return \Spryker\Zed\Install\Business\Executable\ExecutableFactoryInterface
      */
-    public function createExecutableFactory(): ExecutableFactory
+    public function createExecutableFactory(): ExecutableFactoryInterface
     {
         return new ExecutableFactory();
     }
