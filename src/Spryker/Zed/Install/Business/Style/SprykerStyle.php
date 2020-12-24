@@ -5,13 +5,13 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Spryker\Zed\Install\Communication\Style;
+namespace Spryker\Zed\Install\Business\Style;
 
+use Spryker\Zed\Install\Business\Logger\InstallLoggerInterface;
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Stage\Section\SectionInterface;
 use Spryker\Zed\Install\Business\Stage\StageInterface;
-use Spryker\Zed\Install\Communication\Logger\InstallLoggerInterface;
-use Spryker\Zed\Install\Communication\Timer\TimerInterface;
+use Spryker\Zed\Install\Business\Timer\TimerInterface;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -46,12 +46,12 @@ class SprykerStyle implements StyleInterface
     protected $input;
 
     /**
-     * @var \Spryker\Zed\Install\Communication\Timer\TimerInterface
+     * @var \Spryker\Zed\Install\Business\Timer\TimerInterface
      */
     protected $timer;
 
     /**
-     * @var \Spryker\Zed\Install\Communication\Logger\InstallLoggerInterface|null
+     * @var \Spryker\Zed\Install\Business\Logger\InstallLoggerInterface|null
      */
     protected $logger;
 
@@ -63,8 +63,8 @@ class SprykerStyle implements StyleInterface
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Spryker\Zed\Install\Communication\Timer\TimerInterface $timer
-     * @param \Spryker\Zed\Install\Communication\Logger\InstallLoggerInterface|null $logger
+     * @param \Spryker\Zed\Install\Business\Timer\TimerInterface $timer
+     * @param \Spryker\Zed\Install\Business\Logger\InstallLoggerInterface|null $logger
      */
     public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, ?InstallLoggerInterface $logger = null)
     {

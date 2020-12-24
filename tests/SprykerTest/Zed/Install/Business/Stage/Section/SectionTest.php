@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerTest\Install\Stage\Section;
+namespace SprykerTest\Zed\Install\Business\Stage\Section;
 
 use Codeception\Test\Unit;
 use Spryker\Zed\Install\Business\Stage\Section\Command\Command;
@@ -16,7 +16,9 @@ use Spryker\Zed\Install\Business\Stage\Section\Section;
  * Auto-generated group annotations
  *
  * @group SprykerTest
+ * @group Zed
  * @group Install
+ * @group Business
  * @group Stage
  * @group Section
  * @group SectionTest

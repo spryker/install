@@ -9,19 +9,19 @@ namespace Spryker\Zed\Install\Business\Configuration;
 
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Stage\StageInterface;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 interface ConfigurationInterface
 {
     /**
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @return $this
      */
     public function setOutput(StyleInterface $output);
 
     /**
-     * @return \Spryker\Zed\Install\Communication\Style\StyleInterface
+     * @return \Spryker\Zed\Install\Business\Style\StyleInterface
      */
     public function getOutput(): StyleInterface;
 
@@ -127,4 +127,52 @@ interface ConfigurationInterface
      * @return \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface
      */
     public function findCommand(string $name): CommandInterface;
+
+    /**
+     * @param string[] $sections
+     *
+     * @return $this
+     */
+    public function setSections(array $sections);
+
+    /**
+     * @return string[]
+     */
+    public function getSections(): array;
+
+    /**
+     * @param string[] $groups
+     *
+     * @return $this
+     */
+    public function setGroups(array $groups);
+
+    /**
+     * @return string[]
+     */
+    public function getGroups(): array;
+
+    /**
+     * @param string[] $exclude
+     *
+     * @return $this
+     */
+    public function setExclude(array $exclude);
+
+    /**
+     * @return string[]
+     */
+    public function getExcluded(): array;
+
+    /**
+     * @param string[] $includeExcluded
+     *
+     * @return $this
+     */
+    public function setIncludeExcluded(array $includeExcluded);
+
+    /**
+     * @return string[]
+     */
+    public function getIncludeExcluded(): array;
 }

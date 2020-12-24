@@ -7,22 +7,16 @@
 
 namespace Spryker\Zed\Install\Business\Runner;
 
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer;
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 interface InstallRunnerInterface
 {
     /**
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return void
      */
-    public function run(
-        CommandLineArgumentContainer $commandLineArgumentContainer,
-        CommandLineOptionContainer $commandLineOptionContainer,
-        StyleInterface $output
-    ): void;
+    public function run(InputInterface $input, OutputInterface $output): void;
 }

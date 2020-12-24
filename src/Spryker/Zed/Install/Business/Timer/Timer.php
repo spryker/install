@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Spryker\Zed\Install\Communication\Timer;
+namespace Spryker\Zed\Install\Business\Timer;
 
 class Timer implements TimerInterface
 {
@@ -17,7 +17,7 @@ class Timer implements TimerInterface
     /**
      * @param object $object
      *
-     * @return \Spryker\Zed\Install\Communication\Timer\TimerInterface
+     * @return \Spryker\Zed\Install\Business\Timer\TimerInterface
      */
     public function start($object): TimerInterface
     {

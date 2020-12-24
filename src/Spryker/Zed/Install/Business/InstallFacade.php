@@ -7,10 +7,9 @@
 
 namespace Spryker\Zed\Install\Business;
 
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer;
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @method \Spryker\Zed\Install\Business\InstallBusinessFactory getFactory()
@@ -22,17 +21,13 @@ class InstallFacade extends AbstractFacade implements InstallFacadeInterface
      *
      * @api
      *
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer $commandLineArgumentTransfer
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $style
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return void
      */
-    public function runInstall(
-        CommandLineArgumentContainer $commandLineArgumentTransfer,
-        CommandLineOptionContainer $commandLineOptionContainer,
-        StyleInterface $style
-    ): void {
-        $this->getFactory()->createInstallRunner()->run($commandLineArgumentTransfer, $commandLineOptionContainer, $style);
+    public function runInstall(InputInterface $input, OutputInterface $output): void
+    {
+        $this->getFactory()->createInstallRunner()->run($input, $output);
     }
 }

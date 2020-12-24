@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\Install\Business\Configuration\Builder;
 
+use Spryker\Zed\Install\Business\CommandLine\CommandLineArgumentContainer;
+use Spryker\Zed\Install\Business\CommandLine\CommandLineOptionContainer;
 use Spryker\Zed\Install\Business\Configuration\Builder\Section\Command\CommandBuilderInterface;
 use Spryker\Zed\Install\Business\Configuration\Builder\Section\SectionBuilderInterface;
 use Spryker\Zed\Install\Business\Configuration\ConfigurationInterface;
@@ -19,9 +21,7 @@ use Spryker\Zed\Install\Business\Configuration\Filter\UnsetFilter;
 use Spryker\Zed\Install\Business\Configuration\Loader\ConfigurationLoaderInterface;
 use Spryker\Zed\Install\Business\Stage\Section\SectionInterface;
 use Spryker\Zed\Install\Business\Stage\Stage;
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer;
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
@@ -41,17 +41,17 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     protected $configurationLoader;
 
     /**
-     * @var \Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer
+     * @var \Spryker\Zed\Install\Business\CommandLine\CommandLineArgumentContainer
      */
     protected $commandLineArgumentContainer;
 
     /**
-     * @var \Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer
+     * @var \Spryker\Zed\Install\Business\CommandLine\CommandLineOptionContainer
      */
     protected $commandLineOptionContainer;
 
     /**
-     * @var \Spryker\Zed\Install\Communication\Style\StyleInterface
+     * @var \Spryker\Zed\Install\Business\Style\StyleInterface
      */
     protected $output;
 
@@ -89,9 +89,9 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
     }
 
     /**
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
+     * @param \Spryker\Zed\Install\Business\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @return \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface
      */
@@ -108,6 +108,10 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
         $this->configuration->setIsDryRun($commandLineOptionContainer->isDryRun());
         $this->configuration->setIsDebugMode($commandLineOptionContainer->isDebugMode());
         $this->configuration->setAskBeforeContinueAfterException($commandLineOptionContainer->askBeforeContinueOnException());
+        $this->configuration->setSections($commandLineOptionContainer->getRequestedSections());
+        $this->configuration->setGroups($commandLineOptionContainer->getRequestedGroups());
+        $this->configuration->setExclude($commandLineOptionContainer->getExclude());
+        $this->configuration->setIncludeExcluded($commandLineOptionContainer->getIncludeExcluded());
 
         $configuration = $this->configurationLoader->loadConfiguration($commandLineOptionContainer->getRecipe());
 
@@ -257,7 +261,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
      *
      * @return \Spryker\Zed\Install\Business\Stage\Section\SectionInterface
      */
-    protected function buildSection($sectionName, array $sectionDefinition): SectionInterface
+    protected function buildSection(string $sectionName, array $sectionDefinition): SectionInterface
     {
         $section = $this->sectionBuilder->buildSection($sectionName, $sectionDefinition);
 

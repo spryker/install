@@ -7,17 +7,17 @@
 
 namespace Spryker\Zed\Install\Business\Configuration\Builder;
 
+use Spryker\Zed\Install\Business\CommandLine\CommandLineArgumentContainer;
+use Spryker\Zed\Install\Business\CommandLine\CommandLineOptionContainer;
 use Spryker\Zed\Install\Business\Configuration\ConfigurationInterface;
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer;
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 interface ConfigurationBuilderInterface
 {
     /**
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
-     * @param \Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\CommandLine\CommandLineArgumentContainer $commandLineArgumentContainer
+     * @param \Spryker\Zed\Install\Business\CommandLine\CommandLineOptionContainer $commandLineOptionContainer
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @return \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface
      */

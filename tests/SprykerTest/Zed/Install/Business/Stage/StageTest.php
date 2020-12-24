@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace SprykerTest\Install\Stage;
+namespace SprykerTest\Zed\Install\Business\Stage;
 
 use Codeception\Test\Unit;
 use Spryker\Zed\Install\Business\Stage\Section\Exception\SectionExistsException;
@@ -16,7 +16,9 @@ use Spryker\Zed\Install\Business\Stage\Stage;
  * Auto-generated group annotations
  *
  * @group SprykerTest
+ * @group Zed
  * @group Install
+ * @group Business
  * @group Stage
  * @group StageTest
  * Add your own group annotations below this line
