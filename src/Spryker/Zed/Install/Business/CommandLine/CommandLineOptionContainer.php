@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Spryker\Zed\Install\Communication\CommandLine;
+namespace Spryker\Zed\Install\Business\CommandLine;
 
 class CommandLineOptionContainer
 {
@@ -96,7 +96,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getRequestedSections(): array
     {
@@ -104,7 +104,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getRequestedGroups(): array
     {
@@ -112,7 +112,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getExclude(): array
     {
@@ -120,7 +120,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getIncludeExcluded(): array
     {

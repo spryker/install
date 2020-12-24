@@ -7,17 +7,17 @@
 
 namespace Spryker\Zed\Install\Business\Configuration\Filter;
 
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 class InteractiveSectionExcludeFilter implements FilterInterface
 {
     /**
-     * @var \Spryker\Zed\Install\Communication\Style\StyleInterface
+     * @var \Spryker\Zed\Install\Business\Style\StyleInterface
      */
     protected $output;
 
     /**
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      */
     public function __construct(StyleInterface $output)
     {

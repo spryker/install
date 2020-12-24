@@ -12,24 +12,24 @@ class CommandExcludeFilter implements FilterInterface
     public const GROUPS = 'groups';
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $includeExcluded;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $groupsToBeExecuted;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $excludedCommandsAndGroups;
 
     /**
-     * @param array $includeExcluded
-     * @param array $groupsToBeExecuted
-     * @param array $excludedCommandsAndGroups
+     * @param string[] $includeExcluded
+     * @param string[] $groupsToBeExecuted
+     * @param string[] $excludedCommandsAndGroups
      */
     public function __construct(array $includeExcluded, array $groupsToBeExecuted, array $excludedCommandsAndGroups)
     {
@@ -110,7 +110,7 @@ class CommandExcludeFilter implements FilterInterface
     /**
      * @param string $commandName
      * @param array $commandDefinition
-     * @param array $commandGroups
+     * @param string[] $commandGroups
      *
      * @return bool
      */
@@ -148,7 +148,7 @@ class CommandExcludeFilter implements FilterInterface
     }
 
     /**
-     * @param array $commandGroups
+     * @param string[] $commandGroups
      *
      * @return bool
      */
@@ -158,7 +158,7 @@ class CommandExcludeFilter implements FilterInterface
     }
 
     /**
-     * @param array $commandGroups
+     * @param string[] $commandGroups
      *
      * @return bool
      */
@@ -169,7 +169,7 @@ class CommandExcludeFilter implements FilterInterface
 
     /**
      * @param string $commandName
-     * @param array $commandGroups
+     * @param string[] $commandGroups
      *
      * @return bool
      */

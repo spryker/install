@@ -7,6 +7,11 @@
 
 namespace Spryker\Zed\Install\Business;
 
+use Monolog\Handler\BufferHandler;
+use Monolog\Handler\HandlerInterface;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 use Spryker\Zed\Install\Business\Configuration\Builder\ConfigurationBuilder;
 use Spryker\Zed\Install\Business\Configuration\Builder\ConfigurationBuilderInterface;
 use Spryker\Zed\Install\Business\Configuration\Builder\Section\Command\CommandBuilder;
@@ -21,6 +26,8 @@ use Spryker\Zed\Install\Business\Configuration\Validator\ConfigurationValidator;
 use Spryker\Zed\Install\Business\Configuration\Validator\ConfigurationValidatorInterface;
 use Spryker\Zed\Install\Business\Executable\ExecutableFactory;
 use Spryker\Zed\Install\Business\Executable\ExecutableFactoryInterface;
+use Spryker\Zed\Install\Business\Logger\InstallLoggerInterface;
+use Spryker\Zed\Install\Business\Logger\InstallOutputLogger;
 use Spryker\Zed\Install\Business\Runner\Environment\EnvironmentHelper;
 use Spryker\Zed\Install\Business\Runner\Environment\EnvironmentHelperInterface;
 use Spryker\Zed\Install\Business\Runner\InstallRunner;
@@ -31,6 +38,10 @@ use Spryker\Zed\Install\Business\Runner\Section\SectionRunner;
 use Spryker\Zed\Install\Business\Runner\Section\SectionRunnerInterface;
 use Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionFactory;
 use Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionFactoryInterface;
+use Spryker\Zed\Install\Business\Style\Builder\StyleBuilder;
+use Spryker\Zed\Install\Business\Style\Builder\StyleBuilderInterface;
+use Spryker\Zed\Install\Business\Timer\Timer;
+use Spryker\Zed\Install\Business\Timer\TimerInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -46,7 +57,8 @@ class InstallBusinessFactory extends AbstractBusinessFactory
         return new InstallRunner(
             $this->createSectionRunner(),
             $this->createConfigurationBuilder(),
-            $this->createEnvironmentHelper()
+            $this->createEnvironmentHelper(),
+            $this->createStyleBuilder()
         );
     }
 
@@ -150,5 +162,60 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     public function createConditionFactory(): ConditionFactoryInterface
     {
         return new ConditionFactory();
+    }
+
+    /**
+     * @return \Spryker\Zed\Install\Business\Style\Builder\StyleBuilderInterface
+     */
+    public function createStyleBuilder(): StyleBuilderInterface
+    {
+        return new StyleBuilder(
+            $this->createTimer(),
+            $this->createOutputLogger()
+        );
+    }
+
+    /**
+     * @return \Spryker\Zed\Install\Business\Logger\InstallLoggerInterface
+     */
+    public function createOutputLogger(): InstallLoggerInterface
+    {
+        return new InstallOutputLogger($this->createLogger());
+    }
+
+    /**
+     * @return \Psr\Log\LoggerInterface
+     */
+    public function createLogger(): LoggerInterface
+    {
+        return new Logger('install', [
+            $this->createBufferedStreamHandler(),
+        ]);
+    }
+
+    /**
+     * @return \Monolog\Handler\HandlerInterface
+     */
+    public function createBufferedStreamHandler(): HandlerInterface
+    {
+        return new BufferHandler(
+            $this->createStreamHandler()
+        );
+    }
+
+    /**
+     * @return \Monolog\Handler\HandlerInterface
+     */
+    public function createStreamHandler(): HandlerInterface
+    {
+        return new StreamHandler($this->getConfig()->getLogFilePath());
+    }
+
+    /**
+     * @return \Spryker\Zed\Install\Business\Timer\TimerInterface
+     */
+    public function createTimer(): TimerInterface
+    {
+        return new Timer();
     }
 }

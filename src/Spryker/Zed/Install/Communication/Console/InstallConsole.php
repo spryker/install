@@ -7,10 +7,6 @@
 
 namespace Spryker\Zed\Install\Communication\Console;
 
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer;
-use Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer;
-use Spryker\Zed\Install\Communication\Exception\InstallException;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,21 +53,6 @@ class InstallConsole extends Console
     public const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'a';
 
     /**
-     * @var \Symfony\Component\Console\Input\InputInterface
-     */
-    protected $input;
-
-    /**
-     * @var \Spryker\Zed\Install\Communication\Style\StyleInterface
-     */
-    protected $output;
-
-    /**
-     * @var bool
-     */
-    protected $isDryRun;
-
-    /**
      * @return void
      */
     protected function configure(): void
@@ -100,135 +81,8 @@ class InstallConsole extends Console
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->input = $input;
-        $this->output = $this->createOutput($input, $output);
-
-        $this->getFacade()->runInstall(
-            $this->getCommandLineArgumentContainer(),
-            $this->getCommandLineOptionContainer(),
-            $this->output
-        );
+        $this->getFacade()->runInstall($input, $output);
 
         return 0;
-    }
-
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return \Spryker\Zed\Install\Communication\Style\StyleInterface
-     */
-    protected function createOutput(InputInterface $input, OutputInterface $output): StyleInterface
-    {
-        $shouldLog = $input->getOption(static::OPTION_LOG);
-
-        if ($shouldLog) {
-            return $this->getFactory()->createLoggableStyle($input, $output);
-        }
-
-        return $this->getFactory()->createStyle($input, $output);
-    }
-
-    /**
-     * @throws \Spryker\Zed\Install\Communication\Exception\InstallException
-     *
-     * @return \Spryker\Zed\Install\Communication\CommandLine\CommandLineArgumentContainer
-     */
-    protected function getCommandLineArgumentContainer(): CommandLineArgumentContainer
-    {
-        $store = $this->input->getArgument(self::ARGUMENT_STORE);
-
-        if ($store !== null && !is_string($store)) {
-            throw new InstallException(
-                sprintf(
-                    'Value of `%s` argument should return `string|null` type. Return type is `%s`.',
-                    self::ARGUMENT_STORE,
-                    gettype($store)
-                )
-            );
-        }
-
-        return new CommandLineArgumentContainer($store);
-    }
-
-    /**
-     * @throws \Spryker\Zed\Install\Communication\Exception\InstallException
-     *
-     * @return \Spryker\Zed\Install\Communication\CommandLine\CommandLineOptionContainer
-     */
-    protected function getCommandLineOptionContainer(): CommandLineOptionContainer
-    {
-        $recipeOption = $this->input->getOption(self::OPTION_RECIPE);
-
-        if (!is_string($recipeOption)) {
-            throw new InstallException(
-                sprintf(
-                    'Value of `%s` option should return `string` type. Return `%s`.',
-                    self::OPTION_RECIPE,
-                    gettype($recipeOption)
-                )
-            );
-        }
-
-        return new CommandLineOptionContainer(
-            $recipeOption,
-            $this->getSectionsToBeExecuted(),
-            $this->getGroupsToBeExecuted(),
-            $this->getExcludedStagesAndExcludedGroups(),
-            $this->getIncludeExcluded(),
-            (bool)$this->input->getOption(static::OPTION_INTERACTIVE),
-            (bool)$this->input->getOption(static::OPTION_DRY_RUN),
-            (bool)$this->input->getOption(static::OPTION_BREAKPOINT),
-            (bool)$this->input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
-        );
-    }
-
-    /**
-     * @return string[]
-     */
-    protected function getSectionsToBeExecuted(): array
-    {
-        return $this->getOptionAndComment(static::OPTION_SECTIONS, 'Install will only run this section(s) "%s"');
-    }
-
-    /**
-     * @return string[]
-     */
-    protected function getGroupsToBeExecuted(): array
-    {
-        return $this->getOptionAndComment(static::OPTION_GROUPS, 'Install will only run this group(s) "%s"');
-    }
-
-    /**
-     * @return string[]
-     */
-    protected function getExcludedStagesAndExcludedGroups(): array
-    {
-        return $this->getOptionAndComment(static::OPTION_EXCLUDE, 'Install will exclude this group(s) or section(s) "%s"');
-    }
-
-    /**
-     * @return string[]
-     */
-    protected function getIncludeExcluded(): array
-    {
-        return $this->getOptionAndComment(static::OPTION_INCLUDE_EXCLUDED, 'Install will include this excluded section(s) or command(s) "%s"');
-    }
-
-    /**
-     * @param string $optionKey
-     * @param string $commentPattern
-     *
-     * @return array
-     */
-    protected function getOptionAndComment($optionKey, $commentPattern): array
-    {
-        $option = (array)$this->input->getOption($optionKey);
-
-        if (count($option) > 0) {
-            $this->output->note(sprintf($commentPattern, implode(', ', $option)));
-        }
-
-        return $option;
     }
 }

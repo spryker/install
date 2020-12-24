@@ -9,12 +9,12 @@ namespace Spryker\Zed\Install\Business\Configuration;
 
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Stage\StageInterface;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var \Spryker\Zed\Install\Communication\Style\StyleInterface
+     * @var \Spryker\Zed\Install\Business\Style\StyleInterface
      */
     protected $output;
 
@@ -59,7 +59,27 @@ class Configuration implements ConfigurationInterface
     protected $continueOnException;
 
     /**
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @var string[]
+     */
+    protected $sections;
+
+    /**
+     * @var string[]
+     */
+    protected $groups;
+
+    /**
+     * @var string[]
+     */
+    protected $exclude;
+
+    /**
+     * @var string[]
+     */
+    protected $includeExcluded;
+
+    /**
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @return \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface
      */
@@ -71,7 +91,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return \Spryker\Zed\Install\Communication\Style\StyleInterface
+     * @return \Spryker\Zed\Install\Business\Style\StyleInterface
      */
     public function getOutput(): StyleInterface
     {
@@ -248,5 +268,85 @@ class Configuration implements ConfigurationInterface
         [$section, $command] = explode('/', $name);
 
         return $this->stage->getSection($section)->getCommand($command);
+    }
+
+    /**
+     * @param string[] $sections
+     *
+     * @return $this
+     */
+    public function setSections(array $sections)
+    {
+        $this->sections = $sections;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSections(): array
+    {
+        return $this->sections;
+    }
+
+    /**
+     * @param string[] $groups
+     *
+     * @return $this
+     */
+    public function setGroups(array $groups)
+    {
+        $this->groups = $groups;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getGroups(): array
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param string[] $exclude
+     *
+     * @return $this
+     */
+    public function setExclude(array $exclude)
+    {
+        $this->exclude = $exclude;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getExcluded(): array
+    {
+        return $this->exclude;
+    }
+
+    /**
+     * @param string[] $includeExcluded
+     *
+     * @return $this
+     */
+    public function setIncludeExcluded(array $includeExcluded)
+    {
+        $this->includeExcluded = $includeExcluded;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getIncludeExcluded(): array
+    {
+        return $this->includeExcluded;
     }
 }

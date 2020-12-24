@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Spryker\Zed\Install\Communication\Timer;
+namespace Spryker\Zed\Install\Business\Timer;
 
 class Timer implements TimerInterface
 {
@@ -17,9 +17,9 @@ class Timer implements TimerInterface
     /**
      * @param object $object
      *
-     * @return \Spryker\Zed\Install\Communication\Timer\TimerInterface
+     * @return \Spryker\Zed\Install\Business\Timer\TimerInterface
      */
-    public function start($object): TimerInterface
+    public function start(object $object): TimerInterface
     {
         $this->timer[spl_object_hash($object)] = microtime(true);
 
@@ -31,7 +31,7 @@ class Timer implements TimerInterface
      *
      * @return float
      */
-    public function end($object): float
+    public function end(object $object): float
     {
         $start = $this->timer[spl_object_hash($object)];
         $runtime = microtime(true) - $start;

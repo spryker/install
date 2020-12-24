@@ -7,7 +7,7 @@
 
 namespace Spryker\Zed\Install\Business\Executable;
 
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 interface ExecutableInterface
 {
@@ -15,7 +15,7 @@ interface ExecutableInterface
     public const CODE_ERROR = 1;
 
     /**
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @return int
      */

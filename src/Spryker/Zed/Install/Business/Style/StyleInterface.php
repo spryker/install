@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Spryker\Zed\Install\Communication\Style;
+namespace Spryker\Zed\Install\Business\Style;
 
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Stage\Section\SectionInterface;
@@ -57,7 +57,7 @@ interface StyleInterface
      *
      * @return void
      */
-    public function startCommand(CommandInterface $command, $store = null): void;
+    public function startCommand(CommandInterface $command, ?string $store = null): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
@@ -66,7 +66,7 @@ interface StyleInterface
      *
      * @return void
      */
-    public function endCommand(CommandInterface $command, $exitCode, $store = null): void;
+    public function endCommand(CommandInterface $command, int $exitCode, ?string $store = null): void;
 
     /**
      * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
@@ -80,21 +80,21 @@ interface StyleInterface
      *
      * @return void
      */
-    public function innerCommand($output): void;
+    public function innerCommand(string $output): void;
 
     /**
      * @param string $output
      *
      * @return void
      */
-    public function note($output): void;
+    public function note(string $output): void;
 
     /**
      * @param int $count
      *
      * @return void
      */
-    public function newLine($count = 1): void;
+    public function newLine(int $count = 1): void;
 
     /**
      * @param string|array $messages
@@ -102,7 +102,7 @@ interface StyleInterface
      *
      * @return void
      */
-    public function write($messages, $options = 0): void;
+    public function write($messages, int $options = 0): void;
 
     /**
      * @param string $question
@@ -110,7 +110,7 @@ interface StyleInterface
      *
      * @return bool
      */
-    public function confirm($question, $default): bool;
+    public function confirm(string $question, bool $default): bool;
 
     /**
      * @param string $question
@@ -119,7 +119,7 @@ interface StyleInterface
      *
      * @return bool|mixed|string|null
      */
-    public function choice($question, array $choices, $default = null);
+    public function choice(string $question, array $choices, $default = null);
 
     /**
      * @return void

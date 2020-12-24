@@ -11,7 +11,7 @@ use Spryker\Zed\Install\Business\Configuration\ConfigurationInterface;
 use Spryker\Zed\Install\Business\Exception\InstallException;
 use Spryker\Zed\Install\Business\Executable\ExecutableInterface;
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
-use Spryker\Zed\Install\Communication\Style\StyleInterface;
+use Spryker\Zed\Install\Business\Style\StyleInterface;
 use Symfony\Component\Process\Process;
 
 class CommandLineExecutable implements ExecutableInterface
@@ -39,7 +39,7 @@ class CommandLineExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @return int
      */
@@ -93,7 +93,7 @@ class CommandLineExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @throws \Spryker\Zed\Install\Business\Exception\InstallException
      *
@@ -109,7 +109,7 @@ class CommandLineExecutable implements ExecutableInterface
     }
 
     /**
-     * @param \Spryker\Zed\Install\Communication\Style\StyleInterface $output
+     * @param \Spryker\Zed\Install\Business\Style\StyleInterface $output
      *
      * @return bool
      */

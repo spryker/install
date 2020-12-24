@@ -5,7 +5,7 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Spryker\Zed\Install\Communication\Style;
+namespace Spryker\Zed\Install\Business\Style;
 
 trait CursorHelper
 {
@@ -14,7 +14,7 @@ trait CursorHelper
      *
      * @return void
      */
-    protected function moveLineUp($count = 1): void
+    protected function moveLineUp(int $count = 1): void
     {
         $output = sprintf("\x1B[%sA", $count);
         $this->write($output);
@@ -42,5 +42,5 @@ trait CursorHelper
      *
      * @return void
      */
-    abstract public function write($messages, $options = 0): void;
+    abstract public function write($messages, int $options = 0): void;
 }

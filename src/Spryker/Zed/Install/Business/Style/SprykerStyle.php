@@ -5,13 +5,13 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Spryker\Zed\Install\Communication\Style;
+namespace Spryker\Zed\Install\Business\Style;
 
+use Spryker\Zed\Install\Business\Logger\InstallLoggerInterface;
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Stage\Section\SectionInterface;
 use Spryker\Zed\Install\Business\Stage\StageInterface;
-use Spryker\Zed\Install\Communication\Logger\InstallLoggerInterface;
-use Spryker\Zed\Install\Communication\Timer\TimerInterface;
+use Spryker\Zed\Install\Business\Timer\TimerInterface;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -46,12 +46,12 @@ class SprykerStyle implements StyleInterface
     protected $input;
 
     /**
-     * @var \Spryker\Zed\Install\Communication\Timer\TimerInterface
+     * @var \Spryker\Zed\Install\Business\Timer\TimerInterface
      */
     protected $timer;
 
     /**
-     * @var \Spryker\Zed\Install\Communication\Logger\InstallLoggerInterface|null
+     * @var \Spryker\Zed\Install\Business\Logger\InstallLoggerInterface|null
      */
     protected $logger;
 
@@ -63,8 +63,8 @@ class SprykerStyle implements StyleInterface
     /**
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Spryker\Zed\Install\Communication\Timer\TimerInterface $timer
-     * @param \Spryker\Zed\Install\Communication\Logger\InstallLoggerInterface|null $logger
+     * @param \Spryker\Zed\Install\Business\Timer\TimerInterface $timer
+     * @param \Spryker\Zed\Install\Business\Logger\InstallLoggerInterface|null $logger
      */
     public function __construct(InputInterface $input, OutputInterface $output, TimerInterface $timer, ?InstallLoggerInterface $logger = null)
     {
@@ -84,7 +84,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function newLine($count = 1): void
+    public function newLine(int $count = 1): void
     {
         $this->write(str_repeat(PHP_EOL, $count));
     }
@@ -165,7 +165,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function startCommand(CommandInterface $command, $store = null): void
+    public function startCommand(CommandInterface $command, ?string $store = null): void
     {
         $this->timer->start($command);
         $message = $this->getStartCommandMessage($command, $store);
@@ -190,7 +190,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return string
      */
-    protected function getStartCommandMessage(CommandInterface $command, $store = null): string
+    protected function getStartCommandMessage(CommandInterface $command, ?string $store = null): string
     {
         $commandInfo = sprintf('Command <fg=green>%s</>', $command->getName());
         $storeInfo = ($store) ?  sprintf(' for <info>%s</info> store', $store) : '';
@@ -206,7 +206,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function endCommand(CommandInterface $command, $exitCode, $store = null): void
+    public function endCommand(CommandInterface $command, int $exitCode, ?string $store = null): void
     {
         if ($this->output->isVeryVerbose()) {
             $this->newLine();
@@ -228,7 +228,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    protected function endCommandOutputIfNormalOutput(CommandInterface $command, $store = null): void
+    protected function endCommandOutputIfNormalOutput(CommandInterface $command, ?string $store = null): void
     {
         if ($this->output->getVerbosity() === static::VERBOSITY_NORMAL) {
             $message = $this->getStartCommandMessage($command, $store);
@@ -248,7 +248,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return string
      */
-    protected function getVerboseCommandEndMessage(CommandInterface $command, $exitCode): string
+    protected function getVerboseCommandEndMessage(CommandInterface $command, int $exitCode): string
     {
         return sprintf(
             '<fg=green>//</> Command <fg=green>%s</> finished in <fg=green>%ss</>, exit code <fg=%s>%s</>',
@@ -276,7 +276,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function innerCommand($output): void
+    public function innerCommand(string $output): void
     {
         if ($this->output->isVeryVerbose()) {
             $this->write($output);
@@ -302,7 +302,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function note($output): void
+    public function note(string $output): void
     {
         if ($this->output->isVeryVerbose()) {
             $this->write(' // ' . $output);
@@ -315,7 +315,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    public function write($messages, $options = 0): void
+    public function write($messages, int $options = 0): void
     {
         $this->log($messages);
         $this->output->write($messages, false, $options);
@@ -327,7 +327,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return void
      */
-    protected function writeln($messages, $options = 0): void
+    protected function writeln($messages, int $options = 0): void
     {
         $this->log($messages);
         $this->output->writeln($messages, $options);
