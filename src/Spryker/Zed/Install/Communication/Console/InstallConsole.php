@@ -83,6 +83,6 @@ class InstallConsole extends Console
     {
         $this->getFacade()->runInstall($input, $output);
 
-        return 0;
+        return static::CODE_SUCCESS;
     }
 }

@@ -12,21 +12,21 @@ class CommandLineArgumentContainer
     /**
      * @var string|null
      */
-    protected $store;
+    protected $storeName;
 
     /**
-     * @param string|null $store
+     * @param string|null $storeName
      */
-    public function __construct(?string $store = null)
+    public function __construct(?string $storeName = null)
     {
-        $this->store = $store;
+        $this->storeName = $storeName;
     }
 
     /**
      * @return string|null
      */
-    public function getStore(): ?string
+    public function getStoreName(): ?string
     {
-        return $this->store;
+        return $this->storeName;
     }
 }

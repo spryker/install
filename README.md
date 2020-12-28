@@ -5,7 +5,7 @@
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/github/license/spryker/install.svg)](https://packagist.org/packages/spryker/install)
 
-Spryker install tool for setting up a project using recipes per environment.
+Install module handles project setup using recipes per environment.
 
 This is for local development, staging and production deployment. For security reasons the environment default should always be configured to `production`. Your local `APPLICATION_ENV` env setup should then overwrite as per your non-production environment.
 

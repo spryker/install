@@ -172,7 +172,7 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
             return;
         }
 
-        $requestedStore = $this->commandLineArgumentContainer->getStore();
+        $requestedStore = $this->commandLineArgumentContainer->getStoreName();
 
         $arrayFilterCallback = function (string $store) use ($requestedStore) {
             return ($requestedStore === null || $store === $requestedStore);
