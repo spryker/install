@@ -14,7 +14,7 @@ interface InstallFacadeInterface
 {
     /**
      * Specification:
-     * - Triggers the installation process.
+     * - Triggers an installation process.
      *
      * @api
      *
