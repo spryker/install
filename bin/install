@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+define('APPLICATION', 'INSTALL');
+
 foreach ([__DIR__ . '/../../../../../autoload.php', __DIR__ . '/../../../autoload.php'] as $file) {
     if (file_exists($file)) {
         define('SPRYKER_COMPOSER_INSTALL', $file);
@@ -19,12 +21,15 @@ define('SPRYKER_ROOT', getcwd());
 
 require_once SPRYKER_COMPOSER_INSTALL;
 
-use Spryker\Console\InstallConsoleCommand;
+use Spryker\Shared\Config\Application\Environment;
+use Spryker\Zed\Install\Communication\Console\InstallConsole;
 use Symfony\Component\Console\Application;
+
+Environment::initialize();
 
 $application = new Application();
 $application->addCommands([
-    new InstallConsoleCommand(),
+    new InstallConsole(),
 ]);
 $application->setDefaultCommand('install', true);
 
