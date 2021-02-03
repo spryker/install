@@ -1,6 +1,5 @@
 # Install Module
 [![CI](https://github.com/spryker/install/workflows/CI/badge.svg?branch=master)](https://travis-ci.org/spryker/install)
-
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/github/license/spryker/install.svg)](https://packagist.org/packages/spryker/install)
 
