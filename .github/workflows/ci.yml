@@ -5,10 +5,9 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
-      branches:
-        - 'master'
 
 jobs:
   validation:
@@ -28,9 +27,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, intl, pdo_mysql
 
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
+      - uses: actions/checkout@v2
 
       - name: Validate composer.json and composer.lock
         run: composer validate
@@ -86,9 +83,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, intl, pdo_mysql
 
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
+      - uses: actions/checkout@v2
 
       - name: Get Composer Cache Directory
         id: composer-cache
