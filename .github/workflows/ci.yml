@@ -6,8 +6,6 @@ on:
     branches:
       - master
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
 
 jobs:
   validation:
@@ -17,7 +15,7 @@ jobs:
       matrix:
         php-version: [
             '7.3',
-            '7.4'
+            '8.0'
         ]
 
     steps:
@@ -57,14 +55,14 @@ jobs:
 
       - name: Codeception tests
         run: |
-            if [[ ${{ matrix.php-version }} == '7.4' ]]; then
+            if [[ ${{ matrix.php-version }} == '7.3' ]]; then
               XDEBUG_MODE=coverage vendor/bin/codecept run --coverage-xml
             else
               vendor/bin/codecept run
             fi
 
       - name: Code Coverage Report
-        if: success() && matrix.php-version == '7.4'
+        if: success() && matrix.php-version == '7.3'
         uses: codecov/codecov-action@v1
 
   prefer-lowest:
