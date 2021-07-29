@@ -70,10 +70,6 @@ class InstallConsoleCommandExceptionTest extends Unit
         $this->expectException(InstallException::class);
 
         $tester->execute($arguments);
-
-        $output = $tester->getDisplay();
-        $this->assertRegexp('/Command failing-command failed! Continue with install?/', $output, 'Confirmation to continue was expected but not given');
-        $this->assertNotRegexp('/Command successful-command/', $output, 'Command "successful-command" was not expected to be executed but was');
     }
 
     /**
