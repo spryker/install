@@ -12,6 +12,7 @@ use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Stage\Section\SectionInterface;
 use Spryker\Zed\Install\Business\Stage\StageInterface;
 use Spryker\Zed\Install\Business\Timer\TimerInterface;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -98,7 +99,7 @@ class SprykerStyle implements StyleInterface
     {
         $this->timer->start($stage);
         $message = sprintf('Install <fg=green>%s</> environment', $stage->getName());
-        $messageLengthWithoutDecoration = Helper::length(Helper::removeDecoration($this->output->getFormatter(), $message));
+        $messageLengthWithoutDecoration = $this->getLengthWithoutDecoration($this->output->getFormatter(), $message);
         $message = $message . str_pad(' ', $this->lineLength - $messageLengthWithoutDecoration);
 
         $this->writeln([
@@ -130,7 +131,7 @@ class SprykerStyle implements StyleInterface
     {
         $this->timer->start($section);
         $message = sprintf('<bg=green;options=bold> Section %s</>', $section->getName());
-        $messageLengthWithoutDecoration = Helper::length(Helper::removeDecoration($this->output->getFormatter(), $message));
+        $messageLengthWithoutDecoration = $this->getLengthWithoutDecoration($this->output->getFormatter(), $message);
         $messageLength = $this->lineLength - $messageLengthWithoutDecoration;
 
         $this->writeln([
@@ -343,5 +344,20 @@ class SprykerStyle implements StyleInterface
         if ($this->logger !== null) {
             $this->logger->log($message);
         }
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param string $string
+     *
+     * @return int
+     */
+    protected function getLengthWithoutDecoration(OutputFormatterInterface $formatter, string $string): int
+    {
+        if (method_exists(Helper::class, 'strlenWithoutDecoration')) {
+            return Helper::strlenWithoutDecoration($formatter, $string);
+        }
+
+        return Helper::length(Helper::removeDecoration($formatter, $string));
     }
 }
