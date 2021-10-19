@@ -354,6 +354,7 @@ class SprykerStyle implements StyleInterface
      */
     protected function getLengthWithoutDecoration(OutputFormatterInterface $formatter, string $string): int
     {
+        /** To be removed after updating to symfony/console 6 */
         if (method_exists(Helper::class, 'strlenWithoutDecoration')) {
             return Helper::strlenWithoutDecoration($formatter, $string);
         }
