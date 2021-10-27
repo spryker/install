@@ -13,15 +13,45 @@ use Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionFactor
 
 class CommandBuilder implements CommandBuilderInterface
 {
+    /**
+     * @var string
+     */
     public const CONFIG_ENV = 'env';
+    /**
+     * @var string
+     */
     public const CONFIG_COMMAND = 'command';
+    /**
+     * @var string
+     */
     public const CONFIG_STORES = 'stores';
+    /**
+     * @var string
+     */
     public const CONFIG_EXCLUDED = 'excluded';
+    /**
+     * @var string
+     */
     public const CONFIG_GROUPS = 'groups';
+    /**
+     * @var string
+     */
     public const CONFIG_PRE_COMMAND = 'pre';
+    /**
+     * @var string
+     */
     public const CONFIG_POST_COMMAND = 'post';
+    /**
+     * @var string
+     */
     public const CONFIG_CONDITIONS = 'conditions';
+    /**
+     * @var string
+     */
     public const CONFIG_BREAK_ON_FAILURE = 'breakOnFailure';
+    /**
+     * @var string
+     */
     public const CONFIG_TIMEOUT = 'timeout';
 
     /**

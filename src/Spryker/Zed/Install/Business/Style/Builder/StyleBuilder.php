@@ -16,6 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class StyleBuilder implements StyleBuilderInterface
 {
+    /**
+     * @var string
+     */
     protected const OPTION_LOG = 'log';
 
     /**

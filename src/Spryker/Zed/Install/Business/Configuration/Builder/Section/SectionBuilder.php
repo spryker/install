@@ -12,8 +12,17 @@ use Spryker\Zed\Install\Business\Stage\Section\SectionInterface;
 
 class SectionBuilder implements SectionBuilderInterface
 {
+    /**
+     * @var string
+     */
     public const CONFIG_EXCLUDED = 'excluded';
+    /**
+     * @var string
+     */
     public const CONFIG_PRE_COMMAND = 'pre';
+    /**
+     * @var string
+     */
     public const CONFIG_POST_COMMAND = 'post';
 
     /**

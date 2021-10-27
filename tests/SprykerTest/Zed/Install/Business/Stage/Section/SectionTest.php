@@ -26,6 +26,9 @@ use Spryker\Zed\Install\Business\Stage\Section\Section;
  */
 class SectionTest extends Unit
 {
+    /**
+     * @var string
+     */
     public const SECTION_NAME = 'section';
 
     /**

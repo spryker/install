@@ -23,51 +23,71 @@ class InstallRunner implements InstallRunnerInterface
 {
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const ARGUMENT_STORE = 'store';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::OPTION_RECIPE
+     *
+     * @var string
      */
     protected const OPTION_RECIPE = 'recipe';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_DRY_RUN = 'dry-run';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_SECTIONS = 'sections';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_GROUPS = 'groups';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_EXCLUDE = 'exclude';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_INCLUDE_EXCLUDED = 'include-excluded';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_INTERACTIVE = 'interactive';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_BREAKPOINT = 'breakpoint';
 
     /**
      * @uses \Spryker\Zed\Install\Communication\Console\InstallConsole::ARGUMENT_STORE
+     *
+     * @var string
      */
     protected const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
 

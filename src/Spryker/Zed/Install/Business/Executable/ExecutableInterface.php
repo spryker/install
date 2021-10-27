@@ -11,7 +11,13 @@ use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 interface ExecutableInterface
 {
+    /**
+     * @var int
+     */
     public const CODE_SUCCESS = 0;
+    /**
+     * @var int
+     */
     public const CODE_ERROR = 1;
 
     /**

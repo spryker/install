@@ -19,37 +19,103 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class InstallConsole extends Console
 {
+    /**
+     * @var string
+     */
     public const ARGUMENT_ENVIRONMENT = 'environment';
+    /**
+     * @var string
+     */
     public const ARGUMENT_STORE = 'store';
 
+    /**
+     * @var string
+     */
     public const OPTION_RECIPE = 'recipe';
+    /**
+     * @var string
+     */
     public const OPTION_RECIPE_SHORT = 'r';
 
+    /**
+     * @var string
+     */
     public const OPTION_DRY_RUN = 'dry-run';
+    /**
+     * @var string
+     */
     public const OPTION_DRY_RUN_SHORT = 'd';
 
+    /**
+     * @var string
+     */
     public const OPTION_SECTIONS = 'sections';
+    /**
+     * @var string
+     */
     public const OPTION_SECTIONS_SHORT = 's';
 
+    /**
+     * @var string
+     */
     public const OPTION_GROUPS = 'groups';
+    /**
+     * @var string
+     */
     public const OPTION_GROUPS_SHORT = 'g';
 
+    /**
+     * @var string
+     */
     public const OPTION_EXCLUDE = 'exclude';
+    /**
+     * @var string
+     */
     public const OPTION_EXCLUDE_SHORT = 'x';
 
+    /**
+     * @var string
+     */
     public const OPTION_INCLUDE_EXCLUDED = 'include-excluded';
+    /**
+     * @var string
+     */
     public const OPTION_INCLUDE_EXCLUDED_SHORT = 'e';
 
+    /**
+     * @var string
+     */
     public const OPTION_INTERACTIVE = 'interactive';
+    /**
+     * @var string
+     */
     public const OPTION_INTERACTIVE_SHORT = 'i';
 
+    /**
+     * @var string
+     */
     public const OPTION_BREAKPOINT = 'breakpoint';
+    /**
+     * @var string
+     */
     public const OPTION_BREAKPOINT_SHORT = 'b';
 
+    /**
+     * @var string
+     */
     public const OPTION_LOG = 'log';
+    /**
+     * @var string
+     */
     public const OPTION_LOG_SHORT = 'l';
 
+    /**
+     * @var string
+     */
     public const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
+    /**
+     * @var string
+     */
     public const OPTION_ASK_BEFORE_CONTINUE_SHORT = 'a';
 
     /**

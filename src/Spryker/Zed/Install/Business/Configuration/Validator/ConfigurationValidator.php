@@ -11,6 +11,9 @@ use Spryker\Zed\Install\Business\Configuration\Exception\ConfigurationException;
 
 class ConfigurationValidator implements ConfigurationValidatorInterface
 {
+    /**
+     * @var string
+     */
     public const SECTIONS = 'sections';
 
     /**

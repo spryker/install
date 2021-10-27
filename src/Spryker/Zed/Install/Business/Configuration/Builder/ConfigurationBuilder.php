@@ -25,14 +25,41 @@ use Spryker\Zed\Install\Business\Style\StyleInterface;
 
 class ConfigurationBuilder implements ConfigurationBuilderInterface
 {
+    /**
+     * @var string
+     */
     public const CONFIG_EXCLUDED = 'excluded';
+    /**
+     * @var string
+     */
     public const CONFIG_ENV = 'env';
+    /**
+     * @var string
+     */
     public const CONFIG_STORES = 'stores';
+    /**
+     * @var string
+     */
     public const CONFIG_COMMAND_TIMEOUT = 'command-timeout';
+    /**
+     * @var string
+     */
     public const CONFIG_GROUPS = 'groups';
+    /**
+     * @var string
+     */
     public const CONFIG_CONDITIONS = 'conditions';
+    /**
+     * @var string
+     */
     public const CONFIG_PRE_COMMAND = 'pre';
+    /**
+     * @var string
+     */
     public const CONFIG_POST_COMMAND = 'post';
+    /**
+     * @var string
+     */
     public const ALL_STORES = 'all';
 
     /**

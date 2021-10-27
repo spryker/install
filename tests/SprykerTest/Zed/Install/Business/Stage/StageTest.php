@@ -25,6 +25,9 @@ use Spryker\Zed\Install\Business\Stage\Stage;
  */
 class StageTest extends Unit
 {
+    /**
+     * @var string
+     */
     public const STAGE_NAME = 'stage';
 
     /**

@@ -25,6 +25,9 @@ use Spryker\Zed\Install\Business\Stage\Section\Command\Command;
  */
 class CommandTest extends Unit
 {
+    /**
+     * @var string
+     */
     public const COMMAND_NAME = 'command';
 
     /**

@@ -9,6 +9,9 @@ namespace Spryker\Zed\Install\Business\Configuration\Filter;
 
 interface FilterInterface
 {
+    /**
+     * @var string
+     */
     public const EXCLUDED = 'excluded';
 
     /**

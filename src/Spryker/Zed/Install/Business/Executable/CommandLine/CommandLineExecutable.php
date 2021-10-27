@@ -16,6 +16,9 @@ use Symfony\Component\Process\Process;
 
 class CommandLineExecutable implements ExecutableInterface
 {
+    /**
+     * @var int
+     */
     public const DEFAULT_TIMEOUT_IN_SECONDS = 600;
 
     /**

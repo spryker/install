@@ -9,6 +9,9 @@ namespace Spryker\Zed\Install\Business\Configuration\Filter;
 
 class CommandExcludeFilter implements FilterInterface
 {
+    /**
+     * @var string
+     */
     public const GROUPS = 'groups';
 
     /**
