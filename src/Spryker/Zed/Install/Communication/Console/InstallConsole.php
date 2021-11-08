@@ -23,6 +23,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const ARGUMENT_ENVIRONMENT = 'environment';
+
     /**
      * @var string
      */
@@ -32,6 +33,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_RECIPE = 'recipe';
+
     /**
      * @var string
      */
@@ -41,6 +43,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_DRY_RUN = 'dry-run';
+
     /**
      * @var string
      */
@@ -50,6 +53,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_SECTIONS = 'sections';
+
     /**
      * @var string
      */
@@ -59,6 +63,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_GROUPS = 'groups';
+
     /**
      * @var string
      */
@@ -68,6 +73,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_EXCLUDE = 'exclude';
+
     /**
      * @var string
      */
@@ -77,6 +83,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_INCLUDE_EXCLUDED = 'include-excluded';
+
     /**
      * @var string
      */
@@ -86,6 +93,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_INTERACTIVE = 'interactive';
+
     /**
      * @var string
      */
@@ -95,6 +103,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_BREAKPOINT = 'breakpoint';
+
     /**
      * @var string
      */
@@ -104,6 +113,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_LOG = 'log';
+
     /**
      * @var string
      */
@@ -113,6 +123,7 @@ class InstallConsole extends Console
      * @var string
      */
     public const OPTION_ASK_BEFORE_CONTINUE = 'ask-before-continue';
+
     /**
      * @var string
      */

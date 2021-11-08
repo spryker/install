@@ -96,7 +96,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getRequestedSections(): array
     {
@@ -104,7 +104,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getRequestedGroups(): array
     {
@@ -112,7 +112,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getExclude(): array
     {
@@ -120,7 +120,7 @@ class CommandLineOptionContainer
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getIncludeExcluded(): array
     {

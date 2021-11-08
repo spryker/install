@@ -10,7 +10,7 @@ namespace Spryker\Zed\Install\Business\Configuration\Filter;
 class FilterComposite implements FilterInterface
 {
     /**
-     * @var \Spryker\Zed\Install\Business\Configuration\Filter\FilterInterface[]
+     * @var array<\Spryker\Zed\Install\Business\Configuration\Filter\FilterInterface>
      */
     protected $filter;
 

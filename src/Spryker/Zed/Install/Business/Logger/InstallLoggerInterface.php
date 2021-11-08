@@ -10,7 +10,7 @@ namespace Spryker\Zed\Install\Business\Logger;
 interface InstallLoggerInterface
 {
     /**
-     * @param string|array $message
+     * @param array|string $message
      *
      * @return void
      */

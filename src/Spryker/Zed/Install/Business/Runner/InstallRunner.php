@@ -140,7 +140,7 @@ class InstallRunner implements InstallRunnerInterface
         $configuration = $this->configurationBuilder->buildConfiguration(
             $this->buildCommandLineArgumentContainer($input),
             $this->buildCommandLineOptionContainer($input),
-            $this->styleBuilder->buildStyle($input, $output)
+            $this->styleBuilder->buildStyle($input, $output),
         );
 
         $this->startInstall($configuration);
@@ -171,7 +171,7 @@ class InstallRunner implements InstallRunnerInterface
             $this->printOptionNote(
                 $configuration->getOutput(),
                 'Install will only run this section(s) "%s"',
-                $configuration->getSections()
+                $configuration->getSections(),
             );
         }
 
@@ -179,7 +179,7 @@ class InstallRunner implements InstallRunnerInterface
             $this->printOptionNote(
                 $configuration->getOutput(),
                 'Install will only run this group(s) "%s"',
-                $configuration->getGroups()
+                $configuration->getGroups(),
             );
         }
 
@@ -187,7 +187,7 @@ class InstallRunner implements InstallRunnerInterface
             $this->printOptionNote(
                 $configuration->getOutput(),
                 'Install will exclude this group(s) or section(s) "%s"',
-                $configuration->getExcluded()
+                $configuration->getExcluded(),
             );
         }
 
@@ -195,7 +195,7 @@ class InstallRunner implements InstallRunnerInterface
             $this->printOptionNote(
                 $configuration->getOutput(),
                 'Install will include this excluded section(s) or command(s) "%s"',
-                $configuration->getIncludeExcluded()
+                $configuration->getIncludeExcluded(),
             );
         }
     }
@@ -239,7 +239,7 @@ class InstallRunner implements InstallRunnerInterface
     protected function endInstall(ConfigurationInterface $configuration): void
     {
         $configuration->getOutput()->endInstall(
-            $configuration->getStage()
+            $configuration->getStage(),
         );
     }
 
@@ -259,8 +259,8 @@ class InstallRunner implements InstallRunnerInterface
                 sprintf(
                     'Value of `%s` argument should return `string|null` type. Return type is `%s`.',
                     static::ARGUMENT_STORE,
-                    gettype($store)
-                )
+                    gettype($store),
+                ),
             );
         }
 
@@ -283,8 +283,8 @@ class InstallRunner implements InstallRunnerInterface
                 sprintf(
                     'Value of `%s` option should return `string` type. Return `%s`.',
                     static::OPTION_RECIPE,
-                    gettype($recipeOption)
-                )
+                    gettype($recipeOption),
+                ),
             );
         }
 
@@ -297,7 +297,7 @@ class InstallRunner implements InstallRunnerInterface
             (bool)$input->getOption(static::OPTION_INTERACTIVE),
             (bool)$input->getOption(static::OPTION_DRY_RUN),
             (bool)$input->getOption(static::OPTION_BREAKPOINT),
-            (bool)$input->getOption(static::OPTION_ASK_BEFORE_CONTINUE)
+            (bool)$input->getOption(static::OPTION_ASK_BEFORE_CONTINUE),
         );
     }
 }

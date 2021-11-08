@@ -19,7 +19,7 @@ class Stage implements StageInterface
     protected $name;
 
     /**
-     * @var \Spryker\Zed\Install\Business\Stage\Section\SectionInterface[]
+     * @var array<\Spryker\Zed\Install\Business\Stage\Section\SectionInterface>
      */
     protected $sections = [];
 
@@ -58,7 +58,7 @@ class Stage implements StageInterface
     }
 
     /**
-     * @return \Spryker\Zed\Install\Business\Stage\Section\SectionInterface[]
+     * @return array<\Spryker\Zed\Install\Business\Stage\Section\SectionInterface>
      */
     public function getSections(): array
     {

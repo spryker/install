@@ -79,7 +79,7 @@ class CommandLineExecutable implements ExecutableInterface
             SPRYKER_ROOT,
             getenv(),
             null,
-            $this->getProcessTimeout()
+            $this->getProcessTimeout(),
         );
     }
 

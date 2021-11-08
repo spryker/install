@@ -24,7 +24,7 @@ interface StageInterface
     public function addSection(SectionInterface $section);
 
     /**
-     * @return \Spryker\Zed\Install\Business\Stage\Section\SectionInterface[]
+     * @return array<\Spryker\Zed\Install\Business\Stage\Section\SectionInterface>
      */
     public function getSections(): array;
 

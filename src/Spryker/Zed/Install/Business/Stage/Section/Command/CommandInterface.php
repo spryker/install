@@ -60,14 +60,14 @@ interface CommandInterface
     public function isStoreAware(): bool;
 
     /**
-     * @param string[] $stores
+     * @param array<string> $stores
      *
      * @return $this
      */
     public function setStores(array $stores);
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getStores(): array;
 
@@ -84,7 +84,7 @@ interface CommandInterface
     public function addCondition(ConditionInterface $condition);
 
     /**
-     * @return \Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionInterface[]
+     * @return array<\Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionInterface>
      */
     public function getConditions(): array;
 

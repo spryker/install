@@ -258,7 +258,7 @@ class SprykerStyle implements StyleInterface
             $command->getName(),
             $this->timer->end($command),
             ($exitCode !== 0) ? 'red' : 'green',
-            $exitCode
+            $exitCode,
         );
     }
 
@@ -337,7 +337,7 @@ class SprykerStyle implements StyleInterface
     }
 
     /**
-     * @param string|array $message
+     * @param array|string $message
      *
      * @return void
      */

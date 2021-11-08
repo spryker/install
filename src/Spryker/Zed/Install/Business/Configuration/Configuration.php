@@ -24,12 +24,12 @@ class Configuration implements ConfigurationInterface
     protected $stage;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $env = [];
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $stores = [];
 
@@ -39,7 +39,7 @@ class Configuration implements ConfigurationInterface
     protected $commandTimeout;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $executableStores = [];
 
@@ -59,22 +59,22 @@ class Configuration implements ConfigurationInterface
     protected $continueOnException;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $sections;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $groups;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $exclude;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $includeExcluded;
 
@@ -159,7 +159,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string[] $env
+     * @param array<string> $env
      *
      * @return \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface
      */
@@ -171,7 +171,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getEnv(): array
     {
@@ -179,7 +179,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string[] $stores
+     * @param array<string> $stores
      *
      * @return \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface
      */
@@ -191,7 +191,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getStores(): array
     {
@@ -219,7 +219,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string[] $executableStores
+     * @param array<string> $executableStores
      *
      * @return \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface
      */
@@ -231,7 +231,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getExecutableStores(): array
     {
@@ -271,7 +271,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string[] $sections
+     * @param array<string> $sections
      *
      * @return $this
      */
@@ -283,7 +283,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSections(): array
     {
@@ -291,7 +291,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string[] $groups
+     * @param array<string> $groups
      *
      * @return $this
      */
@@ -303,7 +303,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getGroups(): array
     {
@@ -311,7 +311,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string[] $exclude
+     * @param array<string> $exclude
      *
      * @return $this
      */
@@ -323,7 +323,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getExcluded(): array
     {
@@ -331,7 +331,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string[] $includeExcluded
+     * @param array<string> $includeExcluded
      *
      * @return $this
      */
@@ -343,7 +343,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getIncludeExcluded(): array
     {

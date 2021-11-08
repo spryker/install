@@ -17,18 +17,22 @@ interface StyleInterface
      * @var int
      */
     public const VERBOSITY_QUIET = 16;
+
     /**
      * @var int
      */
     public const VERBOSITY_NORMAL = 32;
+
     /**
      * @var int
      */
     public const VERBOSITY_VERBOSE = 64;
+
     /**
      * @var int
      */
     public const VERBOSITY_VERY_VERBOSE = 128;
+
     /**
      * @var int
      */
@@ -38,10 +42,12 @@ interface StyleInterface
      * @var int
      */
     public const OUTPUT_NORMAL = 1;
+
     /**
      * @var int
      */
     public const OUTPUT_RAW = 2;
+
     /**
      * @var int
      */
@@ -121,7 +127,7 @@ interface StyleInterface
     public function newLine(int $count = 1): void;
 
     /**
-     * @param string|array $messages
+     * @param array|string $messages
      * @param int $options
      *
      * @return void
@@ -141,7 +147,7 @@ interface StyleInterface
      * @param array $choices
      * @param string|int|null $default
      *
-     * @return bool|mixed|string|null
+     * @return mixed|string|bool|null
      */
     public function choice(string $question, array $choices, $default = null);
 

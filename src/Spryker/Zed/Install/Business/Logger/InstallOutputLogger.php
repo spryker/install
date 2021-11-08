@@ -25,7 +25,7 @@ class InstallOutputLogger implements InstallLoggerInterface
     }
 
     /**
-     * @param string|array $message
+     * @param array|string $message
      *
      * @return void
      */
@@ -38,7 +38,7 @@ class InstallOutputLogger implements InstallLoggerInterface
     }
 
     /**
-     * @param string|array $message
+     * @param array|string $message
      *
      * @return string
      */

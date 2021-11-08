@@ -129,50 +129,50 @@ interface ConfigurationInterface
     public function findCommand(string $name): CommandInterface;
 
     /**
-     * @param string[] $sections
+     * @param array<string> $sections
      *
      * @return $this
      */
     public function setSections(array $sections);
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getSections(): array;
 
     /**
-     * @param string[] $groups
+     * @param array<string> $groups
      *
      * @return $this
      */
     public function setGroups(array $groups);
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getGroups(): array;
 
     /**
-     * @param string[] $exclude
+     * @param array<string> $exclude
      *
      * @return $this
      */
     public function setExclude(array $exclude);
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getExcluded(): array;
 
     /**
-     * @param string[] $includeExcluded
+     * @param array<string> $includeExcluded
      *
      * @return $this
      */
     public function setIncludeExcluded(array $includeExcluded);
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getIncludeExcluded(): array;
 }

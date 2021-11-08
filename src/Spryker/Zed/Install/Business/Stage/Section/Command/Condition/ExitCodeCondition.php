@@ -10,7 +10,7 @@ namespace Spryker\Zed\Install\Business\Stage\Section\Command\Condition;
 class ExitCodeCondition extends AbstractCondition
 {
     /**
-     * @param int[] $exitCodes
+     * @param array<int> $exitCodes
      *
      * @return bool
      */

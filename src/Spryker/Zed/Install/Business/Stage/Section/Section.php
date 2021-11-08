@@ -19,7 +19,7 @@ class Section implements SectionInterface
     protected $name;
 
     /**
-     * @var \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface[]
+     * @var array<\Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface>
      */
     protected $commands = [];
 
@@ -90,7 +90,7 @@ class Section implements SectionInterface
     }
 
     /**
-     * @return \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface[]
+     * @return array<\Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface>
      */
     public function getCommands(): array
     {

@@ -109,7 +109,7 @@ class CommandRunner implements CommandRunnerInterface
      * @param \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface $command
      * @param \Spryker\Zed\Install\Business\Configuration\ConfigurationInterface $configuration
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function getExecutableStoresForCommand(CommandInterface $command, ConfigurationInterface $configuration): array
     {

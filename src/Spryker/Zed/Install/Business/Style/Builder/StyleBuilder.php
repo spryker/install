@@ -67,7 +67,7 @@ class StyleBuilder implements StyleBuilderInterface
         return new SprykerStyle(
             $input,
             $output,
-            $this->timer
+            $this->timer,
         );
     }
 
@@ -83,7 +83,7 @@ class StyleBuilder implements StyleBuilderInterface
             $input,
             $output,
             $this->timer,
-            $this->logger
+            $this->logger,
         );
     }
 }

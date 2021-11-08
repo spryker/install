@@ -40,7 +40,7 @@ trait InputHelper
      * @param array $choices
      * @param string|int|null $default
      *
-     * @return bool|mixed|string|null
+     * @return mixed|string|bool|null
      */
     public function choice(string $question, array $choices, $default = null)
     {

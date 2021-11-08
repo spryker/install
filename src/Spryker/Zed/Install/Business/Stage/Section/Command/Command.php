@@ -42,7 +42,7 @@ class Command implements CommandInterface
     protected $isExcluded = false;
 
     /**
-     * @var \Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionInterface[]
+     * @var array<\Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionInterface>
      */
     protected $conditions = [];
 
@@ -62,7 +62,7 @@ class Command implements CommandInterface
     protected $breakOnFailure = true;
 
     /**
-     * @var string[]
+     * @var array<string>
      */
     protected $stores = [];
 
@@ -160,7 +160,7 @@ class Command implements CommandInterface
     }
 
     /**
-     * @param string[] $stores
+     * @param array<string> $stores
      *
      * @return \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface
      */
@@ -172,7 +172,7 @@ class Command implements CommandInterface
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getStores(): array
     {
@@ -200,7 +200,7 @@ class Command implements CommandInterface
     }
 
     /**
-     * @return \Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionInterface[]
+     * @return array<\Spryker\Zed\Install\Business\Stage\Section\Command\Condition\ConditionInterface>
      */
     public function getConditions(): array
     {

@@ -34,7 +34,7 @@ interface SectionInterface
     public function addCommand(CommandInterface $command);
 
     /**
-     * @return \Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface[]
+     * @return array<\Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface>
      */
     public function getCommands(): array;
 

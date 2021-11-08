@@ -37,7 +37,7 @@ trait CursorHelper
     }
 
     /**
-     * @param string|array $messages
+     * @param array|string $messages
      * @param int $options
      *
      * @return void

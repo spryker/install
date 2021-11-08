@@ -61,8 +61,8 @@ class ConfigurationLoader implements ConfigurationLoaderInterface
         throw new ConfigurationFileNotFoundException(
             sprintf(
                 'Could not resolve path for your recipe. Check %s.',
-                implode(', ', $recipePaths)
-            )
+                implode(', ', $recipePaths),
+            ),
         );
     }
 

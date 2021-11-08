@@ -58,7 +58,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
             $this->createSectionRunner(),
             $this->createConfigurationBuilder(),
             $this->createEnvironmentHelper(),
-            $this->createStyleBuilder()
+            $this->createStyleBuilder(),
         );
     }
 
@@ -68,7 +68,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     public function createSectionRunner(): SectionRunnerInterface
     {
         return new SectionRunner(
-            $this->createCommandRunner()
+            $this->createCommandRunner(),
         );
     }
 
@@ -79,7 +79,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     {
         return new CommandRunner(
             $this->createExecutableFactory(),
-            $this->createEnvironmentHelper()
+            $this->createEnvironmentHelper(),
         );
     }
 
@@ -108,7 +108,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
             $this->createConfigurationLoader(),
             $this->createConfiguration(),
             $this->createSectionBuilder(),
-            $this->createCommandBuilder()
+            $this->createCommandBuilder(),
         );
     }
 
@@ -118,7 +118,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     public function createConfigurationLoader(): ConfigurationLoaderInterface
     {
         return new ConfigurationLoader(
-            $this->createConfigurationValidator()
+            $this->createConfigurationValidator(),
         );
     }
 
@@ -152,7 +152,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     public function createCommandBuilder(): CommandBuilderInterface
     {
         return new CommandBuilder(
-            $this->createConditionFactory()
+            $this->createConditionFactory(),
         );
     }
 
@@ -171,7 +171,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     {
         return new StyleBuilder(
             $this->createTimer(),
-            $this->createOutputLogger()
+            $this->createOutputLogger(),
         );
     }
 
@@ -199,7 +199,7 @@ class InstallBusinessFactory extends AbstractBusinessFactory
     public function createBufferedStreamHandler(): HandlerInterface
     {
         return new BufferHandler(
-            $this->createStreamHandler()
+            $this->createStreamHandler(),
         );
     }
 

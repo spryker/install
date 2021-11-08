@@ -15,6 +15,7 @@ class ConditionFactory implements ConditionFactoryInterface
      * @var string
      */
     public const CONDITION_NAME_IF_EXIT_CODE = 'ifExitCode';
+
     /**
      * @var string
      */

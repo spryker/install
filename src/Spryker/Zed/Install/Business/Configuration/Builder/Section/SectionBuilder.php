@@ -16,10 +16,12 @@ class SectionBuilder implements SectionBuilderInterface
      * @var string
      */
     public const CONFIG_EXCLUDED = 'excluded';
+
     /**
      * @var string
      */
     public const CONFIG_PRE_COMMAND = 'pre';
+
     /**
      * @var string
      */
