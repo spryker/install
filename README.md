@@ -1,7 +1,8 @@
 # Install Module
 [![CI](https://github.com/spryker/install/workflows/CI/badge.svg?branch=master)](https://github.com/spryker/install/actions?query=workflow%3ACI+branch%3Amaster)
 [![Coverage](https://codecov.io/gh/spryker/install/branch/master/graph/badge.svg?token=4AKCKMRg3G)](https://codecov.io/gh/spryker/install)
-[![Latest Stable Version](https://poser.pugx.org/spryker/install/v/st4-8892BF.svg)](https://php.net/)
+[![Latest Stable Version](https://poser.pugx.org/spryker/install/v/stable.svg)](https://packagist.org/packages/spryker/install)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
 [![License](https://img.shields.io/github/license/spryker/install.svg)](https://packagist.org/packages/spryker/install)
 
 Install module handles project setup using recipes per environment.
