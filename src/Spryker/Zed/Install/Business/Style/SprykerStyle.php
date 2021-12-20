@@ -196,7 +196,9 @@ class SprykerStyle implements StyleInterface
     protected function getStartCommandMessage(CommandInterface $command, ?string $store = null): string
     {
         $commandInfo = sprintf('Command <fg=green>%s</>', $command->getName());
-        $storeInfo = ($store) ? sprintf(' for <info>%s</info> store', $store) : '';
+        $storeInfo = $store
+            ? sprintf(' for <info>%s</info> store', $store)
+            : '';
         $executedInfo = sprintf(' <fg=yellow>[%s]</>', $command->getExecutable());
 
         return $commandInfo . $storeInfo . $executedInfo;
