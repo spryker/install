@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "fileName": "src/Spryker/Zed/Install/Business/Configuration/Builder/Section/Command/CommandBuilder.php",
+        "description": "Getter `Spryker\\Zed\\Install\\Business\\Configuration\\Builder\\Section\\Command\\CommandBuilder::getIsStoreAware()` must not return bool.",
+        "rule": "GetterReturnTypeRule",
+        "ruleset": "Spryker",
+        "priority": "1"
+    }
+]
