@@ -1,6 +1,7 @@
 parameters:
+    level: 8
     checkMissingIterableValueType: false
-    bootstrap: %rootDir%/../../../phpstan-bootstrap.php
-
+    bootstrapFiles:
+        - '%rootDir%/../../../phpstan-bootstrap.php'
     ignoreErrors:
         - '#Parameter \#1 \$command of class Symfony\\Component\\Process\\Process constructor expects array, string given.#'
