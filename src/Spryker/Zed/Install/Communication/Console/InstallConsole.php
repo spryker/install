@@ -137,7 +137,7 @@ class InstallConsole extends Console
         $environment = $this->getFactory()->getConfig()->getEnvironment();
         $this->setName('install')
             ->setDescription('Run install for a specified environment.')
-            ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store for which the install should be run.')
+            ->addArgument(static::ARGUMENT_STORE, InputArgument::OPTIONAL, 'Name of the store(s) for which the install should be executed (multiple comma separated values allowed, e.g single - DE or multiple - DE,AT)')
             ->addOption(static::OPTION_RECIPE, static::OPTION_RECIPE_SHORT, InputOption::VALUE_REQUIRED, 'Name of the recipe you want to use for install.', $environment)
             ->addOption(static::OPTION_DRY_RUN, static::OPTION_DRY_RUN_SHORT, InputOption::VALUE_NONE, 'Dry runs the install, no command will be executed.')
             ->addOption(static::OPTION_SECTIONS, static::OPTION_SECTIONS_SHORT, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Names of sections(s) to be executed. A section is a set of commands related to one topic.')
