@@ -207,10 +207,14 @@ class ConfigurationBuilder implements ConfigurationBuilderInterface
             return;
         }
 
-        $requestedStores = explode(',', $this->commandLineArgumentContainer->getStoreNames());
+        $requestedStores = $this->commandLineArgumentContainer->getStoreNames();
+
+        if ($requestedStores !== null) {
+            $requestedStores = explode(',', $requestedStores);
+        }
 
         $arrayFilterCallback = function (string $store) use ($requestedStores) {
-            return in_array($store, $requestedStores);
+            return $requestedStores === null || in_array($store, $requestedStores);
         };
 
         $requestedStores = array_filter($this->configuration->getStores(), $arrayFilterCallback);
