@@ -16,4 +16,4 @@ composer require spryker/install
 ```
 
 ## Documentation
-https://documentation.spryker.com/v20/docs/install-core-module
+[Spryker Documentation](https://docs.spryker.com/)
