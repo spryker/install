@@ -1,6 +1,5 @@
 parameters:
     checkMissingIterableValueType: false
-    bootstrapFiles:
-        - phpstan-bootstrap.php
+    bootstrap: '%rootDir%/../../../phpstan-bootstrap.php'
     ignoreErrors:
         - '#Call to an undefined static method Symfony\\Component\\Process\\Process::fromShellCommandline\(\).#'
