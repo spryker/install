@@ -32,7 +32,7 @@ class InstallOutputLogger implements InstallLoggerInterface
     public function log($message): void
     {
         $formattedMessage = $this->formatMessage($message);
-        if (!empty($formattedMessage)) {
+        if ($formattedMessage !== '') {
             $this->logger->info($formattedMessage);
         }
     }
