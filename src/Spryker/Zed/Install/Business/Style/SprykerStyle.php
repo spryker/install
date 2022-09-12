@@ -101,7 +101,7 @@ class SprykerStyle implements StyleInterface
     {
         $this->timer->start($stage);
         $message = sprintf('Install <fg=green>%s</> environment', $stage->getName());
-        $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->output->getFormatter(), $message);
+        $messageLengthWithoutDecoration = Helper::removeDecoration($this->output->getFormatter(), $message);
         $message = $message . str_pad(' ', $this->lineLength - $messageLengthWithoutDecoration);
 
         $this->writeln([
@@ -133,7 +133,7 @@ class SprykerStyle implements StyleInterface
     {
         $this->timer->start($section);
         $message = sprintf('<bg=green;options=bold> Section %s</>', $section->getName());
-        $messageLengthWithoutDecoration = Helper::strlenWithoutDecoration($this->output->getFormatter(), $message);
+        $messageLengthWithoutDecoration = Helper::removeDecoration($this->output->getFormatter(), $message);
         $messageLength = $this->lineLength - $messageLengthWithoutDecoration;
 
         $this->writeln([
