@@ -364,6 +364,5 @@ class SprykerStyle implements StyleInterface
         }
 
         return Helper::width(Helper::removeDecoration($formatter, $string));
-
     }
 }
