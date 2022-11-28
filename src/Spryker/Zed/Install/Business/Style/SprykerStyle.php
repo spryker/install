@@ -357,7 +357,7 @@ class SprykerStyle implements StyleInterface
      *
      * @return int
      */
-    protected function strlenWithoutDecoration(OutputFormatterInterface $formatter, string $string): int
+    protected function strlenWithoutDecoration(OutputFormatterInterface $formatter, ?string $string): int
     {
         if (method_exists(Helper::class, 'strlen')) {
             return Helper::strlen(Helper::removeDecoration($formatter, $string));
