@@ -362,7 +362,7 @@ class SprykerStyle implements StyleInterface
         if (method_exists(Helper::class, 'strlen')) {
             return Helper::strlen(Helper::removeDecoration($formatter, $string));
         }
-        
+
         return Helper::width(Helper::removeDecoration($formatter, $string));
     }
 }
