@@ -363,6 +363,7 @@ class SprykerStyle implements StyleInterface
             return Helper::strlen(Helper::removeDecoration($formatter, $string));
         }
 
+        // @phpstan-ignore-next-line
         return Helper::width(Helper::removeDecoration($formatter, $string));
     }
 }
