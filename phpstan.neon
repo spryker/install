@@ -1,8 +1,6 @@
 parameters:
     level: 8
     checkMissingIterableValueType: false
-    reportUnmatchedIgnoredErrors: false
     bootstrap: '%rootDir%/../../../phpstan-bootstrap.php'
     ignoreErrors:
         - '#Parameter \#1 \$command of class Symfony\\Component\\Process\\Process constructor expects array, string given.#'
-        - '#^Call to an undefined static method Symfony\\Component\\Console\\Helper\\Helper::width\(\)#'
