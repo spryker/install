@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * MIT License
+ * For full license information, please view the LICENSE file that was distributed with this source code.
+ */
+
 namespace SprykerTest\Zed\Install\Business\Style;
 
 use Codeception\Test\Unit;
@@ -9,17 +14,45 @@ use Spryker\Zed\Install\Business\Timer\TimerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Auto-generated group annotations
+ *
+ * @group SprykerTest
+ * @group Zed
+ * @group Install
+ * @group Business
+ * @group Style
+ * @group SprykerStyleTest
+ * Add your own group annotations below this line
+ */
 class SprykerStyleTest extends Unit
 {
-    public function testStartInstall()
+    /**
+     * @return void
+     */
+    public function testStartInstallShouldBeWritelnCorrectStrings(): void
     {
-        $inputInterfaceMock = $this->getMockBuilder(InputInterface::class)->getMock();
-        $outputInterfaceMock = $this->getMockBuilder(OutputInterface::class)->getMock();
-        $timerInterfaceMpck = $this->getMockBuilder(TimerInterface::class)->getMock();
-        $startInterfaceMock = $this->getMockBuilder(StageInterface::class)->getMock();
-        $outputInterfaceMock->expects($this->once())->method('writeln');
-        $sprykerStyle = new SprykerStyle($inputInterfaceMock, $outputInterfaceMock, $timerInterfaceMpck);
+        // Arrange
+        $outputMessages = [];
+        $expectedOutputMessages = [
+            '========================================================================================================================',
+            'Install <fg=green></> environment                                                                                                                        ',
+            '========================================================================================================================',
+        ];
+        $inputMock = $this->getMockBuilder(InputInterface::class)->getMock();
+        $outputMock = $this->getMockBuilder(OutputInterface::class)->getMock();
+        $timerMock = $this->getMockBuilder(TimerInterface::class)->getMock();
+        $startMock = $this->getMockBuilder(StageInterface::class)->getMock();
+        $outputMock->expects($this->once())->method('writeln')->with($this->isType('array'))->will($this->returnCallback(function ($messages) use (&$outputMessages) {
+            $outputMessages = $messages;
+        }));
 
-        $sprykerStyle->startInstall($startInterfaceMock);
+        $sprykerStyle = new SprykerStyle($inputMock, $outputMock, $timerMock);
+
+        // Act
+        $sprykerStyle->startInstall($startMock);
+
+        // Assert
+        $this->assertSame($expectedOutputMessages, $outputMessages);
     }
 }
