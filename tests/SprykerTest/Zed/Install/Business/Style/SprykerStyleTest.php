@@ -46,7 +46,7 @@ class SprykerStyleTest extends Unit
         $startMock = $this->getMockBuilder(StageInterface::class)->getMock();
         $outputFormatterMock = $this->getMockBuilder(OutputFormatterInterface::class)->getMock();
         $outputFormatterMock->method('isDecorated')->willReturn(true);
-        $outputMock->method('getFormatter')->willReturn($this->getMockBuilder(OutputFormatterInterface::class)->getMock());
+        $outputMock->method('getFormatter')->willReturn($outputFormatterMock)->getMock();
         $outputMock->expects($this->once())->method('writeln')->with($this->isType('array'))->will($this->returnCallback(function ($messages) use (&$outputMessages) {
             $outputMessages = $messages;
         }));
