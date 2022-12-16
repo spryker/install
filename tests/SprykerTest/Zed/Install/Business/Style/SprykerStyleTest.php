@@ -11,6 +11,7 @@ use Codeception\Test\Unit;
 use Spryker\Zed\Install\Business\Stage\StageInterface;
 use Spryker\Zed\Install\Business\Style\SprykerStyle;
 use Spryker\Zed\Install\Business\Timer\TimerInterface;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -43,6 +44,7 @@ class SprykerStyleTest extends Unit
         $outputMock = $this->getMockBuilder(OutputInterface::class)->getMock();
         $timerMock = $this->getMockBuilder(TimerInterface::class)->getMock();
         $startMock = $this->getMockBuilder(StageInterface::class)->getMock();
+        $outputMock->method('getFormatter')->willReturn($this->getMockBuilder(OutputFormatterInterface::class)->getMock());
         $outputMock->expects($this->once())->method('writeln')->with($this->isType('array'))->will($this->returnCallback(function ($messages) use (&$outputMessages) {
             $outputMessages = $messages;
         }));
