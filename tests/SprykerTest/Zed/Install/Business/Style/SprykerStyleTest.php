@@ -35,11 +35,7 @@ class SprykerStyleTest extends Unit
     {
         // Arrange
         $outputMessages = [];
-        $expectedOutputMessages = [
-            '========================================================================================================================',
-            'Install <fg=green></> environment                                                                                                                        ',
-            '========================================================================================================================',
-        ];
+        $expectedOutputMessages = 'Install <fg=green></> environment';
         $inputMock = $this->getMockBuilder(InputInterface::class)->getMock();
         $outputMock = $this->getMockBuilder(OutputInterface::class)->getMock();
         $timerMock = $this->getMockBuilder(TimerInterface::class)->getMock();
@@ -57,6 +53,6 @@ class SprykerStyleTest extends Unit
         $sprykerStyle->startInstall($startMock);
 
         // Assert
-        $this->assertSame($expectedOutputMessages, $outputMessages);
+        $this->assertSame($expectedOutputMessages, trim($outputMessages[1]));
     }
 }
