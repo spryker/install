@@ -75,7 +75,7 @@ class CommandLineExecutable implements ExecutableInterface
         }
 
         return new Process(
-            $this->command->getExecutable(),
+            [$this->command->getExecutable()],
             SPRYKER_ROOT,
             getenv(),
             null,
