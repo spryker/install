@@ -70,8 +70,9 @@ class CommandLineExecutable implements ExecutableInterface
      */
     protected function buildProcess(): Process
     {
-        if (method_exists(Process::class, 'fromShellCommandline')) {
-            return Process::fromShellCommandline($this->command->getExecutable(), SPRYKER_ROOT, getenv(), null, $this->getProcessTimeout());
+        $process = $this->processFromShellCommandline();
+        if ($process !== null) {
+            return $process;
         }
 
         return new Process(
@@ -81,6 +82,18 @@ class CommandLineExecutable implements ExecutableInterface
             null,
             $this->getProcessTimeout(),
         );
+    }
+
+    /**
+     * @return \Symfony\Component\Process\Process|null
+     */
+    protected function processFromShellCommandline(): ?Process
+    {
+        if (method_exists(Process::class, 'fromShellCommandline')) {
+            return Process::fromShellCommandline($this->command->getExecutable(), SPRYKER_ROOT, getenv(), null, $this->getProcessTimeout());
+        }
+
+        return null;
     }
 
     /**
