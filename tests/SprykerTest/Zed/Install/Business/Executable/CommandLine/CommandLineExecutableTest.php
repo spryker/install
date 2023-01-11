@@ -30,7 +30,7 @@ class CommandLineExecutableTest extends Unit
     /**
      * @return void
      */
-    public function testExecutesProcessFromShellCommandLine(): void
+    public function testExecutesProcessIfFromShellCommandLineDoesNotExist(): void
     {
         //Arrange
         $commandInterfaceMock = $this->createMock(CommandInterface::class);
@@ -44,12 +44,12 @@ class CommandLineExecutableTest extends Unit
             ->method('innerCommand');
 
         $commandLineMock = $this->getMockBuilder(CommandLineExecutable::class)
-            ->setMethods(['processFromShellCommandline'])
+            ->setMethods(['processFromShellCommandlineMethodExists'])
             ->setConstructorArgs([$commandInterfaceMock, $configurationInterfaceMock])
             ->getMock();
         $commandLineMock->expects($this->once())
-            ->method('processFromShellCommandline')
-            ->willReturn(null);
+            ->method('processFromShellCommandlineMethodExists')
+            ->willReturn(false);
 
         //Act
         $processResult = $commandLineMock->execute($outputMock);
