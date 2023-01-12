@@ -13,7 +13,6 @@ use Spryker\Zed\Install\Business\Executable\CommandLine\CommandLineExecutable;
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Style\StyleInterface;
 use Spryker\Zed\Install\Communication\Console\InstallConsole;
-use Symfony\Component\Console\Command\Command;
 
 /**
  * Auto-generated group annotations
