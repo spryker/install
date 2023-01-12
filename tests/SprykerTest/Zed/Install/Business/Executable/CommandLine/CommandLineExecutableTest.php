@@ -28,6 +28,11 @@ use Spryker\Zed\Install\Business\Style\StyleInterface;
 class CommandLineExecutableTest extends Unit
 {
     /**
+     * @var int
+     */
+    protected const CODE_SUCCESS = 0;
+
+    /**
      * @return void
      */
     public function testExecutesProcessIfFromShellCommandLineDoesNotExist(): void
@@ -55,6 +60,6 @@ class CommandLineExecutableTest extends Unit
         $processResult = $commandLineMock->execute($outputMock);
 
         //Assert
-        $this->assertTrue(true, $processResult);
+        $this->assertEquals(static::CODE_SUCCESS, $processResult);
     }
 }
