@@ -8,6 +8,7 @@
 namespace SprykerTest\Zed\Install\Communication\Console;
 
 use Codeception\Test\Unit;
+use Spryker\Zed\Install\Business\Exception\InstallException;
 use Spryker\Zed\Install\Communication\Console\InstallConsole;
 
 /**
@@ -229,5 +230,48 @@ class InstallConsoleCommandStoresTest extends Unit
         $this->assertRegexp('/Command section-a-command-a for DE store/', $output, 'Command "section-a-command-a" was expected to be executed for DE store but was not');
         $this->assertRegexp('/Command section-a-command-a for AT store/', $output, 'Command "section-a-command-a" was expected to be executed for AT store but was not');
         $this->assertRegexp('/Command section-a-command-a for US store/', $output, 'Command "section-a-command-a" was expected to be executed for US store but was not');
+    }
+
+    /**
+     * @return void
+     */
+    public function testRunThrowsExceptionIfStoreArgumentIsInvalid(): void
+    {
+        //Arrange
+        $command = new InstallConsole();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            '--' . InstallConsole::OPTION_RECIPE => 'stores',
+            InstallConsole::ARGUMENT_STORE => 1,
+        ];
+
+        //Assert
+        $this->expectException(InstallException::class);
+
+        //Act
+        $tester->execute($arguments);
+    }
+
+    /**
+     * @return void
+     */
+    public function testRunThrowsExceptionIfRecipeArgumentIsInvalid(): void
+    {
+        //Arrange
+        $command = new InstallConsole();
+        $tester = $this->tester->getCommandTester($command);
+
+        $arguments = [
+            'command' => $command->getName(),
+            '--' . InstallConsole::OPTION_RECIPE => 1,
+        ];
+
+        //Assert
+        $this->expectException(InstallException::class);
+
+        //Act
+        $tester->execute($arguments);
     }
 }
