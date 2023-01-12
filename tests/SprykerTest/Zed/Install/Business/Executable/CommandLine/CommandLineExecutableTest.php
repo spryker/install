@@ -12,6 +12,8 @@ use Spryker\Zed\Install\Business\Configuration\ConfigurationInterface;
 use Spryker\Zed\Install\Business\Executable\CommandLine\CommandLineExecutable;
 use Spryker\Zed\Install\Business\Stage\Section\Command\CommandInterface;
 use Spryker\Zed\Install\Business\Style\StyleInterface;
+use Spryker\Zed\Install\Communication\Console\InstallConsole;
+use Symfony\Component\Console\Command\Command;
 
 /**
  * Auto-generated group annotations
@@ -33,14 +35,21 @@ class CommandLineExecutableTest extends Unit
     protected const CODE_SUCCESS = 0;
 
     /**
+     * @var string
+     */
+    protected const FAKE_COMMAND = 'echo';
+
+    /**
      * @return void
      */
     public function testExecutesProcessIfFromShellCommandLineDoesNotExist(): void
     {
         //Arrange
+        $command = new InstallConsole();
         $commandInterfaceMock = $this->createMock(CommandInterface::class);
         $commandInterfaceMock->expects($this->once())
-            ->method('getExecutable');
+            ->method('getExecutable')
+            ->willReturn(static::FAKE_COMMAND);
 
         $configurationInterfaceMock = $this->createMock(ConfigurationInterface::class);
 
