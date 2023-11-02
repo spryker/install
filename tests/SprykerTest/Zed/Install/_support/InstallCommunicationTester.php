@@ -26,7 +26,7 @@ use Symfony\Component\Console\Tester\CommandTester;
  * @method void comment($description)
  * @method void pause()
  *
- * @SuppressWarnings(PHPMD)
+ * @SuppressWarnings(\PHPMD\PHPMD)
  */
 class InstallCommunicationTester extends Actor
 {
