@@ -54,14 +54,9 @@ jobs:
 
       - name: Codeception tests
         run: |
-            if [[ ${{ matrix.php-version }} == '8.2' ]]; then
-              XDEBUG_MODE=coverage vendor/bin/codecept run --coverage-xml
-            else
               vendor/bin/codecept run
-            fi
 
       - name: Code Coverage Report
-        if: success() && matrix.php-version == '8.2'
         uses: codecov/codecov-action@v1
 
   prefer-lowest:
