@@ -45,7 +45,7 @@ class SprykerStyleTest extends Unit
         $outputMock->method('getFormatter')->willReturn($outputFormatterMock);
         $outputMock->expects($this->once())->method('writeln')->with($this->isType('array'))->willReturnCallback(function ($messages) use (&$outputMessages) {
             $outputMessages = $messages;
-        }));
+        });
 
         $sprykerStyle = new SprykerStyle($inputMock, $outputMock, $timerMock);
 
