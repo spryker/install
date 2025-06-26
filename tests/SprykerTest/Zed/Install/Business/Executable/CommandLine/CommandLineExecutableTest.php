@@ -57,7 +57,7 @@ class CommandLineExecutableTest extends Unit
             ->method('innerCommand');
 
         $commandLineMock = $this->getMockBuilder(CommandLineExecutable::class)
-            ->setMethods(['processFromShellCommandlineMethodExists'])
+            ->onlyMethods(['processFromShellCommandlineMethodExists'])
             ->setConstructorArgs([$commandInterfaceMock, $configurationInterfaceMock])
             ->getMock();
         $commandLineMock->expects($this->once())
