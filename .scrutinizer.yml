@@ -1,0 +1,18 @@
+build:
+    environment:
+        php:
+            version: '8.3.0'
+            download:
+                skip_download: true
+
+    tests:
+        override:
+            - true
+
+build_failure_conditions:
+    - 'project.metric("scrutinizer.quality", < 10)'
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
