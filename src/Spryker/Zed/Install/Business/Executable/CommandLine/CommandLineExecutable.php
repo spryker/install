@@ -88,7 +88,7 @@ class CommandLineExecutable implements ExecutableInterface
      */
     protected function processFromShellCommandlineMethodExists(): bool
     {
-        return method_exists(Process::class, 'fromShellCommandline');
+        return method_exists(Process::class, 'fromShellCommandline'); // @phpstan-ignore function.alreadyNarrowedType
     }
 
     /**
