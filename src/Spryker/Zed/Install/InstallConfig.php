@@ -21,7 +21,7 @@ class InstallConfig extends AbstractBundleConfig
         $environment = getenv('APPLICATION_ENV', true) ?: getenv('APPLICATION_ENV');
 
         if (!$environment && file_exists(APPLICATION_ROOT_DIR . '/config/Shared/console_env_local.php')) {
-            $environment = require APPLICATION_ROOT_DIR . '/config/Shared/console_env_local.php';
+            $environment = require APPLICATION_ROOT_DIR . '/config/Shared/console_env_local.php'; // @phpstan-ignore require.fileNotFound
         }
 
         if (!$environment) {
